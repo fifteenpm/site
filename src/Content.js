@@ -124,7 +124,7 @@ export const CONTENT = {
   "/4": {
     artist: "JON CANNON",
     message: "Jon Cannon's haunting house ballads are a product of his habitat: the long drag of Myrtle-Broadway where fluorescent-lit stores stock life's essentials.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/ep-1",
+    purchaseLink: "https://buy.fifteen.pm/album/ep-1",
     tracks: [
       {
         name: "Nothing (Blood)",
@@ -175,7 +175,7 @@ export const CONTENT = {
   "/5": {
     artist: "PLEBEIAN",
     message: "Plebeian’s toolbox rattles with chains, ball-bearings and loose screws on these slammin’ single-takes of industrial techno.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/heaven",
+    purchaseLink: "https://buy.fifteen.pm/album/heaven",
     tracks: [
       {
         name: "Heaven",
@@ -299,7 +299,7 @@ export const CONTENT = {
   "/8": {
     artist: "GREEM JELLYFISH",
     message: "Juicy Tender is an exploration of exodus and urban life. Though we leave the city in search of extraordinary experiences, we sometimes return to loneliness. Ultimately, refuge is not a place but a set of material conditions: Art, Food, Music, Mountain, Ocean, Family, Friend.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/juicy-tender",
+    purchaseLink: "https://buy.fifteen.pm/album/juicy-tender",
     tracks: [
       {
         mediaType: 'video',
@@ -361,7 +361,7 @@ export const CONTENT = {
   "/9": {
     artist: "JAVONNTTE",
     message: "Detroit Asteroid Belt 2120: All sectors go wild for the Earthy tones of house master Javonntte after his 'City Life' series surfaces off some de-bricked drives in the archives.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/city-life",
+    purchaseLink: "https://buy.fifteen.pm/album/city-life",
     tracks: [
       {
         name: "City Life",
@@ -413,7 +413,7 @@ export const CONTENT = {
   "/10": {
     artist: "Alien D",
     message: "Dan Creahan of Sweat Equity takes us on a hypnotic, chugging ride through the digital murk",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/jazzin-the-cube",
+    purchaseLink: "https://buy.fifteen.pm/album/jazzin-the-cube",
     tracks: [
       {
         name: "Cube Jazz",
@@ -466,9 +466,9 @@ export const CONTENT = {
     ]
   },
   "/11": {
-    artist: "JWORDS",
+    artist: "JWords",
     message: "A 3D scan of JWords headspace from the tail-end of pre-Covid times. Watch it go to dust, and come into being again.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/dancepackvol-2",
+    purchaseLink: "https://buy.fifteen.pm/album/dancepackvol-2",
     instructions: [
       {
         icon: TwoFingerScroll,
@@ -510,8 +510,6 @@ export const CONTENT = {
   },
   "/12": {
     artist: "HEIDI SABERTOOTH",
-    // todo (jeremy) fix this navigation hack
-    lastIdx: 12,
     message: "Heidi Sabertooth and her interstellar crew of elektroid beings warp the space-time catwalk to the power of two electro-acid supernovas and a zero-g ambient closer.",
     purchaseLink: "https://buy.fifteen.pm/album/inside-out-ep",
     tracks: [
@@ -556,9 +554,60 @@ export const CONTENT = {
         text: "scroll to zoom"
       }
     ]
+  },
+  "/13": {
+    artist: "Isn't Ours",
+    // todo (jeremy) fix this navigation hack
+    lastIdx: 13,
+    message: "Laurel Leaves",
+    purchaseLink: "https://buy.fifteen.pm/album/laurel-leaves",
+    instructions: [
+      {
+        icon: TwoFingerScroll,
+        text: "scroll"
+      },
+    ],
+    colors: {
+      logo: '#0f0',
+      navigation: '#0f0',
+      overlay: 'rgba(0, 255, 0, .8)',
+      overlayContent: '#000',
+      player: '#0f0',
+      onHover: '#fff',
+      info: '#0f0',
+    },
+    tracks: [
+      {
+        name: "The End",
+        type: "soundcloud",
+        id: "859113487",
+        secretToken: "s-KdSdKTQyHUc",
+        bpm: 136,
+      },
+      {
+        name: "It's Kept from Us",
+        type: "soundcloud",
+        id: "859113490",
+        secretToken: "s-KJdW92duKGe",
+        bpm: 140,
+      },
+      {
+        name: "Close Behind",
+        type: "soundcloud",
+        id: "859113601",
+        secretToken: "s-VpF7Njg8UuI",
+        bpm: 138,
+      },
+      {
+        name: "Laurel Leaves",
+        type: "soundcloud",
+        id: "859113565",
+        secretToken: "s-FROHSHngifQ",
+        bpm: 138,
+      },
+    ],
   }
 };
-
 
 /*
 For devving, easy to swap in:
