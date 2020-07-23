@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { useThree, useFrame } from 'react-three-fiber';
 import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
 import { MaterialsProvider } from './MaterialsContext';
+import Controls from './Controls';
 import Torus from './Torus';
 import Sphere from './Sphere';
 import * as C from './constants';
@@ -17,7 +18,7 @@ export function Scene({ setSceneReady }) {
 
     // global scene params
     useEffect(() => {
-        camera.position.z = 0
+        camera.position.z = -100
         scene.background = new THREE.Color(0xffffff)
     })
 
@@ -53,7 +54,7 @@ export function Scene({ setSceneReady }) {
 
     return (
         <>
-            {/* <Controls /> */}
+            <Controls />
             <ambientLight />
             <MaterialsProvider>
                 <Torus step={step} stepIdx={stepIdx} />

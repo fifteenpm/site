@@ -5,12 +5,11 @@ import { MaterialsContext, setMaterial } from './MaterialsContext';
 
 export default function Sphere({ step, stepIdx }) {
     const { currentTrackName } = useAudioPlayer();
-    const [material, setMaterial] = useState()
     const { purpleTron2 } = useContext(MaterialsContext);
 
     return (
         <>
-          <mesh scale={[10, 10, 10]} position={[0, 0, 0,]} material={purpleTron2}>
+          <mesh scale={[100, 100, 100]} position={[0, 0, 0,]} material={purpleTron2}>
               <sphereBufferGeometry attach="geometry" />
           </mesh >
         </>

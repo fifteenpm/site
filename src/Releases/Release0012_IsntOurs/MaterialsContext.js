@@ -46,11 +46,11 @@ const MaterialsProvider = ({ ...props }) => {
             side={THREE.BackSide}
             colorOffset={new THREE.Vector3(0.5, -0.2, 0.5)}
         />
-        {/* <meshBasicMaterial
+        <meshBasicMaterial
             ref={blackBGRef}
             side={THREE.BackSide}
             color={new THREE.Color("black")}
-        /> */}
+        />
         <TronMaterial2
             materialRef={orangeTron2Ref}
             side={THREE.BackSide}
