@@ -1,5 +1,10 @@
 import { assetPath } from "../../Common/Utils/assets";
 
+// video 
+
+export const VIDEO_A_URL = assetPath('12/videos/the-end-vid.mp4');
+export const VIDEO_B_URL = assetPath('12/videos/the-end-vid.mp4');
+
 // tracks
 
 export const THE_END = "The End"
@@ -8,6 +13,8 @@ export const CLOSE_BEHIND = "Close Behind"
 export const LAUREL_LEAVES = "Laurel Leaves"
 
 export const FIRST_TRACK = THE_END
+4
+// steps per track
 
 export const TRACKS_CONFIG = {}
 TRACKS_CONFIG[THE_END] = {

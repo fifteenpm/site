@@ -5,11 +5,11 @@ import { MaterialsContext, setMaterial } from './MaterialsContext';
 
 export default function Torus({ step, stepIdx }) {
     const { currentTrackName } = useAudioPlayer();
-    const { orangeTron2 } = useContext(MaterialsContext);
+    const { videoB } = useContext(MaterialsContext);
 
     return (
         <>
-          <mesh scale={[1,1,1]} position={[10, 10, 10,]} material={orangeTron2}>
+          <mesh scale={[1,1,1]} position={[10, 10, 10,]} material={videoB}>
               <torusBufferGeometry args={[ 10, 3, 16, 0 ]} attach="geometry" />
           </mesh >
         </>
