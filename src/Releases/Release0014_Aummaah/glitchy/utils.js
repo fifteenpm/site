@@ -1,8 +1,8 @@
 import * as THREE from 'three';
-import { assetPath } from "../../Utils/assets"
+import { assetPath } from "../../../Common/Utils/assets"
 
-export const assetPath9 = (p) => {
-  return assetPath("9/" + p);
+export const assetPath14 = (p) => {
+  return assetPath("14/" + p);
 }
 
 export const randVal = (obj) => {

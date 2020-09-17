@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { apply as applyThree, Canvas, extend, useRender, useThree } from 'react-three-fiber';
+import { apply as applyThree, Canvas, extend, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import TileGenerator from "../../Utils/TileGenerator";
 import { CityTile } from "./tiles";
-import { assetPath9 } from "./utils";
+import { assetPath14 } from "./utils";
 import { useGLTF } from "../../Utils/hooks";
 import { Effects } from "../../Utils/Effects";
 import { BUILDINGS_URL } from "./constants";
@@ -18,7 +18,7 @@ extend({ OrbitControls });
 function Controls() {
     const controls = useRef();
     const { camera, canvas } = useThree();
-    useRender(() => { controls.current && controls.current.update() });
+    useFrame(() => { controls.current && controls.current.update() });
     return (
         <orbitControls
             ref={controls}
@@ -56,14 +56,14 @@ function Scene() {
     useEffect(() => {
         camera.fov = 40;
     }, [])
-    useRender(() => {
+    useFrame(() => {
         // let lookAtPos = camera.position.copy(); // TODO this is erroring on 'Cannot read property 'x' of undefined'
         // let lookAtPos = new THREE.Vector3(camera.position.x, camera.position.y, camera.position.z);
         // lookAtPos.y = 0;
         // camera.position.y = 3.;
         // camera.lookAt(lookAtPos);
     })
-    const url = assetPath9("objects/structures/weirdos1.glb");
+    const url = assetPath14("objects/structures/weirdos1.glb");
     return (
         <>
             <Controls />

@@ -1,33 +1,33 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
-import { Canvas, extend, useRender, useThree } from 'react-three-fiber';
+import { Canvas, extend, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import TileGenerator from "../../Utils/TileGenerator";
+import TileGenerator from "../../../Common/Utils/TileGenerator";
 import { CityTile } from "./tiles";
-import { assetPath9 } from "./utils";
-import { useGLTF } from "../../Utils/hooks";
+import { assetPath14 } from "./utils";
+import { useGLTF } from "../../../Common/Utils/hooks";
 import { BUILDINGS_URL } from "./constants";
 import "./index.css";
+import Orbit from '../../../Common/Controls/Orbit';
+// extend({ OrbitControls });
 
-extend({ OrbitControls });
 
+// function Controls() {
+//     const controls = useRef();
+//     const { camera, canvas } = useThree();
+//     useFrame(() => { controls.current && controls.current.update() });
+//     return (
+//         <Orbit
+//             passthroughRef={controls}
+//             args={[camera, canvas]}
+//             enableDamping
+//             dampingFactor={0.1}
+//             rotateSpeed={0.1}
+//         />
+//     );
+// }
 
-function Controls() {
-    const controls = useRef();
-    const { camera, canvas } = useThree();
-    useRender(() => { controls.current && controls.current.update() });
-    return (
-        <orbitControls
-            ref={controls}
-            args={[camera, canvas]}
-            enableDamping
-            dampingFactor={0.1}
-            rotateSpeed={0.1}
-        />
-    );
-}
-
-function Scene() {
+export default function Flat() {
     /* Note: Known behavior that useThree re-renders childrens thrice:
        issue: https://github.com/drcmda/react-three-fiber/issues/66
        example: https://codesandbox.io/s/use-three-renders-thrice-i4k6c
@@ -36,6 +36,7 @@ function Scene() {
        (For instance: a complicated geometry.)
      */
     const { camera, size } = useThree();
+    const controls = useRef();
     const [tileGridSize, setTileGrideSize] = useState(10);
     const [loadingBuildings, buildings] = useGLTF(BUILDINGS_URL, (gltf) => {
         const geometries = {}
@@ -51,17 +52,23 @@ function Scene() {
     useEffect(() => {
         camera.fov = 40;
     }, [])
-    useRender(() => {
+    useFrame(() => {
         // let lookAtPos = camera.position.copy(); // TODO this is erroring on 'Cannot read property 'x' of undefined'
         let lookAtPos = new THREE.Vector3(camera.position.x, camera.position.y, camera.position.z);
         lookAtPos.y = 0;
         camera.position.y = 3.;
         camera.lookAt(lookAtPos);
     })
-    const url = assetPath9("objects/structures/weirdos1.glb");
+    const url = assetPath14("objects/structures/weirdos1.glb");
     return (
         <>
-            <Controls />
+             <Orbit
+            passthroughRef={controls}
+            // args={[camera, canvas]}
+            enableDamping
+            dampingFactor={0.1}
+            rotateSpeed={0.1}
+        />
             <TileGenerator
                 tileSize={1}
                 grid={tileGridSize}
@@ -80,20 +87,6 @@ function Scene() {
                 shadow-mapSize-width={2048}
                 shadow-mapSize-height={2048}
             />
-        </>
-    );
-}
-
-export default function Release0009_Javonntte({ }) {
-    return (
-        <>
-            <Canvas id="canvas"
-                onCreated={({ gl }) => {
-                    gl.shadowMap.enabled = true
-                    gl.shadowMap.type = THREE.PCFSoftShadowMap
-                }}>
-                <Scene />
-            </Canvas>
         </>
     );
 }

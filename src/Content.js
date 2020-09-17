@@ -617,6 +617,55 @@ export const CONTENT = {
         bpm: 138,
       },
     ],
+  },
+  "/14": {
+    artist: "AUMMAAH",
+    // todo (jeremy) fix this navigation hack
+    lastIdx: 14,
+    message: "Sports.",
+    purchaseLink: "https://buy.fifteen.pm/album/sports-ep",
+    tracks: [
+      {
+        name: "Inside Out",
+        type: "soundcloud",
+        id: "862855786",
+        secretToken: "s-jBUPqKXtkmh",
+        bpm: 128,
+      },
+      {
+        name: "High On Mate",
+        type: "soundcloud",
+        id: "862855783",
+        secretToken: "s-8Ac9QyayEtV",
+        bpm: 130,
+      },
+      {
+        name: "Looking For Roses",
+        type: "soundcloud",
+        id: "862855780",
+        secretToken: "s-krM6xurN6cV",
+        bpm: 126,
+      },
+    ],
+    colors: {
+      logo: "white",
+      overlayContent: "white",
+      overlay: "rgba(0, 0, 0, 0.5)",
+      navigation: "white",
+      player: "white",
+      onHover: "red",
+      info: "white"
+    },
+    instructions: [
+      {
+        icon: MouseMove,
+        text: "click and drag mouse to look around"
+      },
+      {
+        icon: TwoFingerScroll,
+        text: "scroll to zoom"
+      }
+    ]
   }
 };
 
