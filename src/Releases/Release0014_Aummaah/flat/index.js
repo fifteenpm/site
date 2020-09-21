@@ -3,7 +3,7 @@ import { Canvas, extend, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import TileGenerator from "../../../Common/Utils/TileGenerator";
-import { CityTile } from "./tiles";
+import { Tennis } from "./Tennis";
 import { assetPath14 } from "./utils";
 import { useGLTF } from "../../../Common/Utils/hooks";
 import { BUILDINGS_URL } from "./constants";
@@ -72,7 +72,7 @@ export default function Flat() {
             <TileGenerator
                 tileSize={1}
                 grid={tileGridSize}
-                tileComponent={CityTile}
+                tileComponent={Tennis}
                 tileResources={buildings}
             />
             <directionalLight intensity={3.5} position={[-25, 25, -25]} />
