@@ -3,14 +3,14 @@ import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
 import * as C from './constants';
 import { MaterialsContext, setMaterial } from './MaterialsContext';
 
-export default function Torus({ step, stepIdx }) {
+export default function Sphere({   }) {
     const { currentTrackName } = useAudioPlayer();
-    const { videoB } = useContext(MaterialsContext);
+    const { videoA } = useContext(MaterialsContext);
 
     return (
         <>
-          <mesh scale={[1,1,1]} position={[10, 10, 10,]} material={videoB}>
-              <torusBufferGeometry args={[ 10, 3, 16, 0 ]} attach="geometry" />
+          <mesh scale={[100, 100, 100]} position={[0, 0, 0,]} material={videoA}>
+              <sphereBufferGeometry attach="geometry" />
           </mesh >
         </>
     )

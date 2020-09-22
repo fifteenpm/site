@@ -2,8 +2,8 @@ import { assetPath } from "../../Common/Utils/assets";
 
 // video 
 
-export const VIDEO_A_URL = assetPath('12/videos/the-end-vid.mp4');
-export const VIDEO_B_URL = assetPath('12/videos/the-end-vid.mp4');
+export const VIDEO_URL = assetPath('13/videos/the-end-vid.mp4');
+// export const VIDEO_B_URL = assetPath('13/videos/the-end-vid.mp4');
 
 // tracks
 
@@ -16,6 +16,7 @@ export const FIRST_TRACK = THE_END
 4
 // steps per track
 
+// TODO (jeremy) not using
 export const TRACKS_CONFIG = {}
 TRACKS_CONFIG[THE_END] = {
     steps: [

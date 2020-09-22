@@ -27,7 +27,6 @@ export default function IsntOursCanvas({ }) {
                         }}
                     >
                         <AudioPlayerContext.Provider value={value}>
-                            
                             <Suspense fallback={null}>
                                 <Scene />
                             </Suspense>
