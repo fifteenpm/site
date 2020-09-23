@@ -4,6 +4,11 @@ import { assetPath } from "../../Common/Utils/assets";
 
 export const VIDEO_URL = assetPath('13/videos/the-end-vid.mp4');
 // export const VIDEO_B_URL = assetPath('13/videos/the-end-vid.mp4');
+export const VIDEO_DIMENSIONS = {
+  x: 21,
+  y: 9
+}
+
 
 // tracks
 

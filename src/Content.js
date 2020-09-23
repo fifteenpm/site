@@ -573,7 +573,7 @@ export const CONTENT = {
       overlay: 'rgba(0, 255, 0, .8)',
       overlayContent: '#000',
       player: '#0f0',
-      onHover: '#fff',
+      onHover: 'magenta',
       info: '#0f0',
     },
     tracks: [

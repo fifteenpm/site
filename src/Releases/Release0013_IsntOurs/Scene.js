@@ -3,8 +3,8 @@ import * as THREE from 'three';
 import { useThree, useFrame } from 'react-three-fiber';
 import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
 import { MaterialsProvider } from './MaterialsContext';
-import Controls from './Controls';
-import Goggles from './Goggles';
+import NoiseSlider from './NoiseSlider';
+import ArrienZinghiniVideoScreen from './ArrienZinghiniVideoScreen';
 import * as C from './constants';
 
 // TODO (jeremy) performance: progressive downloading using something like https://github.com/davidgatti/How-to-Stream-Movies-using-NodeJS
@@ -14,15 +14,16 @@ export function Scene({ setSceneReady }) {
 
     // global scene params
     useEffect(() => {
-        
+        camera.position.z = 7.4
         scene.background = new THREE.Color(0xffffff)
     })
 
     return (
-        <>           
+        <>
             <ambientLight />
             <MaterialsProvider>
-                <Goggles />
+                {/* <ArrienZinghiniVideoScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
+                <NoiseSlider width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
             </MaterialsProvider>
         </>
     );
