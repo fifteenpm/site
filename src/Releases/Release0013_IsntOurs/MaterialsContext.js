@@ -3,6 +3,7 @@ import * as THREE from 'three';
 import { useResource, useFrame } from 'react-three-fiber';
 import Noise from '../../Common/Materials/Noise';
 import VideoShader from '../../Common/Materials/VideoShader'
+import VideoNoiseShader from '../../Common/Materials/VideoNoiseShader'
 import { assetPath } from '../../Common/Utils/assets';
 import Video from '../../Common/Materials/Video';
 import { VIDEO_URL } from './constants';
@@ -16,7 +17,7 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
     const [loaded, setLoaded] = useState(false);
     const [y] = useYScroll([-2400, 2400], { domTarget: window })
     const [videoRef, video] = useResource();
-    const [noiseRef, noise] = useResource();
+    const [videoNoiseRef, videoNoise] = useResource();
     const [videoShaderRef, videoShader] = useResource();
     const [videoTexture, setVideoTexture] = useState()
     // TODO
@@ -24,7 +25,7 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
     const materials = {
         video,
         videoShader,
-        // noise
+        videoNoise,
     }
     // const offset, setOffset = useState()
     useEffect(() => {
@@ -59,21 +60,22 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
             // TODO (jeremy) this has potential to freeze video at enter/load time
             play={shouldPlayVideo}
         />
-        {/* {videoTexture && <Noise
+        {video && <VideoNoiseShader
             // map-offset-x={y.to(y=>y/20)}
-            materialRef={noiseRef}
-            noiseScale={0}
+            materialRef={videoNoiseRef}
+            noiseScale={1.4}
+            timeScale={.00009}
             alpha={1}
-            offset={offset.current}
-            side={THREE.DoubleSide}
+            // offset={offset.current}
+            // side={THREE.DoubleSide}
             wireframe={false}
-            shaderMap={videoTexture}
+            videoMaterial={video}
         // imagePath={colorSpectrumMap}
-        />} */}
+        />}
         {video && <VideoShader
             materialRef={videoShaderRef}
             alpha={1}
-            side={THREE.DoubleSide}
+            // side={THREE.DoubleSide}
             videoMaterial={video}
         />}
         {props.children}
