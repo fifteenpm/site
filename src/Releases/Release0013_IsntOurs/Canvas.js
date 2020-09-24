@@ -4,7 +4,7 @@ import { AudioPlayerContext } from '../../Common/UI/Player/AudioPlayerContext';
 import { Scene } from './Scene';
 import FixedLights from './FixedLights';
 
-export default function IsntOursCanvas({ }) {
+export default function IsntOursCanvas({ shouldPlayVideo }) {
 
     return (
         // Unfortunately some gymnastics required here to pass music player context through canvas.
@@ -28,7 +28,7 @@ export default function IsntOursCanvas({ }) {
                     >
                         <AudioPlayerContext.Provider value={value}>
                             <Suspense fallback={null}>
-                                <Scene />
+                                <Scene shouldPlayVideo={shouldPlayVideo} />
                             </Suspense>
                         </AudioPlayerContext.Provider>
                     </Canvas>

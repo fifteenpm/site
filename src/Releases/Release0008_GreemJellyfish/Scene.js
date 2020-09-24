@@ -1,7 +1,7 @@
 /* eslint import/no-webpack-loader-syntax: off */
 import chromaFragmentShader from '!raw-loader!glslify-loader!../../Common/Shaders/chromaKeyFragment.glsl';
 /* eslint import/no-webpack-loader-syntax: off */
-import chromaVertexShader from '!raw-loader!glslify-loader!../../Common/Shaders/chromaKeyVertex.glsl';
+import chromaVertexShader from '!raw-loader!glslify-loader!../../Common/Shaders/simpleVertex.glsl';
 /* eslint import/no-webpack-loader-syntax: off */
 import marchingCubeFragmentShader from '!raw-loader!glslify-loader!../../Common/Shaders/hgSDF.glsl';
 /* eslint import/no-webpack-loader-syntax: off */
