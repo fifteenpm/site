@@ -303,7 +303,7 @@ export const CONTENT = {
     tracks: [
       {
         mediaType: 'video',
-        meta: {
+        props: {
           type: 'video', // TODO do we need this here as well?
           mimetype: 'video/mp4',
           name: 'greem-vid1',

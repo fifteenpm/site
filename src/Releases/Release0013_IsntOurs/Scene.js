@@ -9,15 +9,15 @@ import * as C from './constants';
 import useYScroll from '../../Common/Scroll/useYScroll'
 import useXScroll from '../../Common/Scroll/useXScroll'
 import { a } from '@react-spring/three'
-
+import Orbit from '../../Common/Controls/Orbit';
 // TODO (jeremy) performance: progressive downloading using something like https://github.com/davidgatti/How-to-Stream-Movies-using-NodeJS
 
-export function Scene({ }) {
+export function Scene({shouldPlayVideo }) {
     const { camera, scene } = useThree();
     // const [y] = useYScroll([-2400, 2400], { domTarget: window })
     const [x] = useXScroll([-2400, 2400], { domTarget: window })
     const slider = useRef()
-    
+    const orbit = useRef()
     // global scene params
     useEffect(() => {
         camera.position.z = 7.4
@@ -27,6 +27,7 @@ export function Scene({ }) {
     return (
         <>
             <ambientLight />
+            <Orbit passthroughRef={orbit} autoRotate={shouldPlayVideo} />
             <MaterialsProvider shouldPlayVideo={true}>
             {/* <a.group ref={slider} rotation-x={x.to(x=>x/2000)} rotation-y={x.to(x=>x/2000)}> */}
                 <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />

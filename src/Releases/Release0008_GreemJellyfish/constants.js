@@ -17,14 +17,13 @@ export const STILL = "still" // still-set camera
 
 export const CONSTANTS = {
   auxMedia: [{
+    // TODO (jeremy): I am fairly certain that this meta obj is dead code and
+    // these configurations are currently in ./Content.js
     meta: {
       type: 'video',
       mimetype: 'video/mp4',
       name: 'greem-vid1',
-      // sources: multiSourceVideo('/assets/8/videos/jt-reduced-no-audio'),
-      // sources: multiSourceVideo('/assets/8/videos/jt-brian-version'),
       sources: multiSourceVideo('/assets/8/videos/jt-final'),
-      // sources: multiSourceVideo('/assets/8/videos/juicy-tender-loop-640-480'), // easier to use while devving
       geometry: new THREE.PlaneBufferGeometry(1, 1),
       position: [0, 0, 0],
       playbackRate: 1,

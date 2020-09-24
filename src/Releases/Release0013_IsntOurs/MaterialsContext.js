@@ -11,6 +11,8 @@ import facade12ColorMap from "../../Common/assets/textures/facade12/Facade12_col
 import colorSpectrumMap from '../../Common/assets/textures/env-maps/color-spectrum-original.jpg';
 import { a } from '@react-spring/three'
 import useYScroll from '../../Common/Scroll/useYScroll'
+import { VideoPlayerContext } from '../../Common/UI/Player/VideoPlayerContext';
+
 const MaterialsContext = React.createContext([{}, () => { }]);
 
 const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
@@ -53,33 +55,36 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
 
     // platformPolishedSpeckledMarbleTop.map.offset.x -= .005;
     return <MaterialsContext.Provider value={{ loaded, ...materials }}>
-        <Video
-            materialRef={videoRef}
-            // side={THREE.DoubleSide}
-            src={VIDEO_URL}
-            // TODO (jeremy) this has potential to freeze video at enter/load time
-            play={shouldPlayVideo}
-        />
-        {video && <VideoNoiseShader
-            // map-offset-x={y.to(y=>y/20)}
-            materialRef={videoNoiseRef}
-            noiseScale={1.4}
-            timeScale={.00009}
-            alpha={1}
-            // offset={offset.current}
-            // side={THREE.DoubleSide}
-            wireframe={false}
-            videoMaterial={video}
-        // imagePath={colorSpectrumMap}
-        />}
-        {video && <VideoShader
-            materialRef={videoShaderRef}
-            alpha={1}
-            // side={THREE.DoubleSide}
-            videoMaterial={video}
-        />}
-        {props.children}
-    </MaterialsContext.Provider>
+        {/* <VideoPlayerContext.Provider value={value}> */}
+            <Video
+                materialRef={videoRef}
+                side={THREE.DoubleSide}
+                src={VIDEO_URL}
+                // TODO (jeremy) this has potential to freeze video at enter/load time
+                // TODO (jeremy) shaders wont work without useVideoTexture hook
+                play={true}
+            />
+            {video && <Noise
+                // map-offset-x={y.to(y=>y/20)}
+                materialRef={videoNoiseRef}
+                noiseScale={1.4}
+                timeScale={.00009}
+                alpha={1}
+                offset={offset.current}
+                side={THREE.DoubleSide}
+                wireframe={false}
+                videoMaterial={video}
+            // imagePath={colorSpectrumMap}
+            />}
+            {video && <VideoShader
+                materialRef={videoShaderRef}
+                alpha={1}
+                // side={THREE.DoubleSide}
+                videoMaterial={video}
+            />}
+            {props.children}
+        {/* </VideoPlayerContext.Provider> */}
+    </MaterialsContext.Provider >
 }
 
 export { MaterialsContext, MaterialsProvider };
