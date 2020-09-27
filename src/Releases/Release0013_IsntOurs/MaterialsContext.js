@@ -3,7 +3,6 @@ import * as THREE from 'three';
 import { useResource, useFrame } from 'react-three-fiber';
 import Noise from '../../Common/Materials/Noise';
 import VideoShader from '../../Common/Materials/VideoShader'
-import VideoNoiseShader from '../../Common/Materials/VideoNoiseShader'
 import { assetPath } from '../../Common/Utils/assets';
 import Video from '../../Common/Materials/Video';
 import { VIDEO_URL } from './constants';

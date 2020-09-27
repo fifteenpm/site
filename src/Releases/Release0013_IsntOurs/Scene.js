@@ -10,6 +10,7 @@ import useYScroll from '../../Common/Scroll/useYScroll'
 import useXScroll from '../../Common/Scroll/useXScroll'
 import { a } from '@react-spring/three'
 import Orbit from '../../Common/Controls/Orbit';
+// view-source:https://threejs.org/examples/css3d_youtube.html
 // TODO (jeremy) performance: progressive downloading using something like https://github.com/davidgatti/How-to-Stream-Movies-using-NodeJS
 
 export function Scene({shouldPlayVideo }) {
@@ -37,3 +38,5 @@ export function Scene({shouldPlayVideo }) {
         </>
     );
 }
+
+
