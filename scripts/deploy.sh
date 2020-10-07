@@ -8,7 +8,8 @@ if [ -z "$3" ]; then
 else 
   profile_arg="--profile $3"
 fi
-
+# rm prev build
+rm -r dist
 # # build the app
 CI=false yarn build
 # # gzip all assets that aren't movies

@@ -1,39 +1,66 @@
-import React, { useMemo, useRef, useEffect, useContext, useState } from 'react';
+import ReactDOM from 'react-dom'
+import React, { useMemo, useRef, useEffect, useContext, useState, Suspense } from 'react';
 import * as THREE from 'three';
 import { useThree, useFrame } from 'react-three-fiber';
 import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
 import { MaterialsProvider } from './MaterialsContext';
 import ArrienZinghiniNoiseScreen from './ArrienZinghiniNoiseScreen';
 import ArrienZinghiniFlatScreen from './ArrienZinghiniFlatScreen';
+import ArrienZinghiniSphereScreen from './ArrienZinghiniSphereScreen';
 import * as C from './constants';
-import useYScroll from '../../Common/Scroll/useYScroll'
-import useXScroll from '../../Common/Scroll/useXScroll'
-import { a } from '@react-spring/three'
 import Orbit from '../../Common/Controls/Orbit';
-// view-source:https://threejs.org/examples/css3d_youtube.html
-// TODO (jeremy) performance: progressive downloading using something like https://github.com/davidgatti/How-to-Stream-Movies-using-NodeJS
+import Flying from '../../Common/Controls/Flying';
 
-export function Scene({shouldPlayVideo }) {
+function Box(props) {
+    // This reference will give us direct access to the mesh
+    const mesh = useRef()
+
+    // Set up state for the hovered and active state
+    const [hovered, setHover] = useState(false)
+    const [active, setActive] = useState(false)
+
+    // Rotate mesh every frame, this is outside of React without overhead
+    useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01))
+    console.log("box?")
+    return (
+        <mesh
+            {...props}
+            ref={mesh}
+            scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
+            onClick={(e) => setActive(!active)}
+            onPointerOver={(e) => setHover(true)}
+            onPointerOut={(e) => setHover(false)}>
+            <boxBufferGeometry attach="geometry" args={[5, 1, 1]} />
+            <meshStandardMaterial attach="material" color={hovered ? 'hotpink' : 'orange'} side={THREE.DoubleSide} />
+        </mesh>
+    )
+}
+
+export function Scene({ shouldPlayVideo }) {
     const { camera, scene } = useThree();
-    // const [y] = useYScroll([-2400, 2400], { domTarget: window })
-    const [x] = useXScroll([-2400, 2400], { domTarget: window })
-    const slider = useRef()
     const orbit = useRef()
     // global scene params
     useEffect(() => {
         camera.position.z = 7.4
         scene.background = new THREE.Color(0xffffff)
-    })
+    }, [])
 
     return (
         <>
-            <ambientLight />
-            <Orbit passthroughRef={orbit} autoRotate={shouldPlayVideo} />
-            <MaterialsProvider shouldPlayVideo={true}>
-            {/* <a.group ref={slider} rotation-x={x.to(x=>x/2000)} rotation-y={x.to(x=>x/2000)}> */}
-                <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
+            <Orbit />
+            {/* <Flying /> */}
+            {/* <pointLight position={[10, 10, 10]} />
+            <Box position={[-1.2, 0, 0]} />
+            <Box position={[1.2, 0, 0]} />
+            <ambientLight /> */}
+            {/* <Orbit autoRotate={true} /> */}
+            <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
+
+
+                {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                 <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
-            {/* </a.group> */}
+                {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
+
             </MaterialsProvider>
         </>
     );

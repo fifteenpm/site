@@ -5,14 +5,14 @@ import { assetPath } from "../../Common/Utils/assets";
 // export const VIDEO_URL = "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
 // export const VIDEO_URL="https://s3.amazonaws.com/dev.fifteen.pm/13/video/hls/hls.m3u8"
 
-export const VIDEO_URL = assetPath("13/videos/blah/filename.m3u8")
+export const VIDEO_URL = assetPath("13/videos/hls/master.m3u8")
+// export const VIDEO_URL = assetPath("13/videos/blah/filename.m3u8")
 // export const VIDEO_URL = assetPath('13/videos/hls/hls.m3u8');
-// export const VIDEO_URL = assetPath('13/videos/the-end-vid.mp4');
+// export const VIDEO_URL = assetPath('13/videos/the-end-crf-31-r12-ultrafast.mp4');
 export const VIDEO_DIMENSIONS = {
   x: 21,
   y: 9
 }
-
 
 // tracks
 
@@ -24,7 +24,7 @@ export const LAUREL_LEAVES = "Laurel Leaves"
 export const FIRST_TRACK = THE_END
 // steps per track
 
-
+// TODO (jeremy) not using atm...
 export const TRACKS_CONFIG = {}
 TRACKS_CONFIG[THE_END] = {
   steps: [
