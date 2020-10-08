@@ -5,18 +5,16 @@ import { CONTENT } from '../../Content';
 
 
 export default function Release({ }) {
-    const [shouldPlayVideo, setShouldStartVideo] = useState(false)
+    const [shouldPlayVideo, setShouldPlayVideo] = useState(false)
     return <>
         <>
-            {/* <UI
+            <UI
                 content={CONTENT[window.location.pathname]}
-                // onOverlayHasBeenClosed={() => {
-                //     console.log("OVERLAY CLOSED")
-                //     setShouldStartVideo(true)
-                // }}
-            /> */}
-            {/* <IsntOursCanvas shouldPlayVideo={shouldPlayVideo} /> */}
-            <IsntOursCanvas />
+                onOverlayHasBeenClosed={() => {
+                    setShouldPlayVideo(true)
+                }}
+            />
+            <IsntOursCanvas shouldPlayVideo={shouldPlayVideo} />
         </>
     </>
 }

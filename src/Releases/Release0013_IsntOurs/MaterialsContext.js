@@ -42,7 +42,6 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
         const allMats = Object.values(materials);
         const loadedMats = allMats.filter(mat => mat);
         setLoaded(allMats.length == loadedMats.length);
-        console.log("loaded", loaded,allMats, loadedMats)
     })
 
     // useFrame(() => {
@@ -55,15 +54,18 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
     // platformPolishedSpeckledMarbleTop.map.offset.x -= .005;
     return <MaterialsContext.Provider value={{ loaded, ...materials }}>
         {/* <VideoPlayerContext.Provider value={value}> */}
-            <Video
-                materialRef={videoRef}
-                // side={THREE.DoubleSide}
-                src={VIDEO_URL}
-                // TODO (jeremy) this has potential to freeze video at enter/load time
-                // TODO (jeremy) shaders wont work without useVideoTexture hook
-                play={true}
-            />
-            {/* {video && <Noise
+        <Video
+            materialRef={videoRef}
+            // side={THREE.DoubleSide}
+            sources={[
+                {
+                    src: VIDEO_URL,
+                    type: 'application/x-mpegURL',
+                },
+            ]}
+            canPlay={shouldPlayVideo}
+        />
+        {/* {video && <Noise
                 // map-offset-x={y.to(y=>y/20)}
                 materialRef={videoNoiseRef}
                 noiseScale={1.4}
@@ -81,7 +83,7 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
                 // side={THREE.DoubleSide}
                 videoMaterial={video}
             />} */}
-            {props.children}
+        {props.children}
         {/* </VideoPlayerContext.Provider> */}
     </MaterialsContext.Provider >
 }

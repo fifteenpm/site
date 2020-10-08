@@ -21,7 +21,6 @@ function Box(props) {
 
     // Rotate mesh every frame, this is outside of React without overhead
     useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01))
-    console.log("box?")
     return (
         <mesh
             {...props}
@@ -55,12 +54,9 @@ export function Scene({ shouldPlayVideo }) {
             <ambientLight /> */}
             {/* <Orbit autoRotate={true} /> */}
             <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
-
-
                 {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                 <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
                 {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
-
             </MaterialsProvider>
         </>
     );
