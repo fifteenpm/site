@@ -11,9 +11,9 @@ export default function IsntOursCanvas({ shouldPlayVideo }) {
         // There's more than one way to solve this and some room for clean-up but this does the job.
         // https://github.com/konvajs/react-konva/issues/188#issuecomment-478302062
         // https://github.com/react-spring/react-three-fiber/issues/114
-        <AudioPlayerContext.Consumer>
-            {
-                value => (
+        // <AudioPlayerContext.Consumer>
+            // {
+                // value => (
                     <Canvas
                         id="canvas"
                         pixelRatio={window.devicePixelRatio}
@@ -26,14 +26,14 @@ export default function IsntOursCanvas({ shouldPlayVideo }) {
                             // gl.debug.checkShaderErrors = false;
                         }}
                     >
-                        <AudioPlayerContext.Provider value={value}>
+                        {/* <AudioPlayerContext.Provider value={value}> */}
                             <Suspense fallback={null}>
                                 <Scene shouldPlayVideo={shouldPlayVideo} />
                             </Suspense>
-                        </AudioPlayerContext.Provider>
+                        {/* </AudioPlayerContext.Provider> */}
                     </Canvas>
-                )}
-        </AudioPlayerContext.Consumer>
+                // )}
+        // {/* </AudioPlayerContext.Consumer> */}
     )
 }
 

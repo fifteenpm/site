@@ -3400,6 +3400,11 @@ eventemitter3@^3.0.0:
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-3.1.2.tgz#2d3d48f9c346698fce83a85d7d664e98535df6e7"
   integrity sha512-tvtQIeLVHjDkJYnzf2dgVMxfuSGJeM/7UCG17TT4EumTfNtF+0nebF/4zWOIkCreAbtNqhGEboB6BWrwqNaw4Q==
 
+eventemitter3@^4.0.3:
+  version "4.0.7"
+  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
+  integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
+
 events@^1.0.2:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/events/-/events-1.1.1.tgz#9ebdb7635ad099c70dcc4c2a1f5004288e8bd924"
@@ -4359,6 +4364,14 @@ history@^4.9.0:
     tiny-warning "^1.0.0"
     value-equal "^0.4.0"
 
+hls.js@^0.14.15:
+  version "0.14.15"
+  resolved "https://registry.yarnpkg.com/hls.js/-/hls.js-0.14.15.tgz#3d41c6a51cef31d2629df2d9ad4333215770febe"
+  integrity sha512-zKOY9PZVeDBu3iXL6Dg8DfUPDEf71lTyy7JFgCOJXkqV48HeDfNoMhcN1trMrYRtMyFnpA7YBiI8c1DzSdLAFA==
+  dependencies:
+    eventemitter3 "^4.0.3"
+    url-toolkit "^2.1.6"
+
 hmac-drbg@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/hmac-drbg/-/hmac-drbg-1.0.1.tgz#d2745701025a6c775a6c545793ed502fc0c649a1"
@@ -4747,6 +4760,11 @@ interpret@1.2.0:
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.2.0.tgz#d5061a6224be58e8083985f5014d844359576296"
   integrity sha512-mT34yGKMNceBQUoVn7iCDKDntA7SC6gycMAWzGx1z/CMCTV7b2AAtXlo3nRyHZ1FelRkQbQjprHSYGwzLtkVbw==
 
+intervalometer@^1.0.4:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/intervalometer/-/intervalometer-1.0.5.tgz#f43a16d223d0cf09624e35617934c930adc5e577"
+  integrity sha512-JzEThNp7ZB26jJYQTTLZ0SCSr5cfOKS5EBOJ77ff6ba66IW59hRD3P66Ailv82XAG+ISsMGGNQohC1fOYjjeWw==
+
 invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
@@ -4778,6 +4796,14 @@ ipaddr.js@^1.9.0:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
+
+iphone-inline-video@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/iphone-inline-video/-/iphone-inline-video-2.2.2.tgz#b5cd8d53d0c60fbcb1248cfdbbe44d36ff610fb2"
+  integrity sha1-tc2NU9DGD7yxJIz9u+RNNv9hD7I=
+  dependencies:
+    intervalometer "^1.0.4"
+    poor-mans-symbol "^1.0.1"
 
 is-accessor-descriptor@^0.1.6:
   version "0.1.6"
@@ -7008,6 +7034,11 @@ pn@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
+
+poor-mans-symbol@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/poor-mans-symbol/-/poor-mans-symbol-1.0.1.tgz#0c1b65ff1d49c07402b2235e562077d120671d0c"
+  integrity sha1-DBtl/x1JwHQCsiNeViB30SBnHQw=
 
 portfinder@^1.0.20:
   version "1.0.21"

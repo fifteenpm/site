@@ -1,8 +1,11 @@
 #canvas {
-    height: 100vh !important;
-    /* z-index: -1; */
+  height: 100vh !important;
+  /* z-index: -1; */
 }
 
+.vjs-has-started {
+  display: block;
+}
 /* .vjs-paused.vjs-has-started .vjs-big-play-button .vjs-big-play-centered {
     display: block;
   }  

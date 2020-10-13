@@ -7,8 +7,8 @@ import "./index.css";
 export default function Release0013_IsntOurs({ }) {
     const tracks = useMemo(() => CONTENT[window.location.pathname].tracks)
     return (
-        <AudioPlayerProvider tracks={tracks}>
+        // <AudioPlayerProvider tracks={tracks}>
             <Release />
-        </AudioPlayerProvider >
+        // </AudioPlayerProvider >
     );
 }

@@ -1,16 +1,18 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import * as THREE from 'three';
 import { useResource, useFrame } from 'react-three-fiber';
 import Noise from '../../Common/Materials/Noise';
 import VideoShader from '../../Common/Materials/VideoShader'
 import { assetPath } from '../../Common/Utils/assets';
 import Video from '../../Common/Materials/Video';
-import { VIDEO_URL } from './constants';
+import { HLS_URL, MP4_URL, WEBM_URL } from './constants';
 import facade12ColorMap from "../../Common/assets/textures/facade12/Facade12_col.jpg"
 import colorSpectrumMap from '../../Common/assets/textures/env-maps/color-spectrum-original.jpg';
 import { a } from '@react-spring/three'
 import useYScroll from '../../Common/Scroll/useYScroll'
 import { VideoPlayerContext } from '../../Common/UI/Player/VideoPlayerContext';
+import { SOURCES } from './constants';
+import { useVideoTexture } from '../../Common/Video/hooks';
 
 const MaterialsContext = React.createContext([{}, () => { }]);
 
@@ -22,33 +24,18 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
     const [videoShaderRef, videoShader] = useResource();
     const [videoTexture, setVideoTexture] = useState()
     // TODO
-    const offset = useRef({ x: 0, y: 0 })
+
     const materials = {
         video,
         // videoShader,
         // videoNoise,
     }
-    // const offset, setOffset = useState()
     useEffect(() => {
-        // if (videoRef && videoRef.current) {
-        //     videoRef.current.opacity = .5
-        //     videoRef.current.transparent = true
-        //     // const texture = new THREE.VideoTexture(videoRef.current)
-        //     // texture.minFilter = THREE.LinearFilter;
-        //     // texture.magFilter = THREE.LinearFilter;
-        //     // texture.format = THREE.RGBFormat;
-        //     setVideoTexture(videoRef.current.map)
-        // }
         const allMats = Object.values(materials);
         const loadedMats = allMats.filter(mat => mat);
         setLoaded(allMats.length == loadedMats.length);
     })
 
-    // useFrame(() => {
-    //     offset.current.x += .1
-    //     if (offset.current.x >= .9) offset.current.x = 0.1
-    //     // offset.current.y += .01
-    // })
 
 
     // platformPolishedSpeckledMarbleTop.map.offset.x -= .005;
@@ -57,13 +44,23 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
         <Video
             materialRef={videoRef}
             // side={THREE.DoubleSide}
-            sources={[
-                {
-                    src: VIDEO_URL,
+            sources={{
+                // TODO not using type
+                hls: {
+                    src: HLS_URL,
                     type: 'application/x-mpegURL',
                 },
-            ]}
-            canPlay={shouldPlayVideo}
+                mp4: {
+                    src: MP4_URL,
+                    type: 'video/mp4'
+                },
+                webm: {
+                    src: WEBM_URL,
+                    types: 'video/mp4'
+                }
+            }}
+            shouldPlayVideo={shouldPlayVideo}
+        // texture={texture}
         />
         {/* {video && <Noise
                 // map-offset-x={y.to(y=>y/20)}
@@ -76,13 +73,19 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
                 wireframe={false}
                 videoMaterial={video}
             // imagePath={colorSpectrumMap}
-            />}
-            {video && <VideoShader
-                materialRef={videoShaderRef}
-                alpha={1}
-                // side={THREE.DoubleSide}
-                videoMaterial={video}
             />} */}
+        {/* <VideoShader
+            materialRef={videoShaderRef}
+            sources={[
+                {
+                    src: HLS_URL,
+                    type: 'application/x-mpegURL',
+                }
+            ]}
+            shouldPlayVideo={shouldPlayVideo}
+            alpha={1}
+            side={THREE.DoubleSide}
+        /> */}
         {props.children}
         {/* </VideoPlayerContext.Provider> */}
     </MaterialsContext.Provider >

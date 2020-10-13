@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom'
 import React, { useMemo, useRef, useEffect, useContext, useState, Suspense } from 'react';
 import * as THREE from 'three';
 import { useThree, useFrame } from 'react-three-fiber';
-import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
 import { MaterialsProvider } from './MaterialsContext';
 import ArrienZinghiniNoiseScreen from './ArrienZinghiniNoiseScreen';
 import ArrienZinghiniFlatScreen from './ArrienZinghiniFlatScreen';
@@ -40,23 +39,27 @@ export function Scene({ shouldPlayVideo }) {
     const orbit = useRef()
     // global scene params
     useEffect(() => {
-        camera.position.z = 7.4
+        // camera.position.z = 7.4
+        camera.position.z = 17.4
         scene.background = new THREE.Color(0xffffff)
     }, [])
 
     return (
         <>
-            <Orbit />
+            {/* <Orbit /> */}
             {/* <Flying /> */}
             {/* <pointLight position={[10, 10, 10]} />
             <Box position={[-1.2, 0, 0]} />
             <Box position={[1.2, 0, 0]} />
             <ambientLight /> */}
             {/* <Orbit autoRotate={true} /> */}
+
             <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
-                {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
-                <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
-                {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
+                <Suspense fallback={null}>
+                    {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
+                    <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
+                    {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
+                </Suspense>
             </MaterialsProvider>
         </>
     );

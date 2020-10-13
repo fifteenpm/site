@@ -1,18 +1,29 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import { useThree, useFrame } from 'react-three-fiber';
 import { MaterialsContext } from './MaterialsContext';
 
 export default function ArrienZinghiniFlatScreen({ width, height }) {
     const { video } = useContext(MaterialsContext);
+
+    // // TODO plz rm me
+    // const [playIt, setPlayIt] = useState(false)
+    // useEffect(() => {
+    //     console.log("vidoe shader state change")
+    //     if (videoShader) setPlayIt(true)
+    // }, [videoShader])
+
+    // console.log("video shader", video)
     const screen = useRef();
 
-    return (
-        <>
-            <group ref={screen}>
-                <mesh material={video} >
-                    <planeBufferGeometry args={[width, height]} attach="geometry" />
-                </mesh>
-            </group>
-        </>
-    )
+    return <>
+
+        <group ref={screen}>
+            <mesh material={video} >
+                <planeBufferGeometry args={[width, height]} attach="geometry" />
+            </mesh>
+        </group>
+
+    </>
+
+
 }
