@@ -3,7 +3,7 @@ import { useThree, useFrame } from 'react-three-fiber';
 import { MaterialsContext } from './MaterialsContext';
 
 export default function ArrienZinghiniFlatScreen({ width, height }) {
-    const { video } = useContext(MaterialsContext);
+    const { videoShader } = useContext(MaterialsContext);
 
     // // TODO plz rm me
     // const [playIt, setPlayIt] = useState(false)
@@ -18,7 +18,7 @@ export default function ArrienZinghiniFlatScreen({ width, height }) {
     return <>
 
         <group ref={screen}>
-            <mesh material={video} >
+            <mesh material={videoShader} >
                 <planeBufferGeometry args={[width, height]} attach="geometry" />
             </mesh>
         </group>

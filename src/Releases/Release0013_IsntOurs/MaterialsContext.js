@@ -26,8 +26,8 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
     // TODO
 
     const materials = {
-        video,
-        // videoShader,
+        // video,
+        videoShader,
         // videoNoise,
     }
     useEffect(() => {
@@ -41,7 +41,7 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
     // platformPolishedSpeckledMarbleTop.map.offset.x -= .005;
     return <MaterialsContext.Provider value={{ loaded, ...materials }}>
         {/* <VideoPlayerContext.Provider value={value}> */}
-        <Video
+        {/* <Video
             materialRef={videoRef}
             // side={THREE.DoubleSide}
             sources={{
@@ -61,7 +61,7 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
             }}
             shouldPlayVideo={shouldPlayVideo}
         // texture={texture}
-        />
+        /> */}
         {/* {video && <Noise
                 // map-offset-x={y.to(y=>y/20)}
                 materialRef={videoNoiseRef}
@@ -74,18 +74,27 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
                 videoMaterial={video}
             // imagePath={colorSpectrumMap}
             />} */}
-        {/* <VideoShader
+        <VideoShader
             materialRef={videoShaderRef}
-            sources={[
-                {
+            sources={{
+                // TODO not using type
+                hls: {
                     src: HLS_URL,
                     type: 'application/x-mpegURL',
+                },
+                mp4: {
+                    src: MP4_URL,
+                    type: 'video/mp4'
+                },
+                webm: {
+                    src: WEBM_URL,
+                    types: 'video/mp4'
                 }
-            ]}
+            }}
             shouldPlayVideo={shouldPlayVideo}
-            alpha={1}
+            // alpha={1}
             side={THREE.DoubleSide}
-        /> */}
+        />
         {props.children}
         {/* </VideoPlayerContext.Provider> */}
     </MaterialsContext.Provider >
