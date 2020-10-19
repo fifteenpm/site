@@ -76,21 +76,37 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
             />} */}
         <VideoShader
             materialRef={videoShaderRef}
-            sources={{
-                // TODO not using type
-                hls: {
+            // sources={{
+            //     // TODO not using type
+            //     hls: {
+            //         src: HLS_URL,
+            //         type: 'application/x-mpegURL',
+            //     },
+            //     mp4: {
+            //         src: MP4_URL,
+            //         type: 'video/mp4'
+            //     },
+            //     webm: {
+            //         src: WEBM_URL,
+            //         types: 'video/mp4'
+            //     }
+            // }}
+            sources={[
+                {
                     src: HLS_URL,
                     type: 'application/x-mpegURL',
                 },
-                mp4: {
+
+                {
                     src: MP4_URL,
                     type: 'video/mp4'
                 },
-                webm: {
+
+                {
                     src: WEBM_URL,
                     types: 'video/mp4'
                 }
-            }}
+            ]}
             shouldPlayVideo={shouldPlayVideo}
             // alpha={1}
             side={THREE.DoubleSide}
@@ -101,4 +117,3 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
 }
 
 export { MaterialsContext, MaterialsProvider };
-
