@@ -15,7 +15,7 @@ export default function Release0013_IsntOurs({ }) {
 
     return (
         <AudioPlayerProvider tracks={audioTracks}>
-            <VideoPlayerProvider tracks={videoTracks}>
+            <VideoPlayerProvider muted={true} volume={0} tracks={videoTracks}>
                 <Release />
             </VideoPlayerProvider>
         </AudioPlayerProvider >

@@ -75,9 +75,9 @@ const MaterialsProvider = ({ shouldPlayVideo,  videoTexture, ...props }) => {
                 videoMaterial={video}
             // imagePath={colorSpectrumMap}
             />} */}
-        {videoTexture && <VideoShader
+        <VideoShader
             materialRef={videoShaderRef}
-            videoTexture={videoTexture}
+            // videoTexture={videoTexture}
             // sources={{
             //     // TODO not using type
             //     hls: {
@@ -113,7 +113,7 @@ const MaterialsProvider = ({ shouldPlayVideo,  videoTexture, ...props }) => {
             // alpha={1}
             // onVideoReady={props.onVideoReady}
             side={THREE.DoubleSide}
-        />}
+        />
         {props.children}
         {/* </VideoPlayerContext.Provider> */}
     </MaterialsContext.Provider >

@@ -45,13 +45,17 @@ export function Scene({ shouldPlayVideo }) {
         camera.position.z = 17.4
         scene.background = new THREE.Color(0xffffff)
     }, [])
-    const { videoTexture, playTrack } = useVideoPlayer();
+    const { playTrack, isPlaying } = useVideoPlayer();
 
     useEffect(() => {
-        playTrack(0)
-    }, [])
 
-    console.log("VIDEO TEXTURE IN SCENE", videoTexture)
+        if (shouldPlayVideo) {
+            console.log('triggering play in scene// isPlaying?', isPlaying )
+            playTrack(0)
+        }
+    }, [shouldPlayVideo])
+
+    // console.log("VIDEO TEXTURE IN SCENE", videoTexture)
     return (
         <>
             {/* <Orbit /> */}
@@ -62,15 +66,15 @@ export function Scene({ shouldPlayVideo }) {
             <ambientLight /> */}
             {/* <Orbit autoRotate={true} /> */}
 
-            {videoTexture && <MaterialsProvider
-                videoTexture={videoTexture} shouldPlayVideo={shouldPlayVideo}
+             <MaterialsProvider
+                shouldPlayVideo={shouldPlayVideo}
             >
                 <Suspense fallback={null}>
                     {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                     {shouldPlayVideo && <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />}
                     {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                 </Suspense>
-            </MaterialsProvider>}
+            </MaterialsProvider>
         </>
     );
 }
