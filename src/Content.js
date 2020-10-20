@@ -302,12 +302,12 @@ export const CONTENT = {
     purchaseLink: "https://buy.fifteen.pm/album/juicy-tender",
     tracks: [
       {
+        sources: multiSourceVideo('/assets/8/videos/jt-final'),
         mediaType: 'video',
         props: {
           type: 'video', // TODO do we need this here as well?
           mimetype: 'video/mp4',
           name: 'greem-vid1',
-          sources: multiSourceVideo('/assets/8/videos/jt-final'),
           geometry: new THREE.PlaneBufferGeometry(1, 1),
           position: [0, 0, 0],
           playbackRate: 1,
