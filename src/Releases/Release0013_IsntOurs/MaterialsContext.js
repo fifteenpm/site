@@ -92,10 +92,10 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
             //     }
             // }}
             sources={[
-                {
-                    src: HLS_URL,
-                    type: 'application/x-mpegURL',
-                },
+                // {
+                //     src: HLS_URL,
+                //     type: 'application/x-mpegURL',
+                // },
 
                 {
                     src: MP4_URL,

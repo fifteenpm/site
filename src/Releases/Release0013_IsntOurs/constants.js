@@ -8,8 +8,8 @@ import { assetPath } from "../../Common/Utils/assets";
 // export const HLS_URL="https://s3.amazonaws.com/dev.fifteen.pm/13/video/hls/hls.m3u8"
 
 export const HLS_URL = assetPath("13/videos/hls/master.m3u8")
-export const MP4_URL = assetPath("13/videos/mp4/the-end-for-ios.mp4")
-export const WEBM_URL = assetPath("13/videos/webm/the-end-for-ios.webm")
+export const MP4_URL = assetPath("13/videos/mobile/2x270.mp4")
+export const WEBM_URL = assetPath("13/videos/mobile/2x270.webm")
 // export const HLS_URL = assetPath("13/videos/blah/filename.m3u8")
 // export const HLS_URL = assetPath('13/videos/hls/hls.m3u8');
 // export const HLS_URL = assetPath('13/videos/the-end-crf-31-r12-ultrafast.mp4');
