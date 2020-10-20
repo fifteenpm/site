@@ -109,6 +109,7 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
             ]}
             shouldPlayVideo={shouldPlayVideo}
             // alpha={1}
+            // onVideoReady={props.onVideoReady}
             side={THREE.DoubleSide}
         />
         {props.children}

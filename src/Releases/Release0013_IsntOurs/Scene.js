@@ -36,6 +36,7 @@ function Box(props) {
 
 export function Scene({ shouldPlayVideo }) {
     const { camera, scene } = useThree();
+    const [videoLoaded, setVideoLoaded] = useState(false)
     const orbit = useRef()
     // global scene params
     useEffect(() => {
@@ -43,6 +44,8 @@ export function Scene({ shouldPlayVideo }) {
         camera.position.z = 17.4
         scene.background = new THREE.Color(0xffffff)
     }, [])
+
+
 
     return (
         <>
@@ -54,10 +57,12 @@ export function Scene({ shouldPlayVideo }) {
             <ambientLight /> */}
             {/* <Orbit autoRotate={true} /> */}
 
-            <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
+            <MaterialsProvider
+                shouldPlayVideo={shouldPlayVideo}
+            >
                 <Suspense fallback={null}>
                     {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
-                    <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
+                    {shouldPlayVideo && <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />}
                     {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                 </Suspense>
             </MaterialsProvider>
