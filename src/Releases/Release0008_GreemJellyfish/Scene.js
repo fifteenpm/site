@@ -516,6 +516,7 @@ export default class Scene extends Component {
         const { section } = this.state;
         const cameraInfo = section.camera;
         const pos = cameraInfo.position;
+        console.log("SET POSITION:", pos)
         camera.position.set(pos.x, pos.y, pos.z);
         const lookAt = cameraInfo.lookAt;
         // camera.lookAt(lookAt.x, lookAt.y, lookAt.z);
