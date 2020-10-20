@@ -1,14 +1,23 @@
 import React, { useMemo } from 'react';
 import { CONTENT } from '../../Content';
 import { AudioPlayerProvider } from '../../Common/UI/Player/AudioPlayerContext';
+import { VideoPlayerProvider } from '../../Common/UI/Player/VideoPlayerContext';
 import Release from './Release';
 import "./index.css";
 
 export default function Release0013_IsntOurs({ }) {
-    const tracks = useMemo(() => CONTENT[window.location.pathname].tracks)
+    const [audioTracks, videoTracks] = useMemo(() => {
+        return [
+            CONTENT[window.location.pathname].tracks,
+            CONTENT[window.location.pathname].videoTracks,
+        ]
+    })
+
     return (
-        <AudioPlayerProvider tracks={tracks}>
-            <Release />
+        <AudioPlayerProvider tracks={audioTracks}>
+            <VideoPlayerProvider tracks={videoTracks}>
+                <Release />
+            </VideoPlayerProvider>
         </AudioPlayerProvider >
     );
 }

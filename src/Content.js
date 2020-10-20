@@ -1,15 +1,15 @@
-import {
-  Hover,
-  MouseMove,
-  Click,
-  TwoFingerScroll,
-  ArrowKeys,
-  NoPhone,
-  SlowLoad
-} from "./Common/UI/Controls/Icons";
-
 import * as THREE from 'three';
+import {
+  ArrowKeys, Click, Hover,
+  MouseMove,
+
+
+
+  NoPhone,
+  SlowLoad, TwoFingerScroll
+} from "./Common/UI/Controls/Icons";
 import { multiSourceVideo } from './Common/Video/paths.js';
+
 
 export const CONTENT = {
   "/": {
@@ -576,6 +576,26 @@ export const CONTENT = {
       onHover: 'magenta',
       info: '#0f0',
     },
+    videoTracks: [
+      {
+        sources: multiSourceVideo('/assets/8/videos/jt-final'),
+        mediaType: 'video',
+        props: {
+          type: 'video', // TODO do we need this here as well?
+          mimetype: 'video/mp4',
+          name: 'greem-vid1',
+          geometry: new THREE.PlaneBufferGeometry(1, 1),
+          position: [0, 0, 0],
+          playbackRate: 1,
+          loop: true,
+          invert: true,
+          volume: .4,
+          muted: false,
+          angle: 0.0,
+        },
+        mesh: undefined,
+      },
+    ],
     tracks: [
       {
         name: "The End",

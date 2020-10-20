@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Canvas } from 'react-three-fiber';
 import { AudioPlayerContext } from '../../Common/UI/Player/AudioPlayerContext';
+import { VideoPlayerContext } from '../../Common/UI/Player/VideoPlayerContext';
 import { Scene } from './Scene';
 import FixedLights from './FixedLights';
 
@@ -11,9 +12,9 @@ export default function IsntOursCanvas({ shouldPlayVideo }) {
         // There's more than one way to solve this and some room for clean-up but this does the job.
         // https://github.com/konvajs/react-konva/issues/188#issuecomment-478302062
         // https://github.com/react-spring/react-three-fiber/issues/114
-        // <AudioPlayerContext.Consumer>
-            // {
-                // value => (
+        <VideoPlayerContext.Consumer>
+            {
+                value => (
                     <Canvas
                         id="canvas"
                         pixelRatio={window.devicePixelRatio}
@@ -26,14 +27,14 @@ export default function IsntOursCanvas({ shouldPlayVideo }) {
                             // gl.debug.checkShaderErrors = false;
                         }}
                     >
-                        {/* <AudioPlayerContext.Provider value={value}> */}
+                        <VideoPlayerContext.Provider value={value}>
                             <Suspense fallback={null}>
                                 <Scene shouldPlayVideo={shouldPlayVideo} />
                             </Suspense>
-                        {/* </AudioPlayerContext.Provider> */}
+                        </VideoPlayerContext.Provider>
                     </Canvas>
-                // )}
-        // {/* </AudioPlayerContext.Consumer> */}
+                )}
+        </VideoPlayerContext.Consumer>
     )
 }
 
