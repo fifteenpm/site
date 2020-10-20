@@ -135,12 +135,13 @@ export default class Scene extends Component {
     }
 
     initVideo = () => {
-        const { videoPlayer } = this.props;
+        const { videoMesh } = this.props;
         const refreshId = setInterval(() => {
             // the media is loaded by the player... this is in lieu of a proper callback behavior for the player.
             // if (CONSTANTS.auxMedia[0].media) { // greem video
-            if (videoPlayer.media) {
-                let videoMesh = videoPlayer.mesh;
+            console.log("VIDEOMESH:", videoMesh)
+            if (videoMesh) {
+                // let videoMesh = videoPlayer.mesh;
                 // let videoMesh = CONSTANTS.auxMedia[0].mesh;
                 videoMesh.visible = false;
                 const chromaMaterial = new THREE.ShaderMaterial({
