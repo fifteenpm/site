@@ -9,6 +9,7 @@ import ArrienZinghiniSphereScreen from './ArrienZinghiniSphereScreen';
 import * as C from './constants';
 import Orbit from '../../Common/Controls/Orbit';
 import Flying from '../../Common/Controls/Flying';
+import useVideoPlayer from '../../Common/UI/Player/hooks/useVideoPlayer';
 
 function Box(props) {
     // This reference will give us direct access to the mesh
@@ -44,9 +45,13 @@ export function Scene({ shouldPlayVideo }) {
         camera.position.z = 17.4
         scene.background = new THREE.Color(0xffffff)
     }, [])
+    const { videoTexture, playTrack } = useVideoPlayer();
 
+    useEffect(() => {
+        playTrack(0)
+    }, [])
 
-
+    console.log("VIDEO TEXTURE IN SCENE", videoTexture)
     return (
         <>
             {/* <Orbit /> */}
@@ -57,15 +62,15 @@ export function Scene({ shouldPlayVideo }) {
             <ambientLight /> */}
             {/* <Orbit autoRotate={true} /> */}
 
-            <MaterialsProvider
-                shouldPlayVideo={shouldPlayVideo}
+            {videoTexture && <MaterialsProvider
+                videoTexture={videoTexture} shouldPlayVideo={shouldPlayVideo}
             >
                 <Suspense fallback={null}>
                     {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                     {shouldPlayVideo && <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />}
                     {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                 </Suspense>
-            </MaterialsProvider>
+            </MaterialsProvider>}
         </>
     );
 }

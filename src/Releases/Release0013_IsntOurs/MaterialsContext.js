@@ -13,16 +13,17 @@ import useYScroll from '../../Common/Scroll/useYScroll'
 import { VideoPlayerContext } from '../../Common/UI/Player/VideoPlayerContext';
 import { SOURCES } from './constants';
 import { useVideoTexture } from '../../Common/Video/hooks';
+import useVideoPlayer from '../../Common/UI/Player/hooks/useVideoPlayer';
 
 const MaterialsContext = React.createContext([{}, () => { }]);
 
-const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
+const MaterialsProvider = ({ shouldPlayVideo,  videoTexture, ...props }) => {
     const [loaded, setLoaded] = useState(false);
     // const [y] = useYScroll([-2400, 2400], { domTarget: window })
     const [videoRef, video] = useResource();
     const [videoNoiseRef, videoNoise] = useResource();
     const [videoShaderRef, videoShader] = useResource();
-    const [videoTexture, setVideoTexture] = useState()
+    
     // TODO
 
     const materials = {
@@ -74,8 +75,9 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
                 videoMaterial={video}
             // imagePath={colorSpectrumMap}
             />} */}
-        <VideoShader
+        {videoTexture && <VideoShader
             materialRef={videoShaderRef}
+            videoTexture={videoTexture}
             // sources={{
             //     // TODO not using type
             //     hls: {
@@ -111,7 +113,7 @@ const MaterialsProvider = ({ shouldPlayVideo, ...props }) => {
             // alpha={1}
             // onVideoReady={props.onVideoReady}
             side={THREE.DoubleSide}
-        />
+        />}
         {props.children}
         {/* </VideoPlayerContext.Provider> */}
     </MaterialsContext.Provider >
