@@ -48,12 +48,17 @@ export function Scene({ shouldPlayVideo }) {
     const { playTrack, isPlaying } = useVideoPlayer();
 
     useEffect(() => {
+        console.log("iPlaying (in Scene, from hook): ", isPlaying)
+    }, [isPlaying])
 
-        if (shouldPlayVideo) {
-            console.log('triggering play in scene// isPlaying?', isPlaying )
+    useEffect(() => {
+
+        if (shouldPlayVideo && !isPlaying) {
+            
             playTrack(0)
+            console.log('triggering play in scene// isPlaying?', isPlaying )
         }
-    }, [shouldPlayVideo])
+    }, [shouldPlayVideo, isPlaying])
 
     // console.log("VIDEO TEXTURE IN SCENE", videoTexture)
     return (

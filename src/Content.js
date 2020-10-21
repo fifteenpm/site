@@ -302,7 +302,9 @@ export const CONTENT = {
     purchaseLink: "https://buy.fifteen.pm/album/juicy-tender",
     tracks: [
       {
-        sources: multiSourceVideo('/assets/8/videos/jt-final'),
+        sources: {
+          nonHLS: multiSourceVideo('/assets/8/videos/jt-final'),
+        },
         mediaType: 'video',
         props: {
           type: 'video', // TODO do we need this here as well?
@@ -578,7 +580,10 @@ export const CONTENT = {
     },
     videoTracks: [
       {
-        sources: multiSourceVideo('/assets/8/videos/jt-final'),
+        sources: {
+          hls: '/assets/13/videos/hls/master.m3u8',
+          nonHLS: multiSourceVideo('/assets/13/videos/mobile/2x270'),
+        },
         mediaType: 'video',
         props: {
           type: 'video', // TODO do we need this here as well?
