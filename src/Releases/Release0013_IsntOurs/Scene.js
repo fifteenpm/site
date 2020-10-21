@@ -43,7 +43,7 @@ export function Scene({ shouldPlayVideo }) {
     // global scene params
     useEffect(() => {
         // camera.position.z = 7.4
-        camera.position.z = 17.4
+        camera.position.z = 0.4
         scene.background = new THREE.Color(0xffffff)
     }, [])
     const { playTrack, isPlaying } = useVideoPlayer();
@@ -53,18 +53,18 @@ export function Scene({ shouldPlayVideo }) {
     }, [isPlaying])
 
     useEffect(() => {
-
         if (shouldPlayVideo && !isPlaying) {
-
             playTrack(0)
-            console.log('triggering play in scene// isPlaying?', isPlaying)
         }
     }, [shouldPlayVideo, isPlaying])
-
-    // console.log("VIDEO TEXTURE IN SCENE", videoTexture)
+    // const curvedScreen = useRef();
+    
     return (
         <>
-            {/* <Orbit /> */}
+            {/* <Orbit
+                // autoRotate={true}
+                // target={curvedScreen.current ? curvedScreen.current.position : new THREE.Vector3(0, 0, 0)}
+            /> */}
             {/* <Flying /> */}
             {/* <pointLight position={[10, 10, 10]} />
             <Box position={[-1.2, 0, 0]} />
@@ -77,8 +77,7 @@ export function Scene({ shouldPlayVideo }) {
             >
                 <Suspense fallback={null}>
                     {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
-                    <ArrienZinghiniCurvedScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
-                    {/* {shouldPlayVideo && <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />} */}
+                    <ArrienZinghiniCurvedScreen  width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
                     {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                 </Suspense>
             </MaterialsProvider>
