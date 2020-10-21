@@ -584,21 +584,6 @@ export const CONTENT = {
           hls: '/assets/13/videos/hls/master.m3u8',
           nonHLS: multiSourceVideo('/assets/13/videos/mobile/2x270'),
         },
-        mediaType: 'video',
-        props: {
-          type: 'video', // TODO do we need this here as well?
-          mimetype: 'video/mp4',
-          name: 'greem-vid1',
-          geometry: new THREE.PlaneBufferGeometry(1, 1),
-          position: [0, 0, 0],
-          playbackRate: 1,
-          loop: true,
-          invert: true,
-          volume: .4,
-          muted: false,
-          angle: 0.0,
-        },
-        mesh: undefined,
       },
     ],
     tracks: [

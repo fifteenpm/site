@@ -6,6 +6,7 @@ import { MaterialsProvider } from './MaterialsContext';
 import ArrienZinghiniNoiseScreen from './ArrienZinghiniNoiseScreen';
 import ArrienZinghiniFlatScreen from './ArrienZinghiniFlatScreen';
 import ArrienZinghiniSphereScreen from './ArrienZinghiniSphereScreen';
+import ArrienZinghiniCurvedScreen from './ArrienZinghiniCurvedScreen';
 import * as C from './constants';
 import Orbit from '../../Common/Controls/Orbit';
 import Flying from '../../Common/Controls/Flying';
@@ -54,9 +55,9 @@ export function Scene({ shouldPlayVideo }) {
     useEffect(() => {
 
         if (shouldPlayVideo && !isPlaying) {
-            
+
             playTrack(0)
-            console.log('triggering play in scene// isPlaying?', isPlaying )
+            console.log('triggering play in scene// isPlaying?', isPlaying)
         }
     }, [shouldPlayVideo, isPlaying])
 
@@ -71,12 +72,13 @@ export function Scene({ shouldPlayVideo }) {
             <ambientLight /> */}
             {/* <Orbit autoRotate={true} /> */}
 
-             <MaterialsProvider
+            <MaterialsProvider
                 shouldPlayVideo={shouldPlayVideo}
             >
                 <Suspense fallback={null}>
                     {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
-                    {shouldPlayVideo && <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />}
+                    <ArrienZinghiniCurvedScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
+                    {/* {shouldPlayVideo && <ArrienZinghiniFlatScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />} */}
                     {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
                 </Suspense>
             </MaterialsProvider>
