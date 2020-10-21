@@ -15,7 +15,7 @@ export const WEBM_URL = assetPath("13/videos/mobile/2x270.webm")
 // export const HLS_URL = assetPath('13/videos/the-end-crf-31-r12-ultrafast.mp4');
 export const VIDEO_DIMENSIONS = {
   x: 21,
-  y: 9
+  y: 9 * 2,
 }
 
 // tracks

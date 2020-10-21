@@ -6,35 +6,15 @@ import { MaterialsProvider } from './MaterialsContext';
 import ArrienZinghiniNoiseScreen from './ArrienZinghiniNoiseScreen';
 import ArrienZinghiniFlatScreen from './ArrienZinghiniFlatScreen';
 import ArrienZinghiniSphereScreen from './ArrienZinghiniSphereScreen';
+import EncompassingSphere from './EncompassingSphere';
 import ArrienZinghiniCurvedScreen from './ArrienZinghiniCurvedScreen';
 import * as C from './constants';
 import Orbit from '../../Common/Controls/Orbit';
 import Flying from '../../Common/Controls/Flying';
 import useVideoPlayer from '../../Common/UI/Player/hooks/useVideoPlayer';
+import useYScroll from '../../Common/Scroll/useYScroll';
+import { a } from '@react-spring/three'
 
-function Box(props) {
-    // This reference will give us direct access to the mesh
-    const mesh = useRef()
-
-    // Set up state for the hovered and active state
-    const [hovered, setHover] = useState(false)
-    const [active, setActive] = useState(false)
-
-    // Rotate mesh every frame, this is outside of React without overhead
-    useFrame(() => (mesh.current.rotation.x = mesh.current.rotation.y += 0.01))
-    return (
-        <mesh
-            {...props}
-            ref={mesh}
-            scale={active ? [1.5, 1.5, 1.5] : [1, 1, 1]}
-            onClick={(e) => setActive(!active)}
-            onPointerOver={(e) => setHover(true)}
-            onPointerOut={(e) => setHover(false)}>
-            <boxBufferGeometry attach="geometry" args={[5, 1, 1]} />
-            <meshStandardMaterial attach="material" color={hovered ? 'hotpink' : 'orange'} side={THREE.DoubleSide} />
-        </mesh>
-    )
-}
 
 export function Scene({ shouldPlayVideo }) {
     const { camera, scene } = useThree();
@@ -43,8 +23,9 @@ export function Scene({ shouldPlayVideo }) {
     // global scene params
     useEffect(() => {
         // camera.position.z = 7.4
-        camera.position.z = 0.4
-        scene.background = new THREE.Color(0xffffff)
+        camera.position.z = 0.2
+        console.log("CAM", camera)
+        scene.background = new THREE.Color(0xfff)
     }, [])
     const { playTrack, isPlaying } = useVideoPlayer();
 
@@ -53,32 +34,32 @@ export function Scene({ shouldPlayVideo }) {
     }, [isPlaying])
 
     useEffect(() => {
+        
         if (shouldPlayVideo && !isPlaying) {
             playTrack(0)
         }
     }, [shouldPlayVideo, isPlaying])
     // const curvedScreen = useRef();
-    
+    const [ys] = useYScroll([-4800, 4800], { domTarget: window });
     return (
         <>
             {/* <Orbit
-                // autoRotate={true}
-                // target={curvedScreen.current ? curvedScreen.current.position : new THREE.Vector3(0, 0, 0)}
+                maxDistance={3.5}
+                minDistance={.5}
+                
+            // autoRotate={true}
+            // target={curvedScreen.current ? curvedScreen.current.position : new THREE.Vector3(0, 0, 0)}
             /> */}
-            {/* <Flying /> */}
-            {/* <pointLight position={[10, 10, 10]} />
-            <Box position={[-1.2, 0, 0]} />
-            <Box position={[1.2, 0, 0]} />
-            <ambientLight /> */}
-            {/* <Orbit autoRotate={true} /> */}
-
+            {/* <pointLight intensity={.00001} position={[10, 10, 10]} /> */}
+            {/* <ambientLight color={0x800080} intensity={.0000001} /> */}
             <MaterialsProvider
                 shouldPlayVideo={shouldPlayVideo}
             >
                 <Suspense fallback={null}>
-                    {/* <ArrienZinghiniNoiseScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
-                    <ArrienZinghiniCurvedScreen  width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
-                    {/* <ArrienZinghiniSphereScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} /> */}
+                    <a.group rotation-y={ys.to(ys => ys / 300)}>
+                        <ArrienZinghiniCurvedScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
+                        {/* <EncompassingSphere radius={C.VIDEO_DIMENSIONS.x * 10} height={C.VIDEO_DIMENSIONS.y} /> */}
+                    </a.group>
                 </Suspense>
             </MaterialsProvider>
         </>
