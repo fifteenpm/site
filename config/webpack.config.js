@@ -11,6 +11,27 @@ module.exports = {
     optimization: {
         splitChunks: {
             chunks: 'all',
+            // https://stackoverflow.com/questions/48985780/webpack-4-create-vendor-chunk
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                reactVendor: {
+                  test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                  name: "reactvendor"
+                },
+                utilityVendor: {
+                  test: /[\\/]node_modules[\\/](lodash|moment|moment-timezone)[\\/]/,
+                  name: "utilityVendor"
+                },
+                bootstrapVendor: {
+                  test: /[\\/]node_modules[\\/](react-bootstrap)[\\/]/,
+                  name: "bootstrapVendor"
+                },
+                vendor: {
+                   test: /[\\/]node_modules[\\/](!react-bootstrap)(!lodash)(!moment)(!moment-timezone)[\\/]/,
+                name: "vendor"
+              },
+            },
         },
     },
     module: {
