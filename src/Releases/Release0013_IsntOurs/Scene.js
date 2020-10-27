@@ -14,51 +14,35 @@ import Flying from '../../Common/Controls/Flying';
 import useVideoPlayer from '../../Common/UI/Player/hooks/useVideoPlayer';
 import useYScroll from '../../Common/Scroll/useYScroll';
 import { a } from '@react-spring/three'
+import Stars from '../../Common/Utils/Stars'
 
-
-export function Scene({ shouldPlayVideo }) {
-    const { camera, scene } = useThree();
-    const [videoLoaded, setVideoLoaded] = useState(false)
-    const orbit = useRef()
+export function Scene({ shouldPlayVideo, yScrollNumerator = 3 }) {
+    const { scene } = useThree();
+    const [yScrollRange, setYScrollRange] = useState(window.innerWidth * yScrollNumerator)
+    const [yScrollDenominator, setYScrollDenominator] = useState(window.innerWidth / yScrollNumerator)
+    const { playTrack, isPlaying, videoElement } = useVideoPlayer();
+    useEffect(() => {
+        setYScrollRange(window.innerWidth * yScrollNumerator)
+        setYScrollDenominator(window.innerWidth / yScrollNumerator)
+    }, [window.innerWidth])
     // global scene params
     useEffect(() => {
-        // camera.position.z = 7.4
-        camera.position.z = 0.2
-        console.log("CAM", camera)
-        scene.background = new THREE.Color(0xfff)
+        scene.background = new THREE.Color(0x000000)
     }, [])
-    const { playTrack, isPlaying } = useVideoPlayer();
 
     useEffect(() => {
-        console.log("iPlaying (in Scene, from hook): ", isPlaying)
-    }, [isPlaying])
-
-    useEffect(() => {
-        
         if (shouldPlayVideo && !isPlaying) {
             playTrack(0)
         }
     }, [shouldPlayVideo, isPlaying])
-    // const curvedScreen = useRef();
-    const [ys] = useYScroll([-4800, 4800], { domTarget: window });
+    const [ys] = useYScroll([-yScrollRange, yScrollRange], { domTarget: window });
     return (
         <>
-            {/* <Orbit
-                maxDistance={3.5}
-                minDistance={.5}
-                
-            // autoRotate={true}
-            // target={curvedScreen.current ? curvedScreen.current.position : new THREE.Vector3(0, 0, 0)}
-            /> */}
-            {/* <pointLight intensity={.00001} position={[10, 10, 10]} /> */}
-            {/* <ambientLight color={0x800080} intensity={.0000001} /> */}
-            <MaterialsProvider
-                shouldPlayVideo={shouldPlayVideo}
-            >
+            <Stars />
+            <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
                 <Suspense fallback={null}>
-                    <a.group rotation-y={ys.to(ys => ys / 300)}>
+                    <a.group rotation-y={ys.to(ys => ys / yScrollDenominator)}>
                         <ArrienZinghiniCurvedScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
-                        {/* <EncompassingSphere radius={C.VIDEO_DIMENSIONS.x * 10} height={C.VIDEO_DIMENSIONS.y} /> */}
                     </a.group>
                 </Suspense>
             </MaterialsProvider>
