@@ -33,7 +33,7 @@ export function Scene({ shouldPlayVideo, yScrollNumerator = isMobile ? 6 : 3 }) 
     const [ys] = useYScroll([-yScrollRange, yScrollRange], { domTarget: window });
     return (
         <>
-            <Stars />
+            <Stars radius={1}/>
             <Orbit
                 autoRotate={true}
                 autoRotateSpeed={1.}

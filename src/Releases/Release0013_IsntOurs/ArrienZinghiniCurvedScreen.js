@@ -18,10 +18,10 @@ export default function ArrienZinghiniCurvedScreen({ width, height, width_segmen
     });
     return <>
         <group>
-            <mesh material={videoShaderFlipY} geometry={nodes.Screen1.geometry} />
-            <mesh material={videoShader} geometry={nodes.Screen2.geometry} />
+            {/* <mesh material={videoShaderFlipY} geometry={nodes.Screen1.geometry} /> */}
+            {/* <mesh material={videoShader} geometry={nodes.Screen2.geometry} /> */}
             <mesh material={videoShader} geometry={nodes.Screen3.geometry} />
-            <mesh material={videoShader} geometry={nodes.Screen4.geometry} />
+            <mesh material={videoShaderFlipY} geometry={nodes.Screen4.geometry} />
         </group>
     </>
 }

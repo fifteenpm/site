@@ -14,7 +14,7 @@ const MaterialsProvider = ({ ...props }) => {
     const materials = {
         videoShader,
         videoShaderFlipY,
-        reflective,
+        // reflective,
     }
     const { gl, camera, scene } = useThree();
     useEffect(() => {
@@ -22,20 +22,20 @@ const MaterialsProvider = ({ ...props }) => {
         const loadedMats = allMats.filter(mat => mat);
         setLoaded(allMats.length == loadedMats.length);
     })
-    const cubeCamera = useMemo(() => {
-        const cubeCam = new THREE.CubeCamera(1, 500, 1024)
-        // TODO (jeremy): passed in as prop
-        const pos = new THREE.Vector3(0, 10, 0)
-        cubeCam.position.set(pos.x, pos.y, pos.z)
-        scene.add(cubeCam)
-        return cubeCam
-    })
+    // const cubeCamera = useMemo(() => {
+    //     const cubeCam = new THREE.CubeCamera(1, 500, 1024)
+    //     // TODO (jeremy): passed in as prop
+    //     const pos = new THREE.Vector3(0, 10, 0)
+    //     cubeCam.position.set(pos.x, pos.y, pos.z)
+    //     scene.add(cubeCam)
+    //     return cubeCam
+    // })
 
-    useFrame(() => {
-        // mirrorCube.visible = false;
-    	cubeCamera.update( gl, scene );
-	    // mirrorCube.visible = true;
-    })
+    // useFrame(() => {
+    //     // mirrorCube.visible = false;
+    // 	cubeCamera.update( gl, scene );
+	//     // mirrorCube.visible = true;
+    // })
 
     return <MaterialsContext.Provider value={{ loaded, ...materials }}>
         <VideoShader
@@ -45,16 +45,16 @@ const MaterialsProvider = ({ ...props }) => {
         />
         <VideoShader
             materialRef={videoShaderFlipYRef}
-            // side={THREE.BackSide}
+            side={THREE.DoubleSide}
             // offset={new THREE.Vector2(0.0, -0.5)}
             flipY={true}
         />
-        <meshBasicMaterial
+        {/* <meshBasicMaterial
             ref={reflectiveRef}
             color={0x111111}
             side={THREE.BackSide}
             envMap={cubeCamera.renderTarget}
-        />
+        /> */}
         {/* <VideoShader
             materialRef={videoShaderFlipXRef}
             // side={THREE.DoubleSide}
