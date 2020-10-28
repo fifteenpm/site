@@ -41,6 +41,7 @@ export function Scene({ shouldPlayVideo, yScrollNumerator = isMobile ? 6 : 3 }) 
                 dampingFactor={1}
                 enableZoom={false}
             />
+            <pointLight intensity={100}/>
             <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
                 <Suspense fallback={null}>
                     {/* // TODO (jeremy) add touchAction: 'none' to a.group? */}
