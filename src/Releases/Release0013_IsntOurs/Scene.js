@@ -1,22 +1,17 @@
-import ReactDOM from 'react-dom'
-import React, { useMemo, useRef, useEffect, useContext, useState, Suspense } from 'react';
+import { a } from '@react-spring/three';
+import React, { Suspense, useEffect, useState } from 'react';
+import { useThree } from 'react-three-fiber';
 import * as THREE from 'three';
-import { useThree, useFrame } from 'react-three-fiber';
-import { MaterialsProvider } from './MaterialsContext';
-import ArrienZinghiniNoiseScreen from './ArrienZinghiniNoiseScreen';
-import ArrienZinghiniFlatScreen from './ArrienZinghiniFlatScreen';
-import ArrienZinghiniSphereScreen from './ArrienZinghiniSphereScreen';
-import EncompassingSphere from './EncompassingSphere';
+import useYScroll from '../../Common/Scroll/useYScroll';
+import useVideoPlayer from '../../Common/UI/Player/hooks/useVideoPlayer';
+import { isMobile } from '../../Common/Utils/BrowserDetection';
+import Stars from '../../Common/Utils/Stars';
 import ArrienZinghiniCurvedScreen from './ArrienZinghiniCurvedScreen';
 import * as C from './constants';
-import Orbit from '../../Common/Controls/Orbit';
-import Flying from '../../Common/Controls/Flying';
-import useVideoPlayer from '../../Common/UI/Player/hooks/useVideoPlayer';
-import useYScroll from '../../Common/Scroll/useYScroll';
-import { a } from '@react-spring/three'
-import Stars from '../../Common/Utils/Stars'
+import { MaterialsProvider } from './MaterialsContext';
+import Orbit from '../../Common/Controls/Orbit'
 
-export function Scene({ shouldPlayVideo, yScrollNumerator = 3 }) {
+export function Scene({ shouldPlayVideo, yScrollNumerator = isMobile ? 6 : 3 }) {
     const { scene } = useThree();
     const [yScrollRange, setYScrollRange] = useState(window.innerWidth * yScrollNumerator)
     const [yScrollDenominator, setYScrollDenominator] = useState(window.innerWidth / yScrollNumerator)
@@ -39,15 +34,26 @@ export function Scene({ shouldPlayVideo, yScrollNumerator = 3 }) {
     return (
         <>
             <Stars />
+            <Orbit
+                autoRotate={true}
+                autoRotateSpeed={1.}
+                enableDamping={true}
+                dampingFactor={1}
+                enableZoom={false}
+            />
             <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
                 <Suspense fallback={null}>
-                    <a.group rotation-y={ys.to(ys => ys / yScrollDenominator)}>
+                    {/* // TODO (jeremy) add touchAction: 'none' to a.group? */}
+                    {/* // https://github.com/pmndrs/react-use-gesture */}
+                    <group>
                         <ArrienZinghiniCurvedScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
-                    </a.group>
+                    </group>
                 </Suspense>
             </MaterialsProvider>
         </>
     );
 }
+
+// style={{touchAction: 'none'}}
 
 

@@ -17,7 +17,7 @@ export const CONTENT = {
     // TODO (jeremy) punting on a cleaner solution to handling circular navigation arrows. This just needs to be defined in first and last navigation steps (so, home, and latest release.)
     lastIdx: 12,
     message:
-      "fifteen.pm invites musicians to expand their visions through the collaborative development of experimental websites. Curated by artists and technologists in New York City, the collective creates experiences of meaning and specificity online, in opposition to the internet of platforms, templates, and streams. Responding to music with multisensory worlds, each release imagines a new space for sound.",
+      "Welcome to the center. We wish you an enjoyable stay.",
     colors: {
       logo: 'white',
       overlayContent: 'white',

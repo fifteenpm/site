@@ -8,11 +8,12 @@ const MaterialsContext = React.createContext([{}, () => { }]);
 const MaterialsProvider = ({ ...props }) => {
     const [loaded, setLoaded] = useState(false);
     const [videoShaderRef, videoShader] = useResource();
-    const [videoShaderInvertedRef, videoShaderInverted] = useResource();
+    const [videoShaderFlipYRef, videoShaderFlipY] = useResource();
+    const [videoShaderFlipXRef, videoShaderFlipX] = useResource();
 
     const materials = {
         videoShader,
-        videoShaderInverted,
+        videoShaderFlipY,
     }
     useEffect(() => {
         const allMats = Object.values(materials);
@@ -27,10 +28,16 @@ const MaterialsProvider = ({ ...props }) => {
             // offset={new THREE.Vector2(0.0, 0.5)}
         />
         <VideoShader
-            materialRef={videoShaderInvertedRef}
+            materialRef={videoShaderFlipYRef}
             // side={THREE.DoubleSide}
             // offset={new THREE.Vector2(0.0, -0.5)}
             flipY={true}
+        />
+          <VideoShader
+            materialRef={videoShaderFlipXRef}
+            // side={THREE.DoubleSide}
+            // offset={new THREE.Vector2(-.99,0.0)}
+            flipX={true}
         />
         {props.children}
     </MaterialsContext.Provider >
