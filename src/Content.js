@@ -17,7 +17,7 @@ export const CONTENT = {
     // TODO (jeremy) punting on a cleaner solution to handling circular navigation arrows. This just needs to be defined in first and last navigation steps (so, home, and latest release.)
     lastIdx: 12,
     message:
-      "Welcome to the center. We wish you an enjoyable stay.",
+      "Welcome to fifteen.pm. We hope you enjoy your stay.",
     colors: {
       logo: 'white',
       overlayContent: 'white',
@@ -561,7 +561,7 @@ export const CONTENT = {
     artist: "Isn't Ours",
     // todo (jeremy) fix this navigation hack
     lastIdx: 13,
-    message: "Laurel Leaves",
+    message: "Welcome to the light. Let it warm you in its embrace. Marvel at the galaxy glowing coldly outside. Know you're safe here. With video by Arrien Zinghini.",
     purchaseLink: "https://buy.fifteen.pm/album/laurel-leaves",
     instructions: [
       {
