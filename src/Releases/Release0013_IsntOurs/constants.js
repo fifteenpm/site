@@ -2,31 +2,16 @@ import * as THREE from 'three';
 import { assetPath } from "../../Common/Utils/assets";
 
 // video 
-// export const HLS_URL = "https://d2zihajmogu5jn.cloudfront.net/bipbop-advanced/bipbop_16x9_variant.m3u8"
-// export const HLS_URL = "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8"
-// export const HLS_URL = "https://bitdash-a.akamaihd.net/content/sintel/hls/playlist.m3u8"
-// export const HLS_URL="https://s3.amazonaws.com/dev.fifteen.pm/13/video/hls/hls.m3u8"
 export const ROOM_OBJECT = assetPath("13/objects/main.glb")
 export const HLS_URL = assetPath("13/videos/hls/master.m3u8")
 export const MP4_URL = assetPath("13/videos/mobile/2x270.mp4")
 export const WEBM_URL = assetPath("13/videos/mobile/2x270.webm")
-// export const HLS_URL = assetPath("13/videos/blah/filename.m3u8")
-// export const HLS_URL = assetPath('13/videos/hls/hls.m3u8');
-// export const HLS_URL = assetPath('13/videos/the-end-crf-31-r12-ultrafast.mp4');
 export const VIDEO_DIMENSIONS = {
   x: 21,
   y: 9,
 }
 
 // tracks
-
-// export const SOURCES = [
-//   {
-//       src: HLS_URL,
-//       type: 'application/x-mpegURL',
-//   }
-// ]
-
 export const THE_END = "The End"
 export const ITS_KEPT_FROM_US = "It's Kept from Us"
 export const CLOSE_BEHIND = "Close Behind"

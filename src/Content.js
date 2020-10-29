@@ -561,8 +561,9 @@ export const CONTENT = {
     artist: "Isn't Ours",
     // todo (jeremy) fix this navigation hack
     lastIdx: 13,
-    message: "Watch the light as it reaches out into the distance to embrace itself. See through its eyes. Marvel from its womb, as the galaxy glows coldly outside. With video by Arrien Zinghini.",
+    message: "Rest in the womb of \"Laurel Leaves\", a new EP by Isn't Ours, where the cold galaxy is outside, and we're safe in here. With video by Arrien Zinghini.",
     purchaseLink: "https://buy.fifteen.pm/album/laurel-leaves",
+    purchaseLinkText: "Buy the whole album.",
     instructions: [
       {
         icon: MouseMove,
