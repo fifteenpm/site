@@ -561,22 +561,22 @@ export const CONTENT = {
     artist: "Isn't Ours",
     // todo (jeremy) fix this navigation hack
     lastIdx: 13,
-    message: "Welcome to the light. Let it warm you in its embrace. Marvel at the galaxy glowing coldly outside. Know you're safe here. With video by Arrien Zinghini.",
+    message: "Watch the light as it reaches out into the distance to embrace itself. See through its eyes. Marvel from its womb, as the galaxy glows coldly outside. With video by Arrien Zinghini.",
     purchaseLink: "https://buy.fifteen.pm/album/laurel-leaves",
     instructions: [
       {
-        icon: TwoFingerScroll,
-        text: "scroll"
+        icon: MouseMove,
+        text: "look around"
       },
     ],
     colors: {
-      logo: '#0f0',
-      navigation: '#0f0',
-      overlay: 'rgba(0, 255, 0, .8)',
-      overlayContent: '#000',
-      player: '#0f0',
-      onHover: 'magenta',
-      info: '#0f0',
+      logo: '#ff6d05',
+      navigation: '#ff6d05',
+      overlay: 'rgba(255, 109, 5, .7)',
+      overlayContent: '#fff',
+      player: '#ff6d05',
+      onHover: '#ff0000',
+      info: '#ff6d05',
     },
     videoTracks: [
       {
