@@ -1,4 +1,4 @@
 
 [submodule "src/Common"]
 	path = src/Common
-	url = https://github.com/gltd/gltd-common
+	url = https://github.com/fifteenpm/common

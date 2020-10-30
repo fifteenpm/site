@@ -9,8 +9,8 @@
     "build-dev": "webpack --mode development --config ./config/webpack.config.js",
     "build": "webpack --mode production --config ./config/webpack.config.js",
     "test": "jest",
-    "deploy-dev": "scripts/deploy.sh  s3://dev.fifteen.pm E3GRADJK034C1X gltd",
-    "deploy-prod": "scripts/deploy.sh s3://fifteen.pm     E3UT5BYCKINLI4 gltd"
+    "deploy-dev": "scripts/deploy.sh  s3://dev.fifteen.pm E3GRADJK034C1X fifteen",
+    "deploy-prod": "scripts/deploy.sh s3://fifteen.pm     E3UT5BYCKINLI4 fifteen"
   },
   "repository": {
     "type": "git",
