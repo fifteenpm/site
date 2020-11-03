@@ -4,6 +4,6 @@ import '../Release.css';
 import Scene from './Scene';
 
 export default function Canvas({ }) {
-  const { videoPlayer } = useVideoPlayer();
-  return <Scene videoPlayer={videoPlayer} />
+  const { videoTexture } = useVideoPlayer();
+  return <Scene videoTexture={videoTexture} />
 }

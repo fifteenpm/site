@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --progress --color --config ./config/webpack.config.js",
-    "start-bs": "webpack-dev-server --disableHostCheck true --progress --color --config ./config/webpack.config.js",
+    "start-public": "webpack-dev-server --host 0.0.0.0 --disableHostCheck true --progress --color --config ./config/webpack.config.js",
+    "build-dev": "webpack --mode development --config ./config/webpack.config.js",
     "build": "webpack --mode production --config ./config/webpack.config.js",
     "test": "jest",
-    "deploy-dev": "scripts/deploy.sh  s3://dev.fifteen.pm E3GRADJK034C1X gltd",
-    "deploy-prod": "scripts/deploy.sh s3://fifteen.pm     E3UT5BYCKINLI4 gltd"
+    "deploy-dev": "scripts/deploy.sh  s3://dev.fifteen.pm E3GRADJK034C1X fifteen",
+    "deploy-prod": "scripts/deploy.sh s3://fifteen.pm     E3UT5BYCKINLI4 fifteen"
   },
   "repository": {
     "type": "git",
@@ -63,18 +64,23 @@
     "sw-precache-webpack-plugin": "^0.11.5",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "url-loader": "^1.1.2",
-    "webpack": "^4.29.6",
+    "webpack": "4.43.0",
     "webpack-cli": "^3.3.0",
     "webpack-dev-server": "^3.2.1",
     "webpack-manifest-plugin": "^2.0.4"
   },
   "dependencies": {
-    "@react-spring/core": "^9.0.0-beta.33",
-    "@react-spring/three": "^9.0.0-beta.33",
+    "@react-spring/core": "^9.0.0-rc.1",
+    "@react-spring/three": "^9.0.0-rc.1",
+    "@videojs/http-streaming": "^1.13.4",
     "animejs": "^3.0.1",
     "babel-polyfill": "^6.26.0",
     "cannon": "^0.6.2",
+    "core-js": "^3",
+    "drei": "^1.5.7",
     "glslify-loader": "^2.0.0",
+    "hls.js": "^0.14.16",
+    "iphone-inline-video": "^2.2.2",
     "jest-cli": "^24.7.0",
     "lodash": "^4.17.15",
     "raw-loader": "^2.0.0",
@@ -92,7 +98,8 @@
     "simplex-noise": "^2.4.0",
     "three": "^0.111.0",
     "three-full": "^17.1.0",
-    "three-tween": "^1.0.0"
+    "three-tween": "^1.0.0",
+    "video.js": "^7.8.4"
   },
   "jest": {
     "collectCoverageFrom": [

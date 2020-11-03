@@ -1,7 +1,7 @@
 /* eslint import/no-webpack-loader-syntax: off */
 import chromaFragmentShader from '!raw-loader!glslify-loader!../../Common/Shaders/chromaKeyFragment.glsl';
 /* eslint import/no-webpack-loader-syntax: off */
-import chromaVertexShader from '!raw-loader!glslify-loader!../../Common/Shaders/chromaKeyVertex.glsl';
+import chromaVertexShader from '!raw-loader!glslify-loader!../../Common/Shaders/simpleVertex.glsl';
 /* eslint import/no-webpack-loader-syntax: off */
 import marchingCubeFragmentShader from '!raw-loader!glslify-loader!../../Common/Shaders/hgSDF.glsl';
 /* eslint import/no-webpack-loader-syntax: off */
@@ -135,19 +135,19 @@ export default class Scene extends Component {
     }
 
     initVideo = () => {
-        const { videoPlayer } = this.props;
+        const { videoTexture } = this.props;
         const refreshId = setInterval(() => {
             // the media is loaded by the player... this is in lieu of a proper callback behavior for the player.
             // if (CONSTANTS.auxMedia[0].media) { // greem video
-            if (videoPlayer.media) {
-                let videoMesh = videoPlayer.mesh;
+            if (videoTexture) {
+                // let videoMesh = videoPlayer.mesh;
                 // let videoMesh = CONSTANTS.auxMedia[0].mesh;
-                videoMesh.visible = false;
+                // videoMesh.visible = false;
                 const chromaMaterial = new THREE.ShaderMaterial({
                     uniforms: {
                         uAddDots: { type: 'b', value: false },
                         uResolution: { value: new THREE.Vector2(16, 9) },
-                        iChannel0: { value: videoMesh.material.map }
+                        iChannel0: { value: videoTexture} 
                     },
                     vertexShader: chromaVertexShader,
                     fragmentShader: chromaFragmentShader,
@@ -485,6 +485,7 @@ export default class Scene extends Component {
     setVideoTransform() {
         const { videoParents, chromaMesh } = this;
         const { section } = this.state;
+        console.log("VIDEO PARENTS:", videoParents)
         videoParents[section.location].parent.add(chromaMesh);
         chromaMesh.material.uniforms.uAddDots.value = videoParents[section.location].addDots;
         const transform = CONSTANTS.videoTransforms[section.location]
@@ -502,6 +503,7 @@ export default class Scene extends Component {
     updateVideoTransform(prevLocation, curLocation) {
         const { videoParents, chromaMesh } = this;
         if (!chromaMesh) return;
+        console.log("UPDATE VID TRANS")
         if (curLocation in videoParents) this.setVideoTransform();
         if (prevLocation in videoParents) videoParents[prevLocation].parent.remove(chromaMesh);
     }
@@ -514,6 +516,7 @@ export default class Scene extends Component {
         const { section } = this.state;
         const cameraInfo = section.camera;
         const pos = cameraInfo.position;
+        console.log("SET POSITION:", pos)
         camera.position.set(pos.x, pos.y, pos.z);
         const lookAt = cameraInfo.lookAt;
         // camera.lookAt(lookAt.x, lookAt.y, lookAt.z);

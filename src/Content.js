@@ -1,15 +1,15 @@
-import {
-  Hover,
-  MouseMove,
-  Click,
-  TwoFingerScroll,
-  ArrowKeys,
-  NoPhone,
-  SlowLoad
-} from "./Common/UI/Controls/Icons";
-
 import * as THREE from 'three';
+import {
+  ArrowKeys, Click, Hover,
+  MouseMove,
+
+
+
+  NoPhone,
+  SlowLoad, TwoFingerScroll
+} from "./Common/UI/Controls/Icons";
 import { multiSourceVideo } from './Common/Video/paths.js';
+
 
 export const CONTENT = {
   "/": {
@@ -17,7 +17,7 @@ export const CONTENT = {
     // TODO (jeremy) punting on a cleaner solution to handling circular navigation arrows. This just needs to be defined in first and last navigation steps (so, home, and latest release.)
     lastIdx: 12,
     message:
-      "fifteen.pm invites musicians to expand their visions through the collaborative development of experimental websites. Curated by artists and technologists in New York City, the collective creates experiences of meaning and specificity online, in opposition to the internet of platforms, templates, and streams. Responding to music with multisensory worlds, each release imagines a new space for sound.",
+      "Welcome to fifteen.pm. We hope you enjoy your stay.",
     colors: {
       logo: 'white',
       overlayContent: 'white',
@@ -30,7 +30,7 @@ export const CONTENT = {
   "/1": {
     artist: "YAHCEPH",
     message: 'Yahceph\'s production debut, "wun 4 jas", is composed of voice memos and buoyant pads floating somewhere between him and Jasmine, the namesake of this ode.',
-    purchaseLink: "https://fifteenpm.bandcamp.com/track/wun-4-jas",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/track/yahceph-wun-4-jas",
     tracks: [
       {
         name: "Wun 4 Jas",
@@ -57,7 +57,7 @@ export const CONTENT = {
   "/2": {
     artist: "YEAR UNKNOWN",
     message: "Jen Fong (Year Unknown) serves up frenetic, glitch-fueled footwork on this otherworldly drum disturbance.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/track/timer",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/track/year-unknown-timer",
     tracks: [
       {
         name: "Timer",
@@ -89,7 +89,7 @@ export const CONTENT = {
     artist: "OTHERE",
     message:
       "Abbi Press makes buoyant, soul-inflected tunes by day. As Othere, she explores the darker, corporeal corners of her sound.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/track/lets-beach",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/track/othere-lets-beach",
     tracks: [
       {
         name: "Let's Beach",
@@ -124,7 +124,7 @@ export const CONTENT = {
   "/4": {
     artist: "JON CANNON",
     message: "Jon Cannon's haunting house ballads are a product of his habitat: the long drag of Myrtle-Broadway where fluorescent-lit stores stock life's essentials.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/ep-1",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/album/jon-cannon-ep-1",
     tracks: [
       {
         name: "Nothing (Blood)",
@@ -175,7 +175,7 @@ export const CONTENT = {
   "/5": {
     artist: "PLEBEIAN",
     message: "Plebeian’s toolbox rattles with chains, ball-bearings and loose screws on these slammin’ single-takes of industrial techno.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/heaven",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/album/plebeian-heaven",
     tracks: [
       {
         name: "Heaven",
@@ -212,7 +212,7 @@ export const CONTENT = {
   "/6": {
     artist: "VVEISS",
     message: "Dagger at the ready, vveiss plumbs virtual depths, carving out a subsonic ceremony of refracting rhythms.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/track/escape-velocity",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/track/vveiss-escape-velocity",
     tracks: [
       {
         name: "ESCAPE VELOCITY",
@@ -239,7 +239,7 @@ export const CONTENT = {
   "/7": {
     artist: "JON FAY",
     message: "In this 22-minute meditation, Jon Fay captures the infinite pulse of the rave as it empties into the dawn.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/track/golden-groove",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/track/jon-fay-golden-groove",
     tracks: [
       {
         name: "GOLDEN GROOVE",
@@ -299,15 +299,17 @@ export const CONTENT = {
   "/8": {
     artist: "GREEM JELLYFISH",
     message: "Juicy Tender is an exploration of exodus and urban life. Though we leave the city in search of extraordinary experiences, we sometimes return to loneliness. Ultimately, refuge is not a place but a set of material conditions: Art, Food, Music, Mountain, Ocean, Family, Friend.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/juicy-tender",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/track/greem-jellyfish-juicy-tender",
     tracks: [
       {
+        sources: {
+          nonHLS: multiSourceVideo('/assets/8/videos/jt-final'),
+        },
         mediaType: 'video',
-        meta: {
+        props: {
           type: 'video', // TODO do we need this here as well?
           mimetype: 'video/mp4',
           name: 'greem-vid1',
-          sources: multiSourceVideo('/assets/8/videos/jt-final'),
           geometry: new THREE.PlaneBufferGeometry(1, 1),
           position: [0, 0, 0],
           playbackRate: 1,
@@ -361,7 +363,7 @@ export const CONTENT = {
   "/9": {
     artist: "JAVONNTTE",
     message: "Detroit Asteroid Belt 2120: All sectors go wild for the Earthy tones of house master Javonntte after his 'City Life' series surfaces off some de-bricked drives in the archives.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/city-life",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/album/javonntte-city-life-ep",
     tracks: [
       {
         name: "City Life",
@@ -413,7 +415,7 @@ export const CONTENT = {
   "/10": {
     artist: "Alien D",
     message: "Dan Creahan of Sweat Equity takes us on a hypnotic, chugging ride through the digital murk",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/jazzin-the-cube",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/album/alien-d-jazzin-the-cube",
     tracks: [
       {
         name: "Cube Jazz",
@@ -466,9 +468,9 @@ export const CONTENT = {
     ]
   },
   "/11": {
-    artist: "JWORDS",
+    artist: "JWords",
     message: "A 3D scan of JWords headspace from the tail-end of pre-Covid times. Watch it go to dust, and come into being again.",
-    purchaseLink: "https://fifteenpm.bandcamp.com/album/dancepackvol-2",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/album/jwords-dancepackvol-2",
     instructions: [
       {
         icon: TwoFingerScroll,
@@ -510,10 +512,8 @@ export const CONTENT = {
   },
   "/12": {
     artist: "HEIDI SABERTOOTH",
-    // todo (jeremy) fix this navigation hack
-    lastIdx: 12,
     message: "Heidi Sabertooth and her interstellar crew of elektroid beings warp the space-time catwalk to the power of two electro-acid supernovas and a zero-g ambient closer.",
-    purchaseLink: "https://buy.fifteen.pm/album/inside-out-ep",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/album/heidi-sabertooth-inside-out-ep",
     tracks: [
       {
         name: "Inside Out",
@@ -556,9 +556,69 @@ export const CONTENT = {
         text: "scroll to zoom"
       }
     ]
+  },
+  "/13": {
+    artist: "Isn't Ours",
+    // todo (jeremy) fix this navigation hack
+    lastIdx: 13,
+    message: "Rest in the womb of \"Laurel Leaves\", a new EP by Isn't Ours, where the cold galaxy is outside, and we're safe in here. With video by Arrien Zinghini.",
+    purchaseLink: "https://fifteeenpm.bandcamp.com/album/isnt-ours-laurel-leaves",
+    purchaseLinkText: "Buy the album",
+    instructions: [
+      {
+        icon: MouseMove,
+        text: "look around"
+      },
+    ],
+    colors: {
+      logo: '#ff6d05',
+      navigation: '#ff6d05',
+      overlay: 'rgba(255, 109, 5, .7)',
+      overlayContent: '#fff',
+      player: '#ff6d05',
+      onHover: '#ff0000',
+      info: '#ff6d05',
+    },
+    videoTracks: [
+      {
+        sources: {
+          hls: '/assets/13/videos/hls/master.m3u8',
+          nonHLS: multiSourceVideo('/assets/13/videos/mobile/2x270'),
+        },
+      },
+    ],
+    tracks: [
+      {
+        name: "The End",
+        type: "soundcloud",
+        id: "859113487",
+        secretToken: "s-KdSdKTQyHUc",
+        bpm: 136,
+      },
+      {
+        name: "It's Kept from Us",
+        type: "soundcloud",
+        id: "859113490",
+        secretToken: "s-KJdW92duKGe",
+        bpm: 140,
+      },
+      {
+        name: "Close Behind",
+        type: "soundcloud",
+        id: "859113601",
+        secretToken: "s-VpF7Njg8UuI",
+        bpm: 138,
+      },
+      {
+        name: "Laurel Leaves",
+        type: "soundcloud",
+        id: "859113565",
+        secretToken: "s-FROHSHngifQ",
+        bpm: 138,
+      },
+    ],
   }
 };
-
 
 /*
 For devving, easy to swap in:
