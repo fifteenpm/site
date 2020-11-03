@@ -44,10 +44,8 @@ export function Scene({ shouldPlayVideo, yScrollNumerator = isMobile ? 6 : 3 }) 
             <pointLight intensity={100}/>
             <MaterialsProvider shouldPlayVideo={shouldPlayVideo}>
                 <Suspense fallback={null}>
-                    {/* // TODO (jeremy) add touchAction: 'none' to a.group? */}
-                    {/* // https://github.com/pmndrs/react-use-gesture */}
                     <group>
-                        <ArrienZinghiniCurvedScreen width={C.VIDEO_DIMENSIONS.x} height={C.VIDEO_DIMENSIONS.y} />
+                        <ArrienZinghiniCurvedScreen  />
                     </group>
                 </Suspense>
             </MaterialsProvider>
