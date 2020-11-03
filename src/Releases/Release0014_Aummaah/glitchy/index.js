@@ -2,11 +2,11 @@ import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { apply as applyThree, Canvas, extend, useFrame, useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import TileGenerator from "../../Utils/TileGenerator";
-import { CityTile } from "./tiles";
+import TileGenerator from "../../../Common/Utils/TileGenerator";
+import { Tennis } from "./tiles";
 import { assetPath14 } from "./utils";
-import { useGLTF } from "../../Utils/hooks";
-import { Effects } from "../../Utils/Effects";
+import { useGLTF } from "../../../Common/Utils/hooks";
+import { Effects } from "../../../Common/Effects/Effects";
 import { BUILDINGS_URL } from "./constants";
 import "./index.css";
 
@@ -30,7 +30,7 @@ function Controls() {
     );
 }
 
-function Scene() {
+export default function Glitchy() {
     /* Note: Known behavior that useThree re-renders childrens thrice:
        issue: https://github.com/drcmda/react-three-fiber/issues/66
        example: https://codesandbox.io/s/use-three-renders-thrice-i4k6c
@@ -71,7 +71,7 @@ function Scene() {
             <TileGenerator
                 tileSize={1}
                 grid={tileGridSize}
-                tileComponent={CityTile}
+                tileComponent={Tennis}
                 tileResources={buildings}
             />
             <directionalLight intensity={3.5} position={[-25, 25, -25]} />
@@ -90,16 +90,16 @@ function Scene() {
     );
 }
 
-export default function Release0009_Javonntte({ }) {
-    return (
-        <>
-            <Canvas id="canvas"
-                onCreated={({ gl }) => {
-                    gl.shadowMap.enabled = true
-                    gl.shadowMap.type = THREE.PCFSoftShadowMap
-                }}>
-                <Scene />
-            </Canvas>
-        </>
-    );
-}
+// export default function Release0009_Javonntte({ }) {
+//     return (
+//         <>
+//             <Canvas id="canvas"
+//                 onCreated={({ gl }) => {
+//                     gl.shadowMap.enabled = true
+//                     gl.shadowMap.type = THREE.PCFSoftShadowMap
+//                 }}>
+//                 <Scene />
+//             </Canvas>
+//         </>
+//     );
+// }

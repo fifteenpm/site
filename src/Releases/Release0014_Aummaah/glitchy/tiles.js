@@ -1,13 +1,14 @@
 import React from 'react';
 import { useResource } from 'react-three-fiber';
 import * as THREE from 'three';
-import { TronBuildingShader } from '../../Shaders/TronBuildingShader';
-import { randVal } from "./utils";
+import { TronMaterial } from '../../../Common/Materials/TronMaterial'
+import { randVal } from "./utils"
 
 function TileBuilding(props) {
+    console.log("PROPS", props)
     const [materialRef, material] = useResource();
     return <>
-        <TronBuildingShader materialRef={materialRef} {...props} />
+        <TronMaterial materialRef={materialRef} {...props} />
         {material && props.tileResources ? (
             <mesh
                 geometry={randVal(props.tileResources)}
@@ -25,7 +26,7 @@ function TileStreet(props) {
     const [geometryRef, geometry] = useResource();
     return <>
         <boxGeometry args={[3., .01]} ref={geometryRef} />
-        <TronBuildingShader materialRef={materialRef} {...props} />
+        <TronMaterial materialRef={materialRef} {...props} />
         {/* <meshBasicMaterial ref={materialRef} color={"red"} /> */}
         {material && geometry && (
             <mesh
@@ -44,7 +45,7 @@ function TileFloor(props) {
     return (
         <>
             {/* <meshBasicMaterial ref={materialRef} color="white" /> */}
-            <TronBuildingShader materialRef={materialRef} {...props} />
+            <TronMaterial materialRef={materialRef} {...props} />
             <planeGeometry args={[props.size, props.size]} ref={geometryRef} />
             {material && geometry && (
                 <mesh
@@ -64,7 +65,7 @@ function TileElement(props) {
     else return TileBuilding(props);
 }
 
-export const CityTile = function (props) {
+export const Tennis = function (props) {
     console.log("RENDER CityTile");
     return <>
         <TileFloor {...props} />
