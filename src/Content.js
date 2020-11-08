@@ -15,7 +15,7 @@ export const CONTENT = {
   "/": {
     home: true, // TODO (jeremy) rm
     // TODO (jeremy) punting on a cleaner solution to handling circular navigation arrows. This just needs to be defined in first and last navigation steps (so, home, and latest release.)
-    lastIdx: 12,
+    lastIdx: 13,
     message:
       "Welcome to fifteen.pm. We hope you enjoy your stay.",
     colors: {

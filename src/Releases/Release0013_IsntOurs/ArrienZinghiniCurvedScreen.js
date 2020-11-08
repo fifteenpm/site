@@ -18,8 +18,8 @@ export default function ArrienZinghiniCurvedScreen() {
     });
     return <>
         <group>
-            <mesh material={videoShader} geometry={nodes.Screen3.geometry} rotation-z={THREE.Math.degToRad(90)}/>
-            <mesh material={videoShaderFlipY} geometry={nodes.Screen4.geometry} rotation-z={THREE.Math.degToRad(90)}/>
+            <mesh material={videoShader} geometry={nodes.Screen3.geometry} rotation-z={THREE.Math.degToRad(180)}/>
+            <mesh material={videoShaderFlipY} geometry={nodes.Screen4.geometry} rotation-z={THREE.Math.degToRad(180)}/>
         </group>
     </>
 }

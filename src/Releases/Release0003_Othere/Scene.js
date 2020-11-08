@@ -545,7 +545,7 @@ export default class Scene extends PureComponent {
         let onLoPassSphere = false;
 
         // first check if the mouse has intersected with the inner sphere
-        if (insideInnerSphere()) {
+        if (this.insideInnerSphere()) {
             let minfilterrange = 0.0;
             let maxfilterrange = (radius + filter_radius_buffer);
             let adj = Math.max(Math.abs(this.camera.position.z), Math.abs(this.camera.position.y), Math.abs(this.camera.position.x));
