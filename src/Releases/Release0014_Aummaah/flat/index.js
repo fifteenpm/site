@@ -9,8 +9,10 @@ import { useGLTF } from "../../../Common/Utils/hooks";
 import { BUILDINGS_URL } from "./constants";
 import "./index.css";
 import Orbit from '../../../Common/Controls/Orbit';
+import FirstPerson from '../../../Common/Controls/FirstPerson'
+import Flying from '../../../Common/Controls/Flying'
 // extend({ OrbitControls });
-
+import { useKeyPress } from '../../../Common/Utils/hooks';
 
 // function Controls() {
 //     const controls = useRef();
@@ -37,6 +39,8 @@ export default function Flat() {
      */
     const { camera, size } = useThree();
     const controls = useRef();
+
+    
     const [tileGridSize, setTileGrideSize] = useState(10);
     const [loadingBuildings, buildings] = useGLTF(BUILDINGS_URL, (gltf) => {
         const geometries = {}
@@ -59,16 +63,17 @@ export default function Flat() {
         camera.position.y = 3.;
         camera.lookAt(lookAtPos);
     })
+    
     const url = assetPath14("objects/structures/weirdos1.glb");
     return (
         <>
-             <Orbit
-            passthroughRef={controls}
-            // args={[camera, canvas]}
-            enableDamping
-            dampingFactor={0.1}
-            rotateSpeed={0.1}
-        />
+            <Flying 
+                passthroughRef={controls}
+                // args={[camera, canvas]}
+                // enableDamping
+                // dampingFactor={0.1}
+                // rotateSpeed={0.1}
+            />
             <TileGenerator
                 tileSize={1}
                 grid={tileGridSize}
