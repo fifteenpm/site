@@ -66,7 +66,6 @@ function TileElement(props) {
 }
 
 export const Tennis = function (props) {
-    console.log("RENDER CityTile");
     return <>
         <TileFloor {...props} />
         <TileElement {...props} />
