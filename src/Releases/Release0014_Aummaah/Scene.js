@@ -7,7 +7,6 @@ import Flying from '../../Common/Controls/Flying'
 import { MaterialsProvider } from './MaterialsContext.js';
 import FirstPerson from '../../Common/Controls/FirstPerson'
 import * as THREE from 'three';
-
 // crazy glitch 778e1868d6e437efd56591ac910226644d883c0f
 // flat tiling a76fc468aae5e1d690c87a9935a71a797c1ae8a2
 
@@ -20,7 +19,7 @@ export function Scene({ }) {
     }, [])
     useFrame(() => {
         // fly forward thru the scene
-        // camera.position.z -= .01
+        camera.position.z -= .01
         camera.position.set(camera.position.x, THREE.Math.clamp(camera.position.y, .1, .5), camera.position.z)
         // console.log("raycaster", raycaster)
         // camera.lookAt(raycaster.ray.direction.x, raycaster.ray.direction.y, 0)

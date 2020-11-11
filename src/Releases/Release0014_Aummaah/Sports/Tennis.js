@@ -1,5 +1,5 @@
-import React from 'react';
-import { useResource } from 'react-three-fiber';
+import React, { useMemo, useRef } from 'react';
+import { useFrame, useResource } from 'react-three-fiber';
 import * as THREE from 'three';
 
 
@@ -14,8 +14,16 @@ function TennisCourt(props) {
 
 
 function TennisBall(props) {
+    const ball = useRef()
+    useFrame(() => {
+        if (!ball.current) return;
+        ball.current.rotation.y += .01
+    })
+    const pos = useMemo(() =>{
+        return [props.pos.x, props.pos.y + .2, props.pos.z]
+    })
     return (
-        <mesh position={props.pos} scale={[.1, .1, .1]} material={props.tennisBall}>
+        <mesh position={pos} scale={[.1, .1, .1]} material={props.tennisBall} ref={ball} rotation-y={props.pos.y}>
             <sphereBufferGeometry attach="geometry" />
         </mesh>
     )
