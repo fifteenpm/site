@@ -7,9 +7,7 @@ import { MaterialsProvider } from './MaterialsContext.js';
 import { Suspense } from 'react';
 // crazy glitch 778e1868d6e437efd56591ac910226644d883c0f
 // flat tiling a76fc468aae5e1d690c87a9935a71a797c1ae8a2
-useEffect(() => {
-    
-})
+
 export function Scene({ }) {
     return <>
         <Flying />
