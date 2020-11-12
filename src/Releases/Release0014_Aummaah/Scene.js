@@ -15,12 +15,18 @@ export function Scene({ }) {
     useEffect(() => {
         console.log(camera.position)
         camera.position.set(0,.1,5)
-        // camera.lookAt(0, 0, 0)
+        camera.lookAt(0, 0, 0)
+        
     }, [])
     useFrame(() => {
+        console.log(camera.rotation)
+//         _x: -1.2632205015650546
+// _y: -0.02564309799712867
+// _z: -0.08054237130475483
         // fly forward thru the scene
-        camera.position.z -= .01
-        camera.position.set(camera.position.x, THREE.Math.clamp(camera.position.y, .1, .5), camera.position.z)
+        // camera.position.z -= .01
+        camera.position.set(camera.position.x, THREE.Math.clamp(camera.position.y, .4, .5), camera.position.z)
+        camera.rotation.set(THREE.Math.clamp(camera.rotation.x, -1.26, -1.2), camera.rotation.y, camera.rotation.z)
         // console.log("raycaster", raycaster)
         // camera.lookAt(raycaster.ray.direction.x, raycaster.ray.direction.y, 0)
         // console.log(raycaster.ray.direction.x, raycaster.ray.direction.y, 0)
