@@ -72,6 +72,8 @@
   "dependencies": {
     "@react-spring/core": "^9.0.0-rc.1",
     "@react-spring/three": "^9.0.0-rc.1",
+    "@react-three/cannon": "^0.5.3",
+    "@react-three/xr": "^1.1.0",
     "@videojs/http-streaming": "^1.13.4",
     "animejs": "^3.0.1",
     "babel-polyfill": "^6.26.0",
