@@ -15,14 +15,14 @@ export function Scene({ }) {
     useEffect(() => {
         // hack to get physics to work :(
         gl.xr = {isPresenting: false}
-        camera.lookAt(0, 1, 0)
-        camera.rotation.x = -2
-        camera.position.y = .9
+        // camera.lookAt(0, 1, 0)
+        // camera.rotation.x = -2
+        // camera.position.y = .9
     }, [])
     useFrame(() => {
         // DEL ME (devving)
-        camera.far = 99999
-        camera.near = .000001
+        // camera.far = 99999
+        // camera.near = .000001
         // console.log(camera.rotation)
         // this was the rotation that looked good:
         // _x: -1.2632205015650546
@@ -39,7 +39,7 @@ export function Scene({ }) {
     })
     return <>
         {/* <Flying /> */}
-        <Orbit autoRotate={false}/>
+        {/* <Orbit autoRotate={false}/> */}
         {/* <FirstPerson /> */}
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
         <ambientLight />

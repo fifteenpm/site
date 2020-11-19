@@ -1,9 +1,9 @@
 import { usePlane, useSphere } from '@react-three/cannon';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useContext, useMemo, useRef, useState } from 'react';
 import { useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
 import niceColors from 'nice-color-palettes'
-
+import { MaterialsContext } from '../MaterialsContext'
 console.log("NICE COLORS", niceColors)
 // function TennisCourtSurface(props) {
 //     const [plane] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], position: [props.pos.x, props.pos.y, props.pos.z] }))
@@ -79,9 +79,11 @@ const tempColor = new THREE.Color()
 
 
 function TennisBall(props) {
+    const { tennisBall } = useContext(MaterialsContext)
     const [ball] = useSphere(() => ({
         mass: .01,
-        position: [props.pos.x, props.pos.y + .1, props.pos.z],
+        // position: [props.pos.x, props.pos.y + .1, props.pos.z],
+        position: [0, 2, 7],
         linearDamping: 0.3,
     })) //{ mass: 10 }))
     // const ball = useRef()
@@ -93,14 +95,14 @@ function TennisBall(props) {
 
     return (
         // rotation-y={props.pos.y} scale={[.1,.1,.1]}>
-        <mesh material={props.tennisBall} ref={ball} scale={[.1, .1, .1]}>
+        <mesh material={tennisBall} ref={ball}>
             {/* <sphereBufferGeometry attach="geometry" /> */}
-            <sphereBufferGeometry attach="geometry" args={[props.size, props.size * 8]} />
+            <sphereBufferGeometry attach="geometry" args={[1, 8]} />
         </mesh>
     )
 }
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
-function Boxes({ ...props }) {
+function TennisCourt({ ...props }) {
     const [hovered, set] = useState()
     const colorArray = useMemo(() => Float32Array.from(new Array(numInstances).fill().flatMap((_, i) => {
         console.log('setting color:', colors[i], colors)
@@ -129,19 +131,12 @@ function Boxes({ ...props }) {
                 const timeUnit = 4
                 const timeFract = timeUnit - time % timeUnit + .02 / timeUnit
                 if (((z + 1) / dimensionSizeZ) < timeFract && x % 2 == 0) {
-                    // if (z > 4) {
-
-
                     tempColor.set("white").toArray(colorArray, id * 3)
-
                 } else if (z % 2 == 0) {
                     tempColor.set("yellow").toArray(colorArray, id * 3)
                 } else {
                     tempColor.set("teal").toArray(colorArray, id * 3)
-
                 }
-
-
                 // tempColor.set(colors[id]).toArray(colorArray, id)
                 // if (time % 1 * z > interval/2){
                 //     tempColor.set()
@@ -182,9 +177,7 @@ function Boxes({ ...props }) {
 
 export const Tennis = function (props) {
     return <>
-        {/* <TennisCourt {...props} /> */}
-
-        {/* <TennisBall {...props} /> */}
-        <Boxes />
+        <TennisBall {...props} />
+        <TennisCourt />
     </>;
 }

@@ -16,6 +16,9 @@ export default function AummaahCanvas({ }) {
                     <Canvas
                         id="canvas"
                         pixelRatio={window.devicePixelRatio}
+                        shadowMap
+                        sRGB
+                        camera={{ position: [0, 5, 12], fov: 50 }} 
                         onCreated={({ gl }) => {
                             gl.shadowMap.enabled = true;
                             gl.gammaInput = true;
