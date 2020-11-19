@@ -45,12 +45,13 @@ export default function Sports() {
         //     size = 1000,
         >
             {/* <TennisCourt pos={{x: 0, y:0, z:0}} size={.5}/> */}
-            < TileGenerator
+            {/* < TileGenerator
                 tileSize={1}
                 gridSize={3}
                 tileComponent={Tennis}
                 tileProps={materials}
-            />
+            /> */}
+        <Tennis />
         </Physics >
     );
 }
