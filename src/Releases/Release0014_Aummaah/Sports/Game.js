@@ -123,10 +123,7 @@ export default function () {
         //   shadow-bias={-0.0001}
         // /> */}
 
-      <mesh position={[0, 0, -10]} receiveShadow>
-        <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
-        <meshPhongMaterial attach="material" color="#172017" />
-      </mesh>
+    
       <ContactGround />
       <Ball />
       {/* {!welcome && <Ball />} */}
