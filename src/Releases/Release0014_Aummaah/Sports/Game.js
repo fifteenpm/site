@@ -62,10 +62,9 @@ function Paddle() {
     api.rotation.set(0, 0, values.current[1])
     // Left/right mouse movement rotates it a liitle for effect only
     model.current.rotation.x = lerp(model.current.rotation.x, 0, 0.2)
-    model.current.rotation.y = values.current[0]
+    // model.current.rotation.y = values.current[0]
   })
   const { tennisBall } = useContext(MaterialsContext)
-  console.log("TENNIS BALL", tennisBall)
   return (
     <mesh ref={ref} dispose={null}>
       <group ref={model} position={[-0.05, 0.37, 0.3]} scale={[0.15, 0.15, 0.15]}>

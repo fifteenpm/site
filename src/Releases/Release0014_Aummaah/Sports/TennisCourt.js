@@ -26,8 +26,10 @@ function TennisCourtSurface({ color, ...props }) {
         </mesh>
     )
 }
-const dimensionSizeZ = 25
-const dimensionSizeX = 10
+const dimensionSizeZ = 5
+const dimensionSizeX = 8
+const scaleX = 10
+const scaleZ = 5
 const dimensionSizeY = 10
 const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
 const tempObject = new THREE.Object3D()
@@ -102,7 +104,7 @@ function TennisBall(props) {
 }
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
 export default function TennisCourt({ ...props }) {
-    const [hovered, set] = useState()
+    // const [hovered, set] = useState()
     const colorArray = useMemo(() => Float32Array.from(new Array(numInstances).fill().flatMap((_, i) => {
         return tempColor.set(colors[i]).toArray()
     })), [])
@@ -119,12 +121,6 @@ export default function TennisCourt({ ...props }) {
             // for (let y = 0; y < dimensionSizeY; y++)
             for (let z = 0; z < dimensionSizeZ; z++) {
                 const id = i++
-                // const colorOffset = i
-                // const colorIdxOffset = Math.min(Math.floor(time % 1 * interval + id), colorArray.length - 1)
-                // const colorIdxOffset = Math.floor(time % 1 * colorArray.length) + id % colorArray.length
-
-                // console.log("colorOffset", colorIdxOffset, time % 1, "colorArray.length", colorArray.length)
-                // tempColor.set(colors[id]).toArray(colorArray, colorIdxOffset)
                 const timeUnit = 4
                 const timeFract = timeUnit - time % timeUnit + .02 / timeUnit
                 if (((z + 1) / dimensionSizeZ) < timeFract && x % 2 == 0) {
@@ -134,27 +130,12 @@ export default function TennisCourt({ ...props }) {
                 } else {
                     tempColor.set("teal").toArray(colorArray, id * 3)
                 }
-                // tempColor.set(colors[id]).toArray(colorArray, id)
-                // if (time % 1 * z > interval/2){
-                //     tempColor.set()
-                // }
-                // tempColor.set(colors[id]).toArray(colorArray, Math.min(Math.floor(time % 1 * interval + id), colorArray.length - 1))
                 ref.current.geometry.attributes.color.needsUpdate = true
-                //colors[id].toArray(colorArray, Math.floor(time) + id)
-                // tempObject.position.set(5 - x, 5 - y, 5 - z)
-                // tempObject.rotation.y = Math.sin(x / 4 + time) + Math.sin(y / 4 + time) + Math.sin(z / 4 + time)
-                // tempObject.rotation.z = tempObject.rotation.y * 2
-                // if (hovered !== previous.current) {
-                //     tempColor.set(id === hovered ? 'white' : colors[id]).toArray(colorArray, id * 3)
-                //     ref.current.geometry.attributes.color.needsUpdate = true
-                // }
-                // const scale = id === hovered ? 2 : 1
-                // tempObject.scale.set(scale, scale, scale)
-                tempObject.rotation.x = Math.PI / 2
+                tempObject.rotation.x = -Math.PI / 2
                 tempObject.position.set(
-                    (1 - x) + (dimensionSizeX/3),
-                    0,
-                    (1 - z) + (dimensionSizeZ / 3),
+                    (x - dimensionSizeX / 2) * scaleX,
+                    -5,
+                    (z - dimensionSizeZ / 2) * scaleZ,
                 )
                 tempObject.updateMatrix()
                 ref.current.setMatrixAt(id, tempObject.matrix)
@@ -163,13 +144,14 @@ export default function TennisCourt({ ...props }) {
     })
 
 
+
     return (
         <instancedMesh ref={ref} args={[null, null, numInstances]} >
-            {/* <planeBufferGeometry attach="geometry" args={[0.7, 0.7]}> */}
-            <boxBufferGeometry attach="geometry" args={[0.7, 0.7, 0.7]}>
+            <planeBufferGeometry attach="geometry" args={[scaleX - .1, scaleZ - .1]}>
+                {/* <boxBufferGeometry attach="geometry" args={[0.7, 0.7, 0.7]}> */}
                 <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
-            </boxBufferGeometry>
-            {/* </planeBufferGeometry> */}
+                {/* </boxBufferGeometry> */}
+            </planeBufferGeometry>
             <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors} />
         </instancedMesh>
     )
