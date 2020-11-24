@@ -4,7 +4,7 @@ import { useFrame } from 'react-three-fiber';
 import * as THREE from 'three';
 import niceColors from 'nice-color-palettes'
 import { MaterialsContext } from '../MaterialsContext'
-console.log("NICE COLORS", niceColors)
+
 // function TennisCourtSurface(props) {
 //     const [plane] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], position: [props.pos.x, props.pos.y, props.pos.z] }))
 //     // const plane = useRef()
@@ -49,7 +49,6 @@ const colors = new Array(numInstances).fill().map(() => 0xff00ff)
 //     // // const gonnaUse = niceColors[17][useIdx]
 //     return color
 // })
-console.log("COLORS:", colors[0], colors[1], colors[5001])
 const tempColor = new THREE.Color()
 
 // function TennisCourt({ numInstances = 10, ...props }) {
@@ -108,7 +107,6 @@ function TennisCourt({ ...props }) {
         console.log('setting color:', colors[i], colors)
         return tempColor.set(colors[i]).toArray()
     })), [])
-    console.log("COLOR ARRAY LENGTH", colorArray.length, 'numInstances', numInstances)
     const ref = useRef()
     const previous = useRef()
     useEffect(() => void (previous.current = hovered), [hovered])
