@@ -72,7 +72,7 @@ function Paddle() {
         {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
         {/* children={count.toString()} /> */}
         <group rotation={[0, -0.04, 0]} scale={[141.94, 141.94, 141.94]}>
-          <mesh castShadow receiveShadow material={tennisBall} geometry={nodes.Plane.geometry} />
+          <mesh castShadow receiveShadow material={tennisBall} geometry={nodes.Plane.geometry} rotation-x={Math.PI/2}/>
           {/* <mesh castShadow receiveShadow material={materials.wood} geometry={nodes.mesh_0.geometry} /> */}
           {/* <mesh castShadow receiveShadow material={materials.side} geometry={nodes.mesh_1.geometry} /> */}
           {/* <mesh castShadow receiveShadow material={materials.foam} geometry={nodes.mesh_2.geometry} /> */}
@@ -121,7 +121,6 @@ function ContactGround() {
     rotation: [-Math.PI / 2, 0, 0],
     position: [0, -10, 0],
     onCollide: () => {
-      console.log("COLLIDE", gameIsOn)
       setGameIsOn(false)
       setTimeout(() => {
         setGameIsOn(true)
@@ -132,22 +131,8 @@ function ContactGround() {
 }
 
 export default function Game() {
-  // const welcome = useStore(state => state.welcome)
-  // const { reset } = useStore(state => state.api)
-
-  // const onClick = useCallback(() => welcome && reset(false), [welcome, reset])
-  //
-  // const {ballHi}
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameIsOn } = useStore(state => state.api)
-  useFrame(() => {
-    console.log(gameIsOn)
-
-    // startGameOver()
-
-    // }
-  })
-
   return (
     <>
       {/* <Canvas shadowMap sRGB camera={{ position: [0, 5, 12], fov: 50 }} onClick={onClick}>

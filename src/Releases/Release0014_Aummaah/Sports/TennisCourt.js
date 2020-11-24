@@ -101,15 +101,14 @@ function TennisBall(props) {
     )
 }
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
-function TennisCourt({ ...props }) {
+export default function TennisCourt({ ...props }) {
     const [hovered, set] = useState()
     const colorArray = useMemo(() => Float32Array.from(new Array(numInstances).fill().flatMap((_, i) => {
-        console.log('setting color:', colors[i], colors)
         return tempColor.set(colors[i]).toArray()
     })), [])
     const ref = useRef()
-    const previous = useRef()
-    useEffect(() => void (previous.current = hovered), [hovered])
+    // const previous = useRef()
+    // useEffect(() => void (previous.current = hovered), [hovered])
     const interval = Math.floor(Math.sqrt(numInstances))
     useFrame(state => {
         const time = state.clock.getElapsedTime()
@@ -152,7 +151,11 @@ function TennisCourt({ ...props }) {
                 // const scale = id === hovered ? 2 : 1
                 // tempObject.scale.set(scale, scale, scale)
                 tempObject.rotation.x = Math.PI / 2
-                tempObject.position.set(1 - x, 0, 1 - z)
+                tempObject.position.set(
+                    (1 - x) + (dimensionSizeX/3),
+                    0,
+                    (1 - z) + (dimensionSizeZ / 3),
+                )
                 tempObject.updateMatrix()
                 ref.current.setMatrixAt(id, tempObject.matrix)
             }
@@ -172,10 +175,3 @@ function TennisCourt({ ...props }) {
     )
 }
 
-
-export const Tennis = function (props) {
-    return <>
-        <TennisBall {...props} />
-        <TennisCourt />
-    </>;
-}

@@ -4,7 +4,7 @@ import { useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { MaterialsContext } from '../MaterialsContext';
 
-import { Tennis } from './Tennis'
+import  TennisCourt  from './TennisCourt'
 import TileGenerator from '../../../Common/Utils/TileGenerator'
 import  Game  from './Game.js'
 
@@ -28,7 +28,7 @@ export default function Sports() {
             }}
             gravity={[0, -40, 0]}
             allowSleep={false}>
-            {/* <Tennis /> */}
+            <TennisCourt />
             <Game />
         </Physics >
     );
