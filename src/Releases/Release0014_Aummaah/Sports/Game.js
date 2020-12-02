@@ -3,7 +3,7 @@
 // use-cannon is a hook around the cannon.js physics library: https://github.com/react-spring/use-cannon
 import { useBox, usePlane, useSphere } from '@react-three/cannon';
 import clamp from "lodash-es/clamp";
-import React, { Suspense, useCallback, useContext, useEffect, useRef } from "react";
+import React, { useMemo, Suspense, useCallback, useContext, useEffect, useRef } from "react";
 import { useFrame, useLoader } from "react-three-fiber";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -14,7 +14,7 @@ import { MaterialsContext } from '../MaterialsContext';
 import earthImg from "./resources/cross.jpg";
 import pingSound from "./resources/ping.mp3";
 import Text from "./Text";
-
+// import TennisCourt from './TennisCourt';
 // https://github.com/mattdesl/lerp/blob/master/index.js
 function lerp(v0, v1, t) {
   return v0 * (1 - t) + v1 * t
@@ -26,9 +26,9 @@ const [useStore] = create(set => ({
   // count: 0,
   gameIsOn: true,
   api: {
-   
+
     setGameIsOn: gameIsOn => set({ gameIsOn })
-      // console.log("gameIsOn set to:", gameIsOn)
+    // console.log("gameIsOn set to:", gameIsOn)
   }
 
   // pong(velocity) {
@@ -51,27 +51,30 @@ function Paddle() {
   // const count = useStore(state => state.count)
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: [3.4, 1, 3.5], })) //onCollide: e => pong(e.contact.impactVelocity) }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: [10, 10, 10], onCollide: e => console.log("COLLIDE") }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
     values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
     values.current[1] = lerp(values.current[1], (state.mouse.x * Math.PI) / 5, 0.2)
-    api.position.set(state.mouse.x * 10, state.mouse.y * 5, 0)
+    api.position.set(state.mouse.x * 10,  0, -state.mouse.y * 5)
     api.rotation.set(0, 0, values.current[1])
     // Left/right mouse movement rotates it a liitle for effect only
     model.current.rotation.x = lerp(model.current.rotation.x, 0, 0.2)
     // model.current.rotation.y = values.current[0]
   })
-  const { tennisBall } = useContext(MaterialsContext)
+  const { tennisBall, wireframe } = useContext(MaterialsContext)
   return (
     <mesh ref={ref} dispose={null}>
-      <group ref={model} position={[-0.05, 0.37, 0.3]} scale={[0.15, 0.15, 0.15]}>
+      <group ref={model}  >
         {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
         {/* children={count.toString()} /> */}
-        <group rotation={[0, -0.04, 0]} scale={[141.94, 141.94, 141.94]}>
-          <mesh castShadow receiveShadow material={tennisBall} geometry={nodes.Plane.geometry} rotation-x={Math.PI/2}/>
+        <group rotation={[0, -0.04, 0]} >
+          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_1.geometry} />
+          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_2.geometry} />
+          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_3.geometry} />
+          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_4.geometry} />
           {/* <mesh castShadow receiveShadow material={materials.wood} geometry={nodes.mesh_0.geometry} /> */}
           {/* <mesh castShadow receiveShadow material={materials.side} geometry={nodes.mesh_1.geometry} /> */}
           {/* <mesh castShadow receiveShadow material={materials.foam} geometry={nodes.mesh_2.geometry} /> */}
@@ -90,7 +93,7 @@ function Ball({ onInit }) {
   // const { startOver } = useStore(state => state.startOver)
   // const [gameShouldStart]
 
-  const [ref] = useSphere(() => ({ mass: 1, args: 0.5, position: [0, 5, 0] }))
+  const [ref] = useSphere(() => ({ mass: 1, args: 0.5, position: [0, 5, 0]}))//.1] }))
   // useEffect(() => {
   //   if (startOver){
   //     ref.current.position.set(ballStartPosition)
@@ -98,6 +101,7 @@ function Ball({ onInit }) {
   //   }
 
   useEffect(() => {
+    
     onInit()
   }, [])
 
@@ -109,6 +113,82 @@ function Ball({ onInit }) {
     </mesh>
   )
 }
+
+const dimensionSizeZ = 15
+const dimensionSizeX = 30
+const scaleX = .75
+const scaleZ = 5
+const dimensionSizeY = 10
+const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
+const tempObject = new THREE.Object3D()
+const colors = new Array(numInstances).fill().map(() => 0xff00ff)
+const tempColor = new THREE.Color()
+
+function TennisCourt({ ...props }) {
+  // const [hovered, set] = useState()
+  const colorArray = useMemo(() => Float32Array.from(new Array(numInstances).fill().flatMap((_, i) => {
+      return tempColor.set(colors[i]).toArray()
+  })), [])
+
+  const { setGameIsOn } = useStore(state => state.api)
+  // const [ref] = usePlane((index) => ({
+  //     type: "Static",
+  //     rotation: [-Math.PI / 2, 0, 0],
+  //     // position: (x - dimensionSizeX / 2) * scaleX,
+  //     //     -5,
+  //     //     (z - dimensionSizeZ / 2) * scaleZ,
+  //     // )
+  //     onCollide: () => {
+  //       console.log("HIT THE FLOOR")
+  //       setGameIsOn(false)
+  //       setTimeout(() => {
+  //         setGameIsOn(true)
+  //       }, 2000);
+  //     }
+  //   }))
+  const ref = useRef()
+  // const previous = useRef()
+  // useEffect(() => void (previous.current = hovered), [hovered])
+  const interval = Math.floor(Math.sqrt(numInstances))
+  useFrame(state => {
+      const time = state.clock.getElapsedTime()
+      // ref.current.rotation.x = Math.PI / 2
+      // ref.current.rotation.y = Math.sin(time / 2)
+      let i = 0
+      for (let x = 0; x < dimensionSizeX; x++)
+          // for (let y = 0; y < dimensionSizeY; y++)
+          for (let z = 0; z < dimensionSizeZ; z++) {
+              const id = i++
+              const timeUnit = 4
+              const timeFract = timeUnit - time % timeUnit + .02 / timeUnit
+              if (((z + 1) / dimensionSizeZ) < timeFract && x % 2 == 0) {
+                  tempColor.set("white").toArray(colorArray, id * 3)
+              } else if (z % 2 == 0) {
+                  tempColor.set("yellow").toArray(colorArray, id * 3)
+              } else {
+                  tempColor.set("teal").toArray(colorArray, id * 3)
+              }
+              ref.current.geometry.attributes.color.needsUpdate = true
+              tempObject.updateMatrix()
+              ref.current.setMatrixAt(id, tempObject.matrix)
+          }
+      ref.current.instanceMatrix.needsUpdate = true
+  })
+
+
+
+  return (
+      <instancedMesh ref={ref} args={[null, null, numInstances]} >
+          <planeBufferGeometry attach="geometry" args={[scaleX - .2, scaleZ - .2]}>
+              {/* <boxBufferGeometry attach="geometry" args={[0.7, 0.7, 0.7]}> */}
+              <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
+              {/* </boxBufferGeometry> */}
+          </planeBufferGeometry>
+          <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors} />
+      </instancedMesh>
+  )
+}
+
 
 function ContactGround() {
   // When the ground was hit we reset the game ...
@@ -149,7 +229,7 @@ export default function Game() {
         //   shadow-bias={-0.0001}
         // /> */}
 
-
+      {/* <TennisCourt /> */}
       <ContactGround />
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
       {/* {!welcome && <Ball />} */}

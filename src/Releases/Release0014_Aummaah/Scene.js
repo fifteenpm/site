@@ -8,7 +8,8 @@ import { MaterialsProvider } from './MaterialsContext.js';
 import Sports from './Sports/Sports.js';
 // crazy glitch 778e1868d6e437efd56591ac910226644d883c0f
 // flat tiling a76fc468aae5e1d690c87a9935a71a797c1ae8a2
-import { BloomFilmEffect } from '../../Common/Effects/Effects'
+import { BloomEffect } from '../../Common/Effects/Effects'
+import TennisCourt from './Sports/TennisCourt'
 
 export function Scene({ }) {
     const { camera, raycaster,gl } = useThree()
@@ -39,14 +40,15 @@ export function Scene({ }) {
     })
     return <>
         {/* <Flying /> */}
-        {/* <Orbit autoRotate={false}/> */}
+        <Orbit autoRotate={false}/>
         {/* <FirstPerson /> */}
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
         <ambientLight />
-        <BloomFilmEffect />
+        <BloomEffect />
         <MaterialsProvider>
             <Suspense fallback={null}>
                 <Sports />
+                <TennisCourt />
             </Suspense>
         </MaterialsProvider>
     </>
