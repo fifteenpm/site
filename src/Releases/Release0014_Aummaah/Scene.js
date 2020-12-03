@@ -10,16 +10,16 @@ import Sports from './Sports/Sports.js';
 // flat tiling a76fc468aae5e1d690c87a9935a71a797c1ae8a2
 import { BloomEffect } from '../../Common/Effects/Effects'
 import TennisCourt from './Sports/TennisCourt'
+import AummaahMarquee from './AummaahMarquee'
 
 export function Scene({ }) {
-    const { camera, raycaster,gl } = useThree()
+    const { camera, scene, raycaster,gl } = useThree()
     useEffect(() => {
         // hack to get physics to work :(
         gl.xr = {isPresenting: false}
-        // camera.lookAt(0, 1, 0)
-        // camera.rotation.x = -2
-        // camera.position.y = .9
+        scene.background = new THREE.Color("magenta");
     }, [])
+    
     useFrame(() => {
         // DEL ME (devving)
         // camera.far = 99999
@@ -47,6 +47,7 @@ export function Scene({ }) {
         <BloomEffect />
         <MaterialsProvider>
             <Suspense fallback={null}>
+                <AummaahMarquee />
                 <Sports />
                 <TennisCourt />
             </Suspense>

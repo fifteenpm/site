@@ -61,25 +61,20 @@ function Paddle() {
     api.position.set(state.mouse.x * 10,  0, -state.mouse.y * 5)
     api.rotation.set(0, 0, values.current[1])
     // Left/right mouse movement rotates it a liitle for effect only
-    model.current.rotation.x = lerp(model.current.rotation.x, 0, 0.2)
+    model.current.rotation.x = lerp(model.current.rotation.x, 0, .2)
     // model.current.rotation.y = values.current[0]
   })
-  const { tennisBall, wireframe } = useContext(MaterialsContext)
+  const { tennisBall, magentaWireframe } = useContext(MaterialsContext)
   return (
     <mesh ref={ref} dispose={null}>
       <group ref={model}  >
         {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
         {/* children={count.toString()} /> */}
         <group rotation={[0, -0.04, 0]} >
-          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_1.geometry} />
-          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_2.geometry} />
-          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_3.geometry} />
-          <mesh castShadow receiveShadow material={wireframe} geometry={nodes.tennisRacket_4.geometry} />
-          {/* <mesh castShadow receiveShadow material={materials.wood} geometry={nodes.mesh_0.geometry} /> */}
-          {/* <mesh castShadow receiveShadow material={materials.side} geometry={nodes.mesh_1.geometry} /> */}
-          {/* <mesh castShadow receiveShadow material={materials.foam} geometry={nodes.mesh_2.geometry} /> */}
-          {/* <mesh castShadow receiveShadow material={materials.lower} geometry={nodes.mesh_3.geometry} /> */}
-          {/* <mesh castShadow receiveShadow material={materials.upper} geometry={nodes.mesh_4.geometry} /> */}
+          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_1.geometry} />
+          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_2.geometry} />
+          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_3.geometry} />
+          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_4.geometry} /> 
         </group>
       </group>
     </mesh>

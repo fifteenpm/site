@@ -468,7 +468,7 @@ export const CONTENT = {
     ]
   },
   "/11": {
-    artist: "JWords",
+    artist: "JWORDS",
     message: "A 3D scan of JWords headspace from the tail-end of pre-Covid times. Watch it go to dust, and come into being again.",
     purchaseLink: "https://fifteeenpm.bandcamp.com/album/jwords-dancepackvol-2",
     instructions: [
@@ -558,9 +558,7 @@ export const CONTENT = {
     ]
   },
   "/13": {
-    artist: "Isn't Ours",
-    // todo (jeremy) fix this navigation hack
-    lastIdx: 13,
+    artist: "ISN'T OURS",
     message: "Rest in the womb of \"Laurel Leaves\", a new EP by Isn't Ours, where the cold galaxy is outside, and we're safe in here. With video by Arrien Zinghini.",
     purchaseLink: "https://fifteeenpm.bandcamp.com/album/isnt-ours-laurel-leaves",
     purchaseLinkText: "Buy the album",
@@ -622,30 +620,29 @@ export const CONTENT = {
     artist: "AUMMAAH",
     // todo (jeremy) fix this navigation hack
     lastIdx: 14,
-    message: "Sports.",
+    message: "🎾⛳🏏",
     purchaseLink: "https://buy.fifteen.pm/album/sports-ep",
     tracks: [
       {
-        name: "Inside Out",
-        type: "soundcloud",
-        id: "862855786",
-        secretToken: "s-jBUPqKXtkmh",
-        bpm: 128,
+        name: "Tennis",
+        type: "s3",
+        url: "https://s3.amazonaws.com/cdn.fifteen.pm/01+-+Aummaah+-+Tennis.wav",
       },
       {
-        name: "High On Mate",
+        name: "Cricket",
         type: "soundcloud",
         id: "862855783",
         secretToken: "s-8Ac9QyayEtV",
-        bpm: 130,
       },
       {
-        name: "Looking For Roses",
+        name: "Golf",
         type: "soundcloud",
         id: "862855780",
         secretToken: "s-krM6xurN6cV",
-        bpm: 126,
       },
+  
+     
+     
     ],
     colors: {
       logo: "white",

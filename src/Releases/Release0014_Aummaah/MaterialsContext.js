@@ -12,13 +12,15 @@ const MaterialsProvider = ({ ...props }) => {
     const [tennisBallRef, tennisBall] = useResource();
     const [tennisCourtSurfaceRef, tennisCourtSurface] = useResource();
     const [linedCementRef, linedCement] = useResource();
-    const [wireframeRef, wireframe] = useResource();
+    const [magentaWireframeRef, magentaWireframe] = useResource();
+    const [orangeWireframeRef, orangeWireframe] = useResource();
     const [sunsetGradientRef, sunsetGradient] = useResource();
     const materials = {
         tennisBall,
-        wireframe,
+        magentaWireframe,
         tennisCourtSurface,
         linedCement,
+        orangeWireframe,
         sunsetGradient,
     }
     useEffect(() => {
@@ -29,9 +31,10 @@ const MaterialsProvider = ({ ...props }) => {
 
     return <MaterialsContext.Provider value={{ materialsLoaded, ...materials }}>
         <TennisBall materialRef={tennisBallRef} />
-        <meshBasicMaterial color="magenta" wireframe={true} ref={wireframeRef}/>
+        <meshBasicMaterial color="orange" wireframe={true} ref={orangeWireframeRef}/>
+        <meshBasicMaterial color="magenta" wireframe={true} ref={magentaWireframeRef}/>
         <meshBasicMaterial color="green" ref={tennisCourtSurfaceRef} />
-        <SunsetGradient materialRef={sunsetGradientRef} side={THREE.BackSide} />
+        <SunsetGradient materialRef={sunsetGradientRef} side={THREE.DoubleSide} />
         <LinedCement materialRef={linedCementRef} />
         {props.children}
     </MaterialsContext.Provider >
