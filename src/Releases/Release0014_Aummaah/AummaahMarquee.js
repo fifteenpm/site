@@ -1,4 +1,4 @@
-import { default as React, useContext, useEffect, useRef, useState } from 'react';
+import { default as React, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useFrame, useLoader } from "react-three-fiber";
 import { DoubleSide, TextureLoader } from 'three';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -38,15 +38,35 @@ function Flag({ }) {
     const [cloth, setCloth] = useState(null);
     const [wind, setWind] = useState(true);
     const [hover, setHover] = useState(false);
-    //   const [flagTexture] = useLoader(TextureLoader, [flagSrc]);
+    const [flagMapTexture] = useLoader(TextureLoader, [C.AUMMAAH_FLAG_IMG]);
+    const [flagAlphaTexture] = useLoader(TextureLoader, [C.AUMMAAH_FLAG_ALPHA_IMG]);
     const mesh = useRef();
     const geometry = useRef();
     const { nodes, } = useLoader(GLTFLoader, C.AUMMAAH_MARQUEE_GLB)
     const ref = useRef()
-    const { orangeWireframe, sunsetGradient, magentaWireframe } = useContext(MaterialsContext);
+    const { rgbashader, orangeWireframe, sunsetGradient, magentaWireframe } = useContext(MaterialsContext);
 
     useEffect(() => {
-        setCloth(new Cloth(2, 3));
+        const shouldSetPin = (u, v, xSegments, ySegments) => {
+            if (
+                // top
+                v == ySegments ||
+                // bottom middle
+                (u / xSegments > .4 || u / xSegments < .6) && v == 0
+            ) {
+                return true
+            } else {
+                return false
+            }
+        }
+        const cloth = new Cloth({
+            shouldSetPin,
+            distance: 100,
+            windStrength: 1,
+            // windStrengthConstant: 2
+        })
+        
+        setCloth(cloth)
     }, []);
 
     useFrame(() => {
@@ -71,15 +91,16 @@ function Flag({ }) {
 
 
     return (
-        <group position={[5, 10, -50]}>
+        <group position={[0, 5, -75]}>
             <mesh
                 ref={mesh}
                 onClick={() => setWind(!wind)}
                 onPointerOver={(e) => setHover(true)}
                 onPointerOut={(e) => setHover(false)}
                 castShadow
-                scale={[.5, .5, .5]}
-                material={sunsetGradient}
+                scale={[.1, .1, .1]}
+                material={rgbashader}
+            // material={sunsetGradient}
             >
                 <parametricGeometry
                     attach="geometry"
@@ -90,7 +111,8 @@ function Flag({ }) {
                 {/* <meshLambertMaterial
                     attach="material"
                     side={DoubleSide}
-                    map={flagTexture}
+                    map={flagMapTexture}
+                    alphaMap={flagAlphaTexture}
                     color={hover ? 'orange' : 'white'}
                 /> */}
             </mesh>
@@ -98,7 +120,7 @@ function Flag({ }) {
             {DEBUG &&
                 cloth.particles.map((p, i) => (
                     <mesh key={i} position={p.position}>
-                        <boxBufferGeometry attach="geometry" args={[10, 10, 10]} />
+                        <boxBufferGeometry attach="geometry" args={[cloth.xSegments, cloth.ySegments, 1]} />
                         <meshStandardMaterial attach="material" color={'orange'} />
                     </mesh>
                 ))}

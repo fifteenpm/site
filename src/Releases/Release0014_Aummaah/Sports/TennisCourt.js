@@ -51,7 +51,7 @@ export default function TennisCourt({ ...props }) {
     // useEffect(() => void (previous.current = hovered), [hovered])
     const interval = Math.floor(Math.sqrt(numInstances))
     useFrame(state => {
-        const time = state.clock.getElapsedTime()
+        const elapsedTime = state.clock.getElapsedTime()
         // ref.current.rotation.x = Math.PI / 2
         // ref.current.rotation.y = Math.sin(time / 2)
         let i = 0
@@ -59,12 +59,12 @@ export default function TennisCourt({ ...props }) {
             // for (let y = 0; y < dimensionSizeY; y++)
             for (let z = 0; z < dimensionSizeZ; z++) {
                 const id = i++
-                const timeUnit = 4
-                const timeFract = timeUnit - time % timeUnit + .02 / timeUnit
-                if (((z + 1) / dimensionSizeZ) < timeFract && x % 2 == 0) {
-                    tempColor.set("black").toArray(colorArray, id * 3)
-                } else if (z % 2 == 0) {
-                    tempColor.set("black").toArray(colorArray, id * 3)
+                // 1 or more
+                const timeUnit = 13
+                // .02 is a little offset it will skew if timeUnit is too high
+                const timeFract = Math.fractelapsedTime % timeUnit + .02 / timeUnit
+                if (((z + 1) / dimensionSizeZ) < timeFract  && x % 11 == 0) {
+                    tempColor.set("white").toArray(colorArray, id * 3)
                 } else {
                     tempColor.set("black").toArray(colorArray, id * 3)
                 }
