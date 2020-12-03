@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import * as TWEEN from 'three-tween';
 import { isMobile } from "../../Common/Utils/BrowserDetection";
-import { cloth, clothBody, clothGeometry, clothMesh, clothPhysMaterial, simulateCloth, service } from "../../Common/Utils/Cloth";
+import { cloth, clothBody, clothGeometry, clothMesh, clothPhysMaterial, simulateCloth, service } from "../../Common/Utils/ClothLegacy";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import '../Release.css';
 
