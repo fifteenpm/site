@@ -71,14 +71,14 @@ function Flag({ }) {
 
 
     return (
-        <group position={[15, 20, -100]}>
+        <group position={[5, 10, -50]}>
             <mesh
                 ref={mesh}
                 onClick={() => setWind(!wind)}
                 onPointerOver={(e) => setHover(true)}
                 onPointerOut={(e) => setHover(false)}
                 castShadow
-                scale={[.1, .1, .1]}
+                scale={[.5, .5, .5]}
                 material={sunsetGradient}
             >
                 <parametricGeometry
