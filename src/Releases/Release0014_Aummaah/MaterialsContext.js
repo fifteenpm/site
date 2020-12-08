@@ -16,15 +16,17 @@ const MaterialsProvider = ({ ...props }) => {
     const [tennisBallRef, tennisBall] = useResource();
     const [tennisCourtSurfaceRef, tennisCourtSurface] = useResource();
     const [linedCementRef, linedCement] = useResource();
-    const [magentaWireframeRef, magentaWireframe] = useResource();
+    const [greenWireframeRef, greenWireframe] = useResource();
     const [orangeWireframeRef, orangeWireframe] = useResource();
     const [sunsetGradientRef, sunsetGradient] = useResource();
     const [rgbashaderRef, rgbashader] = useResource();
+    const [circleAlphaShaderRef, circleAlphaShader] = useResource();
     const materials = {
         tennisBall,
-        magentaWireframe,
+        greenWireframe,
         tennisCourtSurface,
         linedCement,
+        circleAlphaShader,
         orangeWireframe,
         sunsetGradient,
         rgbashader,
@@ -38,11 +40,12 @@ const MaterialsProvider = ({ ...props }) => {
     return <MaterialsContext.Provider value={{ materialsLoaded, ...materials }}>
         <TennisBall materialRef={tennisBallRef} />
         <meshBasicMaterial color="orange" wireframe={true} ref={orangeWireframeRef} />
-        <meshBasicMaterial color="magenta" wireframe={true} ref={magentaWireframeRef} />
+        <meshBasicMaterial color={0x112e17} wireframe={true} ref={greenWireframeRef} />
         <meshBasicMaterial color="green" ref={tennisCourtSurfaceRef} />
         <SunsetGradient materialRef={sunsetGradientRef} side={THREE.DoubleSide} />
         <LinedCement materialRef={linedCementRef} />
-        <RGBAShader materialRef={rgbashaderRef} imagePath={C.AUMMAAH_FLAG_IMG} side={THREE.DoubleSide} fragment={sunsetGradientFragment}/>
+        <RGBAShader materialRef={rgbashaderRef} imagePath={C.AUMMAAH_FLAG_IMG} side={THREE.DoubleSide} />
+        <RGBAShader materialRef={circleAlphaShaderRef} imagePath={C.SUN_PNG} side={THREE.DoubleSide} />
         {props.children}
     </MaterialsContext.Provider >
 }

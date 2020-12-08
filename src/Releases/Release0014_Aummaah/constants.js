@@ -5,3 +5,4 @@ export const TENNIS_GLB = assetPath("14/objects/tennis/main.glb")
 export const AUMMAAH_MARQUEE_GLB = assetPath("14/objects/aummaah/main.glb");
 export const AUMMAAH_FLAG_IMG = assetPath("14/images/aummaah.png")
 export const AUMMAAH_FLAG_ALPHA_IMG = assetPath("14/images/aummaah-alpha.png")
+export const SUN_PNG = assetPath("14/images/sun.png")

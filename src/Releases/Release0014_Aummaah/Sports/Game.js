@@ -64,17 +64,17 @@ function Paddle() {
     model.current.rotation.x = lerp(model.current.rotation.x, 0, .2)
     // model.current.rotation.y = values.current[0]
   })
-  const { tennisBall, magentaWireframe } = useContext(MaterialsContext)
+  const { tennisBall, greenWireframe } = useContext(MaterialsContext)
   return (
     <mesh ref={ref} dispose={null}>
       <group ref={model}  >
         {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
         {/* children={count.toString()} /> */}
         <group rotation={[0, -0.04, 0]} >
-          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_1.geometry} />
-          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_2.geometry} />
-          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_3.geometry} />
-          <mesh castShadow receiveShadow material={magentaWireframe} geometry={nodes.tennisRacket_4.geometry} /> 
+          <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_1.geometry} />
+          <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_2.geometry} />
+          <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_3.geometry} />
+          <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_4.geometry} /> 
         </group>
       </group>
     </mesh>
@@ -226,7 +226,7 @@ export default function Game() {
 
       {/* <TennisCourt /> */}
       <ContactGround />
-      {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
+      {/* {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />} */}
       {/* {!welcome && <Ball />} */}
       <Suspense fallback={null}>
         <Paddle />

@@ -34,12 +34,14 @@ const scaleZ = 3
 const dimensionSizeY = 10
 const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
 const tempObject = new THREE.Object3D()
-const colors = new Array(numInstances).fill().map(() => 0xff00ff)
+// const colors = new Array(numInstances).fill().map(() => 0xff00ff)
+const greenColors = [0x1d592e, 0x112e17]
+const colors = new Array(numInstances).fill().map(() => greenColors[Math.floor(Math.random() * 4)])
 const tempColor = new THREE.Color()
 
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
 export default function TennisCourt({ ...props }) {
-    const { sunsetGradient, magentaWireframe } = useContext(MaterialsContext)
+    const { sunsetGradient, greenWireframe } = useContext(MaterialsContext)
     // const [hovered, set] = useState()
     const colorArray = useMemo(() => Float32Array.from(new Array(numInstances).fill().flatMap((_, i) => {
         return tempColor.set(colors[i]).toArray()
@@ -62,12 +64,12 @@ export default function TennisCourt({ ...props }) {
                 // 1 or more
                 const timeUnit = 13
                 // .02 is a little offset it will skew if timeUnit is too high
-                const timeFract = Math.fractelapsedTime % timeUnit + .02 / timeUnit
-                if (((z + 1) / dimensionSizeZ) < timeFract  && x % 11 == 0) {
-                    tempColor.set("white").toArray(colorArray, id * 3)
-                } else {
-                    tempColor.set("black").toArray(colorArray, id * 3)
-                }
+                // const timeFract = Math.fractelapsedTime % timeUnit + .02 / timeUnit
+                // if (((z + 1) / dimensionSizeZ) < timeFract  && x % 11 == 0) {
+                //     tempColor.set("white").toArray(colorArray, id * 3)
+                // } else {
+                //     tempColor.set(0x0d762e).toArray(colorArray, id * 3)
+                // }
                 ref.current.geometry.attributes.color.needsUpdate = true
                 tempObject.rotation.x = -Math.PI / 2
                 tempObject.position.set(
@@ -83,7 +85,7 @@ export default function TennisCourt({ ...props }) {
 
 
     // return (
-    //     <mesh material={magentaWireframe}>
+    //     <mesh material={greenWireframe}>
     //         <planeBufferGeometry attach="geometry" args={[96, 48, 96, 48]} />
     //     </mesh>
     // )

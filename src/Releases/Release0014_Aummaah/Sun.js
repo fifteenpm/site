@@ -8,30 +8,12 @@ import * as C from './constants';
 import { MaterialsContext } from './MaterialsContext';
 
 
-export default function AummaahMarquee({ }) {
-    const { nodes, } = useLoader(GLTFLoader, C.AUMMAAH_MARQUEE_GLB)
-    const ref = useRef()
-    const { orangeWireframe, sunsetGradient, greenWireframe } = useContext(MaterialsContext);
-    // return (
-    //     <mesh ref={ref} dispose={null} rotation-x={Math.PI / 2} position={[0, -8, -50]} scale={[20, 20, 20]}>
-    //         <group>
-    //             <group>
-    //                 <mesh castShadow receiveShadow material={sunsetGradient} geometry={nodes.Text.geometry} />
-    //             </group>
-    //         </group>
-    //     </mesh>
-    // )
-    return (
-        <Flag />
-    )
-}
-
 
 
 const TIMESTEP = 18 / 1000;
 const DEBUG = false;
 
-function Flag({ }) {
+export default function Sun({ }) {
     const [cloth, setCloth] = useState(null);
     const [wind, setWind] = useState(true);
     const [hover, setHover] = useState(false);
@@ -97,8 +79,8 @@ function Flag({ }) {
                 // onPointerOut={(e) => setHover(false)}
                 castShadow
                 scale={[.1, .1, .1]}
-            material={rgbashader}
-            // material={circleAlphaShader}
+            // material={rgbashader}
+            material={circleAlphaShader}
             >
                 <parametricGeometry
                     attach="geometry"

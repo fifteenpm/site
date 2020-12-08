@@ -11,15 +11,17 @@ import Sports from './Sports/Sports.js';
 import { BloomEffect } from '../../Common/Effects/Effects'
 import TennisCourt from './Sports/TennisCourt'
 import AummaahMarquee from './AummaahMarquee'
+import Sun from './Sun';
 
 export function Scene({ }) {
-    const { camera, scene, raycaster,gl } = useThree()
+    const { camera, scene, raycaster, gl } = useThree()
     useEffect(() => {
         // hack to get physics to work :(
-        gl.xr = {isPresenting: false}
-        scene.background = new THREE.Color("magenta");
+        gl.xr = { isPresenting: false }
+        // scene.background = new THREE.Color(0x0d762e);
+        scene.background = new THREE.Color(0x000000);
     }, [])
-    
+
     useFrame(() => {
         // DEL ME (devving)
         // camera.far = 99999
@@ -40,16 +42,18 @@ export function Scene({ }) {
     })
     return <>
         {/* <Flying /> */}
-        <Orbit autoRotate={false}/>
+        <Orbit autoRotate={false} />
         {/* <FirstPerson /> */}
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
-        <ambientLight />
+        {/* <ambientLight /> */}
+        {/* <pointLight position={[0, 20, -175]} intensity={.1} /> */}
         <BloomEffect />
         <MaterialsProvider>
             <Suspense fallback={null}>
                 <AummaahMarquee />
                 <Sports />
                 <TennisCourt />
+                <Sun />
             </Suspense>
         </MaterialsProvider>
     </>
