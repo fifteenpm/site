@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import niceColors from 'nice-color-palettes'
 import { MaterialsContext } from '../MaterialsContext'
 import '../../../Common/Utils/GridHelper';
-
+import { cloudEnvMap } from '../../../Common/Materials/utils';
 // function TennisCourtSurface(props) {
 //     const [plane] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], position: [props.pos.x, props.pos.y, props.pos.z] }))
 //     // const plane = useRef()
@@ -82,7 +82,7 @@ export default function TennisCourt({ ...props }) {
             }
         ref.current.instanceMatrix.needsUpdate = true
     })
-
+    const envMapCube = useMemo(() => cloudEnvMap())
 
     // return (
     //     <mesh material={greenWireframe}>
@@ -100,7 +100,23 @@ export default function TennisCourt({ ...props }) {
                     <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
                     {/* </boxBufferGeometry> */}
                 </planeBufferGeometry>
-                <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors} />
+                <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors}
+                    lights
+                    receiveShadow
+                    // castShadow
+                    //  map={colorMap}
+                    //  color={props.color || 0xffffff}
+                    specular={props.specular || 0xf0f000}
+                    // shininess={props.shininess ? props.shininess : 100,}
+                    //  skinning={true}
+                    //  normalMap={normalMap}
+                    //  aoMap={aoMap}
+                    //  specularMap={specularMap}
+                    envMap={envMapCube}
+                    // refractionRatio={props.refractionRatio || 1.0}
+                    // combine={THREE.AddOperation}
+                />
+
             </instancedMesh>
         </group>
     )

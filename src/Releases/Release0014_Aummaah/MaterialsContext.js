@@ -44,7 +44,7 @@ const MaterialsProvider = ({ ...props }) => {
         <meshBasicMaterial color="green" ref={tennisCourtSurfaceRef} />
         <SunsetGradient materialRef={sunsetGradientRef} side={THREE.DoubleSide} />
         <LinedCement materialRef={linedCementRef} />
-        <RGBAShader materialRef={rgbashaderRef} imagePath={C.AUMMAAH_FLAG_IMG} side={THREE.DoubleSide} />
+        <RGBAShader materialRef={rgbashaderRef} imagePath={C.SPORTS_FLAG_IMG} side={THREE.DoubleSide} />
         <RGBAShader materialRef={circleAlphaShaderRef} imagePath={C.SUN_PNG} side={THREE.DoubleSide} />
         {props.children}
     </MaterialsContext.Provider >
