@@ -98,7 +98,7 @@ function Ball({ onInit }) {
   // Make the ball a physics object with a low mass
   // const { startOver } = useStore(state => state.startOver)
   // const [gameShouldStart]
-  const radius = 1
+  const radius = .75
   const [ref] = useSphere(() => ({
     mass: 1,
     args: radius,
@@ -149,6 +149,24 @@ function ContactGround() {
   return <mesh ref={ref} />
 }
 
+
+function BouncyGround() {
+  // When the ground was hit we reset the game ...
+  // const { reset } = useStore(state => state.api)
+  const bouncyGroundBoxArgs = useMemo(() => [30, 1, 100])
+  const [ref, api] = useBox(() => ({
+    type: "Static",
+    // rotation: [-Math.PI / 2, 0, 0],
+    position: [0, -8, 0],
+    args: bouncyGroundBoxArgs,
+    onCollide: e => console.log("COLLIDE wbouncy"),
+  }))
+  return <mesh ref={ref} >
+    {/* <meshBasicMaterial attach="material" color="yellow" />
+    <boxBufferGeometry attach="geometry" args={bouncyGroundBoxArgs} /> */}
+  </mesh>
+}
+
 export default function Game() {
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameIsOn } = useStore(state => state.api)
@@ -156,6 +174,7 @@ export default function Game() {
     <>
       <Court />
       <ContactGround />
+      <BouncyGround />
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
       <Suspense fallback={null}>
         <Paddle />

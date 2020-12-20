@@ -40,7 +40,7 @@ const colors = new Array(numInstances).fill().map(() => greenColors[Math.floor(M
 const tempColor = new THREE.Color()
 
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
-export default function TennisCourt({ ...props }) {
+export default function Court({ ...props }) {
     const { sunsetGradient, greenWireframe } = useContext(MaterialsContext)
     // const [hovered, set] = useState()
     const colorArray = useMemo(() => Float32Array.from(new Array(numInstances).fill().flatMap((_, i) => {
