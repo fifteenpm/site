@@ -9,15 +9,18 @@ import Sports from './Sports/Sports.js';
 import { BloomEffect } from '../../Common/Effects/Effects'
 import AummaahMarquee from './AummaahMarquee'
 import Sun from './Sun';
+import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
 
 export function Scene({ }) {
+    const { currentTrackName, audioPlayer } = useAudioPlayer();
     const { camera, scene, raycaster, gl } = useThree()
     useEffect(() => {
         // hack to get physics to work :(
         gl.xr = { isPresenting: false }
-        // scene.background = new THREE.Color(0x000000);
-        scene.background = new THREE.Color("white");
+        scene.background = new THREE.Color(0x000000);
+        // scene.background = new THREE.Color("white");
     }, [])
+  
 
   
     return <>
@@ -25,14 +28,14 @@ export function Scene({ }) {
         <Orbit autoRotate={false} />
         {/* <FirstPerson /> */}
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
-        <ambientLight />
+        {/* <ambientLight /> */}
         <pointLight position={[0, 1, -5]} intensity={.1} color={"green"}/>
-        {/* <BloomEffect /> */}
+        <BloomEffect />
         <MaterialsProvider>
             <Suspense fallback={null}>
                 <Sports />
-                {/* <AummaahMarquee /> */}
-                {/* <Sun /> */}
+                <AummaahMarquee />
+                <Sun />
             </Suspense>
         </MaterialsProvider>
     </>

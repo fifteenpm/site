@@ -15,6 +15,8 @@ import earthImg from "./resources/cross.jpg";
 import pingSound from "./resources/ping.mp3";
 import Text from "./Text";
 import Court from './TennisCourt'
+import useAudioPlayer from '../../../Common/UI/Player/hooks/useAudioPlayer'
+
 // import TennisCourt from './TennisCourt';
 // https://github.com/mattdesl/lerp/blob/master/index.js
 function lerp(v0, v1, t) {
@@ -43,17 +45,37 @@ const [useStore] = create(set => ({
 }))
 
 // The paddle was made in blender and auto-converted to JSX by https://github.com/react-spring/gltfjsx
-function Paddle() {
+function Equipment() {
+  const { currentTrackName, audioPlayer } = useAudioPlayer();
+
+  // useEffect(() => {
+  //   console.log("TRACK CHANED")
+  //   if (currentTrackName == C.AummaahTrack.Tennis) {
+  //     console.log("tennis")
+  //   } else if (currentTrackName == C.AummaahTrack.Cricket) {
+  //     console.log("cricket")
+  //   } else if (currentTrackName == C.AummaahTrack.Golf) {
+  //     console.log("golf")
+  //   }
+  // }, [currentTrackName])
+
+  return (
+    <group>
+      {currentTrackName == C.AummaahTrack.Cricket && <CricketBat />}
+      {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet />}
+      {currentTrackName == C.AummaahTrack.Golf && <GolfClub />}
+    </group>
+  )
+}
+
+function CricketBat({ }) {
   // Load the gltf file
-  const { nodes, materials } = useLoader(GLTFLoader, C.TENNIS_GLB)
-  // Fetch some reactive state
-  // const { pong } = useStore(state => state.api)
-  // const welcome = useStore(state => state.welcome)
-  // const count = useStore(state => state.count)
-  const model = useRef()
+  const { nodes, materials } = useLoader(GLTFLoader, C.CRICKET_BAT_GLB)
+  const { greenWireframe } = useContext(MaterialsContext)
   const paddleBoxArgs = useMemo(() => [4, 3, 1])
+  const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs, onCollide: e => console.log("COLLIDE") }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs, onCollide: e => { } }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
@@ -67,7 +89,50 @@ function Paddle() {
     model.current.rotation.z = modelRotationZ;
   })
 
-  const { tennisBall, greenWireframe } = useContext(MaterialsContext)
+  console.log(nodes)
+
+  return (
+    <group>
+      {/*  */}
+      <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
+        <group ref={model}  >
+          <mesh >
+            <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
+            <meshBasicMaterial attach="material" wireframe color="red" />
+          </mesh>
+          {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
+          {/* children={count.toString()} /> */}
+          <group position-x={-2} rotation={[0, -0.04, 0]} >
+            <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_0.geometry} />
+            <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />
+          </group>
+        </group>
+      </mesh>
+    </group>
+  )
+}
+
+function TennisRacquet({ }) {
+  // Load the gltf file
+  const { nodes, materials } = useLoader(GLTFLoader, C.TENNIS_RACQUET_GLB)
+  const { greenWireframe } = useContext(MaterialsContext)
+  const paddleBoxArgs = useMemo(() => [4, 3, 1])
+  const model = useRef()
+  // Make it a physical object that adheres to gravitation and impact
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs, onCollide: e => { } }))
+  // use-frame allows the component to subscribe to the render-loop for frame-based actions
+  let values = useRef([0, 0])
+  useFrame(state => {
+    // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
+    values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
+    values.current[1] = lerp(values.current[1], (state.mouse.x * Math.PI) / 5, 0.2)
+    api.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
+    api.rotation.set(-2 * Math.PI, 0, values.current[1])
+    // Left/right mouse movement rotates it a liitle for effect only
+    const modelRotationZ = state.mouse.x < -0.3 ? -Math.PI : 0;
+    model.current.rotation.z = modelRotationZ;
+  })
+
   return (
     <group>
       {/*  */}
@@ -84,6 +149,50 @@ function Paddle() {
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_2.geometry} />
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_3.geometry} />
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_4.geometry} />
+
+          </group>
+        </group>
+      </mesh>
+    </group>
+  )
+}
+
+function GolfClub({ }) {
+  // Load the gltf file
+  const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
+  const { greenWireframe } = useContext(MaterialsContext)
+  const paddleBoxArgs = useMemo(() => [4, 3, 1])
+  const model = useRef()
+  // Make it a physical object that adheres to gravitation and impact
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs, onCollide: e => { } }))
+  // use-frame allows the component to subscribe to the render-loop for frame-based actions
+  let values = useRef([0, 0])
+  useFrame(state => {
+    // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
+    values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
+    values.current[1] = lerp(values.current[1], (state.mouse.x * Math.PI) / 5, 0.2)
+    api.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
+    api.rotation.set(-2 * Math.PI, 0, values.current[1])
+    // Left/right mouse movement rotates it a liitle for effect only
+    const modelRotationZ = state.mouse.x < -0.3 ? -Math.PI : 0;
+    model.current.rotation.z = modelRotationZ;
+  })
+  console.log(nodes)
+
+  return (
+    <group>
+      {/*  */}
+      <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
+        <group ref={model}  >
+          {/* <mesh >
+            <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
+            <meshBasicMaterial attach="material" wireframe color="red" />
+          </mesh> */}
+          {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
+          {/* children={count.toString()} /> */}
+          <group position-x={-2} rotation={[0, -0.04, 0]} >
+          <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
+            
 
           </group>
         </group>
@@ -177,7 +286,7 @@ export default function Game() {
       <BouncyGround />
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
       <Suspense fallback={null}>
-        <Paddle />
+        <Equipment />
       </Suspense>
     </>
   )
