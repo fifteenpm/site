@@ -48,19 +48,8 @@ const [useStore] = create(set => ({
 function Equipment() {
   const { currentTrackName, audioPlayer } = useAudioPlayer();
 
-  // useEffect(() => {
-  //   console.log("TRACK CHANED")
-  //   if (currentTrackName == C.AummaahTrack.Tennis) {
-  //     console.log("tennis")
-  //   } else if (currentTrackName == C.AummaahTrack.Cricket) {
-  //     console.log("cricket")
-  //   } else if (currentTrackName == C.AummaahTrack.Golf) {
-  //     console.log("golf")
-  //   }
-  // }, [currentTrackName])
-
   return (<>
-    <GolfClub />
+    <TennisRacquet />
     {/* // <group>
     //   {currentTrackName == C.AummaahTrack.Cricket && <CricketBat />}
     //   {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet />}
@@ -357,11 +346,11 @@ export default function Game() {
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      {/* <Court /> */}
-      <GolfCourse />
+      <Court />
+      {/* <GolfCourse /> */}
 
-      {/* <ContactGround /> */}
-      {/* <BouncyGround /> */}
+      <ContactGround />
+      <BouncyGround />
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
       <Suspense fallback={null}>
         <Equipment />

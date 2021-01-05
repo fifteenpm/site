@@ -27,7 +27,7 @@ export default function Games() {
                 frictionEquationRelaxation: 2,
             }}
             gravity={[0, -40, 0]}
-        // allowSleep={false}
+            allowSleep={false}
         >
 
             <Game />
