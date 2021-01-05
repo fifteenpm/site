@@ -4,9 +4,9 @@ import { useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import { MaterialsContext } from '../MaterialsContext';
 
-import TennisCourt  from './TennisCourt'
+import TennisCourt from './TennisCourt'
 import TileGenerator from '../../../Common/Utils/TileGenerator'
-import  Game  from './Game.js'
+import Game from './Game.js'
 
 export default function Games() {
 
@@ -27,8 +27,9 @@ export default function Games() {
                 frictionEquationRelaxation: 2,
             }}
             gravity={[0, -40, 0]}
-            allowSleep={false}>
-          
+        // allowSleep={false}
+        >
+
             <Game />
         </Physics >
     );

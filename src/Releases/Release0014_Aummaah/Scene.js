@@ -29,7 +29,7 @@ export function Scene({ }) {
         {/* <FirstPerson /> */}
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
         <ambientLight />
-        <pointLight position={[0, 1, -5]} intensity={.1} color={"green"}/>
+        {/* <pointLight position={[0, 1, -5]} intensity={.1} color={"green"}/> */}
         {/* <BloomEffect /> */}
         <MaterialsProvider>
             <Suspense fallback={null}>
