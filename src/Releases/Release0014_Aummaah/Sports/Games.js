@@ -8,7 +8,7 @@ import TennisCourt  from './TennisCourt'
 import TileGenerator from '../../../Common/Utils/TileGenerator'
 import  Game  from './Game.js'
 
-export default function Sports() {
+export default function Games() {
 
     const { camera, size } = useThree();
 

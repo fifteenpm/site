@@ -6,16 +6,7 @@ import niceColors from 'nice-color-palettes'
 import { MaterialsContext } from '../MaterialsContext'
 import '../../../Common/Utils/GridHelper';
 import { cloudEnvMap } from '../../../Common/Materials/utils';
-// function TennisCourtSurface(props) {
-//     const [plane] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], position: [props.pos.x, props.pos.y, props.pos.z] }))
-//     // const plane = useRef()
-//     return (
-//         <mesh ref={plane} material={props.tennisCourtSurface}>
-//             {/* <mesh ref={plane} material={props.tennisCourtSurface} rotation={[-Math.PI / 2, 0, 0]} position={props.pos}> */}
-//             <planeGeometry args={[props.size, props.size]} attach="geometry" />
-//         </mesh>
-//     );
-// }
+
 
 function TennisCourtSurface({ color, ...props }) {
     const [ref] = usePlane(() => ({ type: "Kinematic", ...props }))

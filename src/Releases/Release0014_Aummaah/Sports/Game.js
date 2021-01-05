@@ -1,7 +1,7 @@
 // source: https://codesandbox.io/s/white-resonance-0mgum?file=/src/App.js:388-427
 // react-three-fiber is a way to express threejs declaratively: https://github.com/react-spring/react-three-fiber
 // use-cannon is a hook around the cannon.js physics library: https://github.com/react-spring/use-cannon
-import { useBox, usePlane, useSphere } from '@react-three/cannon';
+import { useBox, usePlane, useSphere, useHeightfield } from '@react-three/cannon';
 import clamp from "lodash-es/clamp";
 import React, { useMemo, Suspense, useCallback, useContext, useEffect, useRef } from "react";
 import { useFrame, useLoader } from "react-three-fiber";
@@ -119,7 +119,7 @@ function TennisRacquet({ }) {
   const paddleBoxArgs = useMemo(() => [4, 3, 1])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs, onCollide: e => { } }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
@@ -149,7 +149,6 @@ function TennisRacquet({ }) {
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_2.geometry} />
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_3.geometry} />
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_4.geometry} />
-
           </group>
         </group>
       </mesh>
@@ -191,8 +190,8 @@ function GolfClub({ }) {
           {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
           {/* children={count.toString()} /> */}
           <group position-x={-2} rotation={[0, -0.04, 0]} >
-          <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
-            
+            <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
+
 
           </group>
         </group>
@@ -202,25 +201,18 @@ function GolfClub({ }) {
 }
 
 function Ball({ onInit }) {
-  // Load texture (the black plus sign)
-  const map = useLoader(THREE.TextureLoader, earthImg)
-  // Make the ball a physics object with a low mass
-  // const { startOver } = useStore(state => state.startOver)
-  // const [gameShouldStart]
   const radius = .75
   const [ref] = useSphere(() => ({
     mass: 1,
     args: radius,
-    velocity: [0, 20, 40],
-    position: [0, 10, -50]
+    velocity: [0, 0, 0],
+    position: [0, 50, 0]
   }))
 
   useEffect(() => {
-
     onInit()
   }, [])
 
-  // }, [startOver])
   return (
     <mesh castShadow ref={ref}>
       <sphereBufferGeometry attach="geometry" args={[radius, 64, 64]} />
@@ -276,18 +268,78 @@ function BouncyGround() {
   </mesh>
 }
 
+
+function GolfCourse() {
+
+  const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_COURSE_GLB)
+  const { greenWireframe } = useContext(MaterialsContext)
+
+
+  const [golfCourseGeometryPositionArray, yMin, yMax, elementSize] = useMemo(() => {
+    const numElements = nodes.Plane.geometry.attributes.position.array.length;
+    const xValues = nodes.Plane.geometry.attributes.position.array.filter((_, i) => i % 3 === 0);
+    const yValues = nodes.Plane.geometry.attributes.position.array.filter((_, i) => i % 3 === 1);
+    const xMax = Math.max(...xValues)
+    const xMin = Math.max(...xValues)
+    const elementSize = (xMax - xMin) / numElements
+    const yMax = Math.max(...yValues)
+    const yMin = Math.min(...yValues)
+    const yOffset = yMin >= 0 ? yMin : -yMin
+    // const normalizedYValues = yValues.map(yVal => (yVal - yMin) / (yMax - yMin))
+    // return normalizedYValues
+    return [yValues, yMin, yMax, elementSize]
+    // return nodes.Plane.geometry.attributes.position.array.filter((_, i) => i % 3 === 1).map(() => .1);
+  }, [nodes.Plane.geometry])
+
+  // https://github.com/pmndrs/use-cannon/blob/576d7967935dbbfcd44b81347caab43487382702/src/hooks.ts#L157
+  // https://github.com/schteppe/cannon.js/blob/master/examples/threejs_voxel_fps.html : []
+  const [ref, api] = useHeightfield(() => {
+    console.log("values for physics are filled in:", golfCourseGeometryPositionArray, yMin, yMax)
+    return {
+      args: [golfCourseGeometryPositionArray,
+        {
+          minValue: yMin,
+          maxValue: yMax,
+          elementSize: elementSize,
+        },
+      ],
+      // type: "Static"
+    }
+  })
+
+  useEffect(() => {
+    if (!ref.current) return
+    console.log("ref.current initialized:", ref.current)
+    if (ref.current.position && ref.current.position.y != -111) {
+      console.log("ref.current.position", ref.current.position)
+      // ref.current.position.y = -20
+    }
+  }, [ref.current])
+
+  console.log("REF CURRENT", ref.current)
+  return <mesh
+    ref={ref}
+    castShadow
+    receiveShadow
+    material={greenWireframe}
+    geometry={nodes.Plane.geometry}
+  />
+}
+
+
 export default function Game() {
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      <Court />
+      {/* <Court /> */}
+      <GolfCourse />
       <ContactGround />
-      <BouncyGround />
+      {/* <BouncyGround /> */}
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
-      <Suspense fallback={null}>
+      {/* <Suspense fallback={null}>
         <Equipment />
-      </Suspense>
+      </Suspense> */}
     </>
   )
 }
