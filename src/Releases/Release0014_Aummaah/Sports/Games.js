@@ -21,7 +21,7 @@ export default function Games() {
             gravity={[0, -40, 0]}
             allowSleep={false}
         >
-            <Game {...C.TRACKS_CONFIG[currentTrackName]} />
+            <Game {...C.TRACKS_CONFIG[currentTrackName || C.FIRST_TRACK]} />
         </Physics >
     );
 }

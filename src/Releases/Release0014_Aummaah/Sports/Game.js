@@ -158,7 +158,7 @@ function GolfClub({ }) {
   let values = useRef([0, 0])
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
-    values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
+    // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
     values.current[1] = lerp(values.current[1], (state.mouse.x * Math.PI) / 5, 0.2)
     api.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
     api.rotation.set(-2 * Math.PI, 0, values.current[1])
@@ -234,14 +234,13 @@ function ContactGround({ rotation, position }) {
   }))
   useEffect(() => {
     if (!rotation || !position) return
-    console.log("ROTATION", rotation, "POSITION", position, "API", api)
     api.rotation.set(...rotation)
     api.position.set(...position)
-    
+
   }, [rotation, position])
   return <mesh ref={ref}>
     <boxBufferGeometry attach="geometry" args={[1000, 1000]} />
-    <meshStandardMaterial attach="material" color="magenta" />
+    <meshStandardMaterial attach="material" color="black" />
   </mesh>
 }
 
@@ -255,7 +254,6 @@ function BouncyGround() {
     // rotation: [-Math.PI / 2, 0, 0],
     position: [0, -8, 0],
     args: bouncyGroundBoxArgs,
-    onCollide: e => console.log("COLLIDE wbouncy"),
   }))
   return <mesh ref={ref} >
     {/* <meshBasicMaterial attach="material" color="yellow" />
@@ -276,89 +274,25 @@ function Plane({ transparent, color, ...props }) {
 }
 
 
-function GolfCourse() {
+function Arena(props) {
 
-  const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_COURSE_GLB)
-  const { greenWireframe } = useContext(MaterialsContext)
-
-  // const [golfCourseGeometryPositionArray, yMin, yMax] = useMemo(() => {
-  //   const numElements = nodes.Plane.geometry.attributes.position.array.length;
-  //   console.log("nmElements", numElements, nodes.Plane.geometry.attributes.position.array)
-  //   // const xValues = nodes.Plane.geometry.attributes.position.array.filter((_, i) => i % 3 === 0);
-  //   const yValues = nodes.Plane.geometry.attributes.position.array.filter((_, i) => i % 3 === 1);
-  //   // const xMax = Math.max(...xValues)
-  //   // const xMin = Math.max(...xValues)
-  //   // const elementSize = (xMax - xMin) / numElements
-  //   const yMax = Math.max(...yValues)
-  //   const yMin = Math.min(...yValues)
-  //   const yOffset = yMin >= 0 ? yMin : -yMin
-  //   const normalizedYValues = yValues.map(yVal => (yVal - yMin) / (yMax - yMin))
-  //   // return normalizedYValues
-  //   return [yValues, yMin, yMax]
-  //   // return nodes.Plane.geometry.attributes.position.array.filter((_, i) => i % 3 === 1).map(() => .1);
-  // }, [nodes.Plane.geometry])
-
-  // // https://github.com/pmndrs/use-cannon/blob/576d7967935dbbfcd44b81347caab43487382702/src/hooks.ts#L157
-  // // https://github.com/schteppe/cannon.js/blob/master/examples/threejs_voxel_fps.html : []
-  // const [ref, api] = useHeightfield(() => {
-  //   console.log("values for physics are filled in:", golfCourseGeometryPositionArray, yMin, yMax)
-  //   return {
-  //     args: [
-  //       golfCourseGeometryPositionArray,
-  //       {
-  //         minValue: 0,
-  //         maxValue: 1,
-  //         elementSize: .0001,
-
-  //       },
-  //     ],
-  //     type: "Dynamic",
-  //     // type: "Static"
-  //   }
-  // })
-
-  // useEffect(() => {
-  //   if (!ref.current) return
-  //   // console.log("ref.current initialized:", ref.current)
-  //   // if (ref.current.position && ref.current.position.y != -111) {
-  //   //   console.log("ref.current.position", ref.current.position)
-  //   //   // ref.current.position.y = -20
-  //   // }
-  //   console.log(ref.current)
-  // }, [ref.current])
-
-  // console.log("REF CURRENT", ref.current)
-  // return <mesh
-  //   ref={ref}
-  //   castShadow
-  //   receiveShadow
-  //   material={greenWireframe}
-  //   geometry={nodes.Plane.geometry}
-  // />
   return (
     <group>
-
-      <Plane color="hotpink" position={[-12, 0, 0]} rotation={[0, 0.9, 0]} />
-      <Plane color="orange" position={[12, 0, 0]} rotation={[0, -0.9, 0]} />
-      {/* <Plane color="blue" position={[0, -6, 0]} rotation={[-Math.PI / 2, 0, 0]} /> */}
-      <Plane color="blue" position={[0, -6, 0]} rotation={[-1.9, 0, 0]} />
-
+      {Object.values(props).map(plane =>
+        
+        <Plane {...plane} />
+      )}
     </group>
   )
 }
 
-
-
-
 export default function Game(props) {
-  console.log("GAME PROPS", props)
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
       {/* <Court /> */}
-      <GolfCourse />
-
+      <Arena {...props.arenaProps} />
       <ContactGround {...props.contactGroundProps} />
       {/* <BouncyGround /> */}
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}

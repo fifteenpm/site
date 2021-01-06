@@ -18,9 +18,7 @@ export const GAMES_FLAG_IMG = assetPath("14/images/games.png")
 export const AUMMAAH_FLAG_ALPHA_IMG = assetPath("14/images/aummaah-alpha.png")
 export const SUN_PNG = assetPath("14/images/sun.png")
 
-
-
-
+// TRACK PARTICULARS
 export const AummaahTrack = {
     Tennis: "Tennis",
     Golf: "Golf",
@@ -28,12 +26,30 @@ export const AummaahTrack = {
 }
 
 export const TRACKS_CONFIG = {}
+export const FIRST_TRACK = AummaahTrack.Tennis
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     equipmentURL: TENNIS_RACQUET_GLB,
     contactGroundProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
+    },
+    arenaProps: {
+        leftBorder: {
+            position: [-12, 0, 0],
+            rotation: [0, 0.9, 0],
+            color: "aqua"
+        },
+        rightBorder: {
+            position: [12, 0, 0],
+            rotation: [0, -0.9, 0],
+            color: "chartreuse",
+        },
+        ground: {
+            position: [0, -6, 0],
+            rotation: [-1.7, 0, 0],
+            color: "lightcoral",
+        },
     }
 
 }
@@ -51,7 +67,26 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
 TRACKS_CONFIG[AummaahTrack.Golf] = {
     equipmentURL: GOLF_CLUB_GLB,
     contactGroundProps: {
-        rotation: [0, 0, 0],
-        position: [0, 0, -10],
+        // rotation: [-Math.PI / 2, 0, 0],
+        // position: [0, -10, 0],
+        rotation: [-.5, 0,0 ],
+        position: [0, 0, -17],
+    },
+    arenaProps: {
+        leftBorder: {
+            position: [-24, 0, 0],
+            rotation: [0, 0.9, 0],
+            color: "aqua"
+        },
+        rightBorder: {
+            position: [24, 0, 0],
+            rotation: [0, -0.9, 0],
+            color: "chartreuse",
+        },
+        ground: {
+            position: [0, -6, 0],
+            rotation: [-1.7, 0, 0],
+            color: "lightcoral",
+        },
     }
 }
