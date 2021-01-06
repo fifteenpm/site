@@ -1,9 +1,9 @@
 // source: https://codesandbox.io/s/white-resonance-0mgum?file=/src/App.js:388-427
 // react-three-fiber is a way to express threejs declaratively: https://github.com/react-spring/react-three-fiber
 // use-cannon is a hook around the cannon.js physics library: https://github.com/react-spring/use-cannon
-import { useBox, usePlane, useSphere, useHeightfield } from '@react-three/cannon';
+import { Physics, useBox, useCylinder, useSphere, usePlane, useConeTwistConstraint, usePointToPointConstraint, useSpring } from '@react-three/cannon';
 import clamp from "lodash-es/clamp";
-import React, { useMemo, Suspense, useCallback, useContext, useEffect, useRef } from "react";
+import React, { useMemo, createRef, Suspense, useCallback, useContext, useEffect, useRef } from "react";
 import { useFrame, useLoader } from "react-three-fiber";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
@@ -21,6 +21,20 @@ import useAudioPlayer from '../../../Common/UI/Player/hooks/useAudioPlayer'
 // https://github.com/mattdesl/lerp/blob/master/index.js
 function lerp(v0, v1, t) {
   return v0 * (1 - t) + v1 * t
+}
+
+const cursor = createRef()
+// https://codesandbox.io/s/use-cannon-ragdolls-skhf8?file=/src/index.js:631-1048
+function useDragConstraint(child) {
+  const [, , api] = usePointToPointConstraint(cursor, child, { pivotA: [0, 0, 0], pivotB: [0, 0, 0] })
+  useEffect(() => void api.disable(), [])
+  const onPointerUp = useCallback(e => api.disable(), [])
+  const onPointerDown = useCallback(e => {
+    e.stopPropagation()
+    e.target.setPointerCapture(e.pointerId)
+    api.enable()
+  }, [])
+  return { onPointerUp, onPointerDown }
 }
 
 // Create a store ...
@@ -261,6 +275,37 @@ function BouncyGround() {
   </mesh>
 }
 
+const Box = React.forwardRef(({ children, transparent = false, opacity = 1, color = 'white', args = [1, 1, 1], ...props }, ref) => {
+  console.log(children)
+  return (
+    <mesh receiveShadow castShadow ref={ref} {...props}>
+      <boxBufferGeometry attach="geometry" args={args} />
+      <meshStandardMaterial attach="material" color={color} transparent={transparent} opacity={opacity} />
+      {children}
+    </mesh>
+  )
+})
+
+
+function Table() {
+  const [plate] = useBox(() => ({ type: 'Static', position: [ 0, -0.8, 0], scale: [15, 0.5, 5], args: [2.5, 0.25, 2.5] }))
+  const [leg1] = useBox(() => ({ type: 'Static', position: [ -1.8, -3, 1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  const [leg2] = useBox(() => ({ type: 'Static', position: [ 1.8, -3, 1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  const [leg3] = useBox(() => ({ type: 'Static', position: [ -1.8, -3, -1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  const [leg4] = useBox(() => ({ type: 'Static', position: [ 1.8, -3, -1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  return (
+    <>
+      <Box ref={plate} />
+      <Box ref={leg1} />
+      <Box ref={leg2} />
+      <Box ref={leg3} />
+      <Box ref={leg4} />
+      {/* <Suspense fallback={null}>
+        <Mug />
+      </Suspense> */}
+    </>
+  )
+}
 
 function Plane({ transparent, color, ...props }) {
   const [ref] = usePlane(() => ({ ...props }));
@@ -274,12 +319,31 @@ function Plane({ transparent, color, ...props }) {
 }
 
 
+const Lamp = () => {
+  const light = useRef()
+  const position = useMemo(() => [0, 25, 0])
+  const [fixed] = useSphere(() => ({ type: 'Static', args: 1, position: position }))
+  const [lamp] = useBox(() => ({ mass: 1, args: [1, 0, 5, 1], linearDamping: 0.9, position: position }))
+  usePointToPointConstraint(fixed, lamp, { pivotA: [0, 0, 0], pivotB: [0, 2, 0] })
+  const bind = useDragConstraint(lamp)
+  return (
+    <>
+      <mesh ref={lamp} {...bind}> 
+        <coneBufferGeometry attach="geometry" args={[2, 2.5, 32]} />
+        <meshStandardMaterial attach="material" />
+        <pointLight intensity={10} distance={5} />
+        <spotLight ref={light} position={[0, 20, 0]} angle={0.4} penumbra={1} intensity={0.6} castShadow />
+      </mesh>
+    </>
+  )
+}
+
 function Arena(props) {
 
   return (
     <group>
       {Object.values(props).map(plane =>
-        
+
         <Plane {...plane} />
       )}
     </group>
@@ -292,6 +356,8 @@ export default function Game(props) {
   return (
     <>
       {/* <Court /> */}
+      <Lamp />
+      <Table />
       <Arena {...props.arenaProps} />
       <ContactGround {...props.contactGroundProps} />
       {/* <BouncyGround /> */}

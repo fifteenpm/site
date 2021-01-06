@@ -1147,7 +1147,7 @@
   resolved "https://registry.yarnpkg.com/@nodelib/fs.stat/-/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha512-shAmDyaQC4H92APFoIaVDHCx5bStIocgvbwQyxPRrbUY20V1EYTbSDchWbuwlMG3V17cprZhA6+78JfB+3DTPw==
 
-"@react-spring/animated@9.0.0-rc.3", "@react-spring/animated@^9.0.0-rc.1":
+"@react-spring/animated@9.0.0-rc.3":
   version "9.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/@react-spring/animated/-/animated-9.0.0-rc.3.tgz#e792cb76aacecfc78db2be6020ac11ce96503eb5"
   integrity sha512-dAvgtKhkYpzzr+EkmZ4ZuJ5CujxCW0LaT109DvO/2MQNk3EWIxcgl+ik4tSulSbgau1GN8RlkRKyDp0wISdQ3Q==
@@ -1156,7 +1156,7 @@
     "@react-spring/shared" "9.0.0-rc.3"
     react-layout-effect "^1.0.1"
 
-"@react-spring/core@9.0.0-rc.3":
+"@react-spring/core@9.0.0-rc.3", "@react-spring/core@^9.0.0-rc.1":
   version "9.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/@react-spring/core/-/core-9.0.0-rc.3.tgz#c8e697573936c525bd0f6ca0c0869f75c86e8a83"
   integrity sha512-3OzsVFxpfMJNkkQj8TwAH3NhUAX76AXu6WkslQF4EgBeEoG5eY3m+VvM9RsAsGWDuBKpscZ/wBpFt5Ih6KdGHA==
@@ -1167,18 +1167,7 @@
     react-layout-effect "^1.0.1"
     use-memo-one "^1.1.0"
 
-"@react-spring/core@^9.0.0-rc.1":
-  version "9.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@react-spring/core/-/core-9.0.0-rc.1.tgz#774b47d56d3f50be61691fdd38091d0098d8e259"
-  integrity sha512-o4vnGAxlAm9qP71Zhtw2nK9+k9a5P1MsrYZADcU6onbluUF3JqeCButy6bozWd/gcqEPzOwlVbdOnK6bdwQ2Qw==
-  dependencies:
-    "@babel/runtime" "^7.3.1"
-    "@react-spring/animated" "^9.0.0-rc.1"
-    "@react-spring/shared" "^9.0.0-rc.1"
-    react-layout-effect "^1.0.1"
-    use-memo-one "^1.1.0"
-
-"@react-spring/shared@9.0.0-rc.3", "@react-spring/shared@^9.0.0-rc.1":
+"@react-spring/shared@9.0.0-rc.3":
   version "9.0.0-rc.3"
   resolved "https://registry.yarnpkg.com/@react-spring/shared/-/shared-9.0.0-rc.3.tgz#3f4c9d90accc20fef51a283a7806d78390b84161"
   integrity sha512-dd50TxwwMWd+dSB0InjndUN9w17cbnMCPy+0sag6zRxxKIo7eOyWSliOtLKxvufgmdC8Prm4M3GT5dmB1yxKEQ==
@@ -1189,14 +1178,14 @@
     tslib "^1.11.1"
 
 "@react-spring/three@^9.0.0-rc.1":
-  version "9.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@react-spring/three/-/three-9.0.0-rc.1.tgz#2f15ec570da7a206f95b7589d2a722182bc942a8"
-  integrity sha512-TrZaNgmGgmajDgn5DsZXyvrNgjmpKYdZtZ05CrS0w5G531XyydGRbMYJctJN3KQP6/Zlmvc/pi0YtWI+Y4KdZg==
+  version "9.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/@react-spring/three/-/three-9.0.0-rc.3.tgz#bbfa7863c96ed8fa200cbff69222763c00977eef"
+  integrity sha512-H55T+Dnck+hsJ8WgE+tb89ngX1E1lDOpMBG4mGzNLGok6XgGqN0VBsHRN3QDl+aPfmJI1BPFPR6b6WbhwqRNbw==
   dependencies:
     "@babel/runtime" "^7.3.1"
-    "@react-spring/animated" "^9.0.0-rc.1"
-    "@react-spring/core" "^9.0.0-rc.1"
-    "@react-spring/shared" "^9.0.0-rc.1"
+    "@react-spring/animated" "9.0.0-rc.3"
+    "@react-spring/core" "9.0.0-rc.3"
+    "@react-spring/shared" "9.0.0-rc.3"
 
 "@react-spring/web@^9.0.0-rc.3":
   version "9.0.0-rc.3"
@@ -1214,9 +1203,9 @@
   integrity sha512-/Ak6AcY4KfBMSnqOxQ2drQZVXDAAwfnUi2/PxPepz9tSAl6GC5o7H5WnDRJqXClRcw8n4Q+Dm9uSl8L5mvV96A==
 
 "@react-three/xr@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@react-three/xr/-/xr-1.1.0.tgz#9e07e3d77d6b6965932376e50e1bfb9fc1127e2b"
-  integrity sha512-XXXm7cHA9jJ4huAC2Ag56B3wmULnzSl0QaNOuWPuqJst9kdRBowKDKob5/qMqf0uIySxhsbeTxYT/PrOTwrMqw==
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@react-three/xr/-/xr-1.1.1.tgz#4a69f492433e57ab4efcc8184438b48ea6953254"
+  integrity sha512-5e6cnzAG4zja7iILRZJKpVhUiizOYf8XXSaY5rURuMsdI/CAZXdoDK0L91DxAMo8/zxh+4O8K5Fc6HyBWJDJ+g==
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
@@ -7470,7 +7459,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.4"
 
-prop-types@^15.5.10, prop-types@^15.5.8, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.5.10, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -7790,13 +7779,12 @@ react-router@5.2.0:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-spring@^8.0.27:
-  version "8.0.27"
-  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-8.0.27.tgz#97d4dee677f41e0b2adcb696f3839680a3aa356a"
-  integrity sha512-nDpWBe3ZVezukNRandTeLSPcwwTMjNVu1IDq9qA/AMiUqHuRN4BeSWvKr3eIxxg1vtiYiOLy4FqdfCP5IoP77g==
+react-spring@8.0.19:
+  version "8.0.19"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-8.0.19.tgz#62f4f396b4b73fa402838200a1c80374338cb12e"
+  integrity sha512-DjrwjXqqVEitj6e6GqdW5dUp1BoVyeFQhEcXvPfoQxwyIVSJ9smNt8CNjSvoQqRujVllE7XKaJRWSZO/ewd1/A==
   dependencies:
     "@babel/runtime" "^7.3.1"
-    prop-types "^15.5.8"
 
 react-test-renderer@^16.8.6:
   version "16.14.0"
@@ -9119,10 +9107,10 @@ three-tween@^1.0.0:
   resolved "https://registry.yarnpkg.com/three-tween/-/three-tween-1.0.0.tgz#da69bbbcccf321bfb8356358c594ceb1f0a7fd66"
   integrity sha512-JoRS/llDmrpZq7quzuk/Y9lDDW2ziW9eulMQDMi+Qfy5GcWhnnRYcoNcPFw/VPm4xptehcWDSNNBBdweX6ZIWw==
 
-three@^0.111.0:
-  version "0.111.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.111.0.tgz#9cedb73e79b7f6bf2440cb67a273f883faa923b6"
-  integrity sha512-AcTqyGJ3H75AIusOuADy0LsP958QKQwm/YhABHFMzd6RFXPNVay1rlSbbG6WYv7KM72G2THMMwqbjQd4dVHMkQ==
+three@0.120.1:
+  version "0.120.1"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.120.1.tgz#dbd8894f8ab87c109f1602933e7c740c98137377"
+  integrity sha512-ktaCRFUR7JUZcKec+cBRz+oBex5pOVaJhrtxvFF2T7on53o9UkEux+/Nh1g/4zeb4t/pbxIFcADbn/ACu3LC1g==
 
 throat@^4.0.0:
   version "4.1.0"
@@ -9540,6 +9528,11 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
+
+use-cannon@0.2.5:
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/use-cannon/-/use-cannon-0.2.5.tgz#5920bb4abd5431f23a9bb64af14cd12f9c27ab30"
+  integrity sha512-0blUk293IWwZsyW/Zz4MKyid/xIATsh21qFTPa/IlHR8UV/6ueRf1MwkrEOZu4rDQ0DrAElCcI03Tu4Yc1B6Vw==
 
 use-memo-one@^1.1.0:
   version "1.1.1"
