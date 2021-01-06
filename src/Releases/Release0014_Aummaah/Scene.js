@@ -9,10 +9,10 @@ import Games from './Sports/Games.js';
 import { BloomEffect } from '../../Common/Effects/Effects'
 import AummaahMarquee from './AummaahMarquee'
 import Sun from './Sun';
-import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
+
 
 export function Scene({ }) {
-    const { currentTrackName, audioPlayer } = useAudioPlayer();
+    
     const { camera, scene, raycaster, gl } = useThree()
     useEffect(() => {
         // hack to get physics to work :(

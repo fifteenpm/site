@@ -49,7 +49,7 @@ function Equipment() {
   const { currentTrackName, audioPlayer } = useAudioPlayer();
 
   return (<>
-    <TennisRacquet />
+    <GolfClub />
     {/* // <group>
     //   {currentTrackName == C.AummaahTrack.Cricket && <CricketBat />}
     //   {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet />}
@@ -66,7 +66,7 @@ function CricketBat({ }) {
   const paddleBoxArgs = useMemo(() => [1, 1, 1])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: [paddleBoxArgs], onCollide: e => { } }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
@@ -80,7 +80,6 @@ function CricketBat({ }) {
     model.current.rotation.z = modelRotationZ;
   })
 
-  console.log(nodes)
 
   return (
     <group>
@@ -110,7 +109,7 @@ function TennisRacquet({ }) {
   const paddleBoxArgs = useMemo(() => [4, 3, 1])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: [paddleBoxArgs] }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
@@ -154,7 +153,7 @@ function GolfClub({ }) {
   const paddleBoxArgs = useMemo(() => [5, 20, 2])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: [paddleBoxArgs], onCollide: e => { } }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
@@ -176,7 +175,7 @@ function GolfClub({ }) {
             <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
           </mesh>
-          <group position-x={-2} rotation={[0, -0.04, 0]} >
+          <group rotation-y={Math.PI / 2}>
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
           </group>
         </group>
@@ -186,13 +185,13 @@ function GolfClub({ }) {
 }
 
 function Ball({ onInit }) {
-  const radius = 1.5
+  const radius = .5
   const [ref] = useSphere(() => ({
     mass: 1,
     args: radius,
     velocity: [0, 0, 0],
     // position: [0, 10, 0]
-    position: [2, Math.random() - 0.5, -2],
+    position: [0, 5, 0],
   }))
 
   useEffect(() => {
@@ -217,15 +216,15 @@ const tempObject = new THREE.Object3D()
 const colors = new Array(numInstances).fill().map(() => 0xff00ff)
 const tempColor = new THREE.Color()
 
-function ContactGround() {
+function ContactGround({ rotation, position }) {
   // When the ground was hit we reset the game ...
   // const { reset } = useStore(state => state.api)
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameShouldStartOver, setGameIsOn } = useStore(state => state.api)
-  const [ref] = usePlane(() => ({
+  const [ref, api] = usePlane(() => ({
     type: "Static",
-    rotation: [-Math.PI / 2, 0, 0],
-    position: [0, -10, 0],
+    rotation: rotation ? rotation : [-Math.PI / 2, 0, 0],
+    position: position ? position : [0, -9, 0],
     onCollide: () => {
       setGameIsOn(false)
       setTimeout(() => {
@@ -233,7 +232,17 @@ function ContactGround() {
       }, 2000);
     }
   }))
-  return <mesh ref={ref} />
+  useEffect(() => {
+    if (!rotation || !position) return
+    console.log("ROTATION", rotation, "POSITION", position, "API", api)
+    api.rotation.set(...rotation)
+    api.position.set(...position)
+    
+  }, [rotation, position])
+  return <mesh ref={ref}>
+    <boxBufferGeometry attach="geometry" args={[1000, 1000]} />
+    <meshStandardMaterial attach="material" color="magenta" />
+  </mesh>
 }
 
 
@@ -331,8 +340,8 @@ function GolfCourse() {
 
       <Plane color="hotpink" position={[-12, 0, 0]} rotation={[0, 0.9, 0]} />
       <Plane color="orange" position={[12, 0, 0]} rotation={[0, -0.9, 0]} />
-      <Plane color="blue" position={[0, -6, 0]} rotation={[-Math.PI / 2, 0, 0]} />
-      {/* <Plane color="blue" position={[0, -6, 0]} rotation={[-1.9, 0, 0]} /> */}
+      {/* <Plane color="blue" position={[0, -6, 0]} rotation={[-Math.PI / 2, 0, 0]} /> */}
+      <Plane color="blue" position={[0, -6, 0]} rotation={[-1.9, 0, 0]} />
 
     </group>
   )
@@ -341,16 +350,17 @@ function GolfCourse() {
 
 
 
-export default function Game() {
+export default function Game(props) {
+  console.log("GAME PROPS", props)
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      <Court />
-      {/* <GolfCourse /> */}
+      {/* <Court /> */}
+      <GolfCourse />
 
-      <ContactGround />
-      <BouncyGround />
+      <ContactGround {...props.contactGroundProps} />
+      {/* <BouncyGround /> */}
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
       <Suspense fallback={null}>
         <Equipment />

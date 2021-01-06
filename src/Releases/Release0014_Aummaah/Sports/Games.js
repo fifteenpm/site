@@ -1,19 +1,11 @@
-import { Physics, usePlane } from '@react-three/cannon';
-import { default as React, useContext } from 'react';
-import { useThree } from 'react-three-fiber';
-import * as THREE from 'three';
-import { MaterialsContext } from '../MaterialsContext';
-
-import TennisCourt from './TennisCourt'
-import TileGenerator from '../../../Common/Utils/TileGenerator'
-import Game from './Game.js'
+import { Physics } from '@react-three/cannon';
+import { default as React } from 'react';
+import Game from './Game.js';
+import useAudioPlayer from '../../../Common/UI/Player/hooks/useAudioPlayer';
+import * as C from '../constants';
 
 export default function Games() {
-
-    const { camera, size } = useThree();
-
-    const materials = useContext(MaterialsContext);
-
+    const { currentTrackName } = useAudioPlayer();
     return (
         <Physics
             iterations={20}
@@ -29,8 +21,7 @@ export default function Games() {
             gravity={[0, -40, 0]}
             allowSleep={false}
         >
-
-            <Game />
+            <Game {...C.TRACKS_CONFIG[currentTrackName]} />
         </Physics >
     );
 }
