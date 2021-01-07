@@ -30,7 +30,7 @@ export const FIRST_TRACK = AummaahTrack.Tennis
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     equipmentURL: TENNIS_RACQUET_GLB,
-    contactGroundProps: {
+    startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
     },
@@ -57,7 +57,7 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
 
 TRACKS_CONFIG[AummaahTrack.Cricket] = {
     equipmentURL: CRICKET_BAT_GLB,
-    contactGroundProps: {
+    startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
     }
@@ -66,7 +66,7 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
 
 TRACKS_CONFIG[AummaahTrack.Golf] = {
     equipmentURL: GOLF_CLUB_GLB,
-    contactGroundProps: {
+    startOverSurfacesProps: {
         // rotation: [-Math.PI / 2, 0, 0],
         // position: [0, -10, 0],
         rotation: [-.5, 0,0 ],

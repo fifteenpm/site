@@ -230,7 +230,7 @@ const tempObject = new THREE.Object3D()
 const colors = new Array(numInstances).fill().map(() => 0xff00ff)
 const tempColor = new THREE.Color()
 
-function ContactGround({ rotation, position }) {
+function StartOverSurfaces({ rotation, position }) {
   // When the ground was hit we reset the game ...
   // const { reset } = useStore(state => state.api)
   const gameIsOn = useStore(state => state.gameIsOn)
@@ -288,11 +288,11 @@ const Box = React.forwardRef(({ children, transparent = false, opacity = 1, colo
 
 
 function Table() {
-  const [plate] = useBox(() => ({ type: 'Static', position: [ 0, -0.8, 0], scale: [15, 0.5, 5], args: [2.5, 0.25, 2.5] }))
-  const [leg1] = useBox(() => ({ type: 'Static', position: [ -1.8, -3, 1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
-  const [leg2] = useBox(() => ({ type: 'Static', position: [ 1.8, -3, 1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
-  const [leg3] = useBox(() => ({ type: 'Static', position: [ -1.8, -3, -1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
-  const [leg4] = useBox(() => ({ type: 'Static', position: [ 1.8, -3, -1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  const [plate] = useBox(() => ({ type: 'Static', position: [0, -0.8, 0], scale: [15, 0.5, 5], args: [2.5, 0.25, 2.5] }))
+  const [leg1] = useBox(() => ({ type: 'Static', position: [-1.8, -3, 1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  const [leg2] = useBox(() => ({ type: 'Static', position: [1.8, -3, 1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  const [leg3] = useBox(() => ({ type: 'Static', position: [-1.8, -3, -1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
+  const [leg4] = useBox(() => ({ type: 'Static', position: [1.8, -3, -1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
   return (
     <>
       <Box ref={plate} />
@@ -307,17 +307,6 @@ function Table() {
   )
 }
 
-function Plane({ transparent, color, ...props }) {
-  const [ref] = usePlane(() => ({ ...props }));
-
-  return (
-    <mesh receiveShadow ref={ref}>
-      <planeBufferGeometry attach="geometry" args={[1000, 1000]} />
-      <meshStandardMaterial attach="material" color={color} />
-    </mesh>
-  );
-}
-
 
 const Lamp = () => {
   const light = useRef()
@@ -328,7 +317,7 @@ const Lamp = () => {
   const bind = useDragConstraint(lamp)
   return (
     <>
-      <mesh ref={lamp} {...bind}> 
+      <mesh ref={lamp} {...bind}>
         <coneBufferGeometry attach="geometry" args={[2, 2.5, 32]} />
         <meshStandardMaterial attach="material" />
         <pointLight intensity={10} distance={5} />
@@ -337,6 +326,19 @@ const Lamp = () => {
     </>
   )
 }
+
+function Plane({ transparent, color, ...props }) {
+  const [ref] = usePlane(() => ({ ...props }));
+  const { greenWireframe } = useContext(MaterialsContext)
+  return (
+    <mesh receiveShadow ref={ref} material={greenWireframe}>
+      <planeBufferGeometry attach="geometry" args={[500, 500, 1000, 1000]} />
+      {/* <meshStandardMaterial attach="material" color={color} /> */}
+    </mesh>
+  );
+}
+
+
 
 function Arena(props) {
 
@@ -355,11 +357,11 @@ export default function Game(props) {
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      {/* <Court /> */}
+      <Court />
       <Lamp />
       <Table />
       <Arena {...props.arenaProps} />
-      <ContactGround {...props.contactGroundProps} />
+      <StartOverSurfaces {...props.startOverSurfacesProps} />
       {/* <BouncyGround /> */}
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
       <Suspense fallback={null}>
