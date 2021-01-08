@@ -26,13 +26,19 @@ export const AummaahTrack = {
 }
 
 export const TRACKS_CONFIG = {}
-export const FIRST_TRACK = AummaahTrack.Tennis
+export const FIRST_TRACK = AummaahTrack.Golf
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     equipmentURL: TENNIS_RACQUET_GLB,
     startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
+    },
+    ballProps: {
+        position: [0, 5, 0],
+        velocity: [0, 0, 0],
+        mass: 1.,
+        radius: .5,
     },
     arenaProps: {
         leftBorder: {
@@ -60,17 +66,27 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
     startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
-    }
+    },
+    ballProps: {
+        position: [0, 5, 0],
+        velocity: [0, 0, 0],
+        mass: 1.,
+        radius: .5,
+    },
 }
 
 
 TRACKS_CONFIG[AummaahTrack.Golf] = {
     equipmentURL: GOLF_CLUB_GLB,
     startOverSurfacesProps: {
-        // rotation: [-Math.PI / 2, 0, 0],
-        // position: [0, -10, 0],
-        rotation: [-.5, 0,0 ],
-        position: [0, 0, -17],
+        rotation: [-Math.PI / 2, 0, 0],
+        position: [0, -10, 0],
+    },
+    ballProps: {
+        position: [0, 1, -20],
+        velocity: [0, 0, 0],
+        mass: 1.,
+        radius: .5,
     },
     arenaProps: {
         leftBorder: {
@@ -85,7 +101,7 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
         },
         ground: {
             position: [0, -6, 0],
-            rotation: [-1.7, 0, 0],
+            rotation: [-1.4, 0, 0],
             color: "lightcoral",
         },
     }

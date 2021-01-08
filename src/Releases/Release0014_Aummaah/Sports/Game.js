@@ -164,29 +164,34 @@ function GolfClub({ }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
   const { greenWireframe } = useContext(MaterialsContext)
-  const paddleBoxArgs = useMemo(() => [5, 20, 2])
+  const poleArgs = useMemo(() => [1, 16, 2])
+  // const clubArgs = useMemo(() => [2, 2, 2])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
+  const [poleRef, poleAPI] = useBox(() => ({ type: "Kinematic", args: poleArgs }))
+  // const [clubRef, clubAPI] = useBox(() => ({ type: "Kinematic", args: clubArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
-    // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
+
+
     // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
-    values.current[1] = lerp(values.current[1], (state.mouse.x * Math.PI) / 5, 0.2)
-    api.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
-    api.rotation.set(-2 * Math.PI, 0, values.current[1])
+    values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 2, .7)
+    poleAPI.position.set(state.mouse.x * 10, 0, 0)//state.mouse.y * 10, -state.mouse.y * 10)
+    poleAPI.rotation.set(values.current[1], 0, 0)
+    // clubAPI.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
+    // clubAPI.rotation.set(-2 * Math.PI, 0, values.current[1])
     // Left/right mouse movement rotates it a liitle for effect only
-    const modelRotationZ = state.mouse.x < -0.3 ? -Math.PI : 0;
-    model.current.rotation.z = modelRotationZ;
+
+    model.current.rotation.y = state.mouse.x > -0.3 ? -Math.PI : 0;;
   })
+
   return (
     <group>
-      {/*  */}
-      <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
+      <mesh ref={poleRef} dispose={null} rotation-x={-2 * Math.PI}>
         <group ref={model}  >
           <mesh >
-            <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
+            <boxBufferGeometry attach="geometry" args={poleArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
           </mesh>
           <group rotation-y={Math.PI / 2}>
@@ -194,19 +199,23 @@ function GolfClub({ }) {
           </group>
         </group>
       </mesh>
+      {/* <mesh ref={clubRef} dispose={null} rotation-x={-2 * Math.PI}>
+        <boxBufferGeometry attach="geometry" args={clubArgs} />
+        <meshBasicMaterial attach="material" wireframe color="red" />
+      </mesh> */}
     </group>
   )
 }
 
-function Ball({ onInit }) {
-  const radius = .5
+function Ball({ onInit, mass = 1, radius = 0.5, velocity = [0, 5, 0], position = [0, 0, 0] }) {
+
   const [ref] = useSphere(() => ({
-    mass: 1,
+    mass: mass,
     args: radius,
-    velocity: [0, 0, 0],
-    // position: [0, 10, 0]
-    position: [0, 5, 0],
+    velocity: velocity,
+    position: position,
   }))
+
 
   useEffect(() => {
     onInit()
@@ -331,9 +340,10 @@ function Plane({ transparent, color, ...props }) {
   const [ref] = usePlane(() => ({ ...props }));
   const { greenWireframe } = useContext(MaterialsContext)
   return (
-    <mesh receiveShadow ref={ref} material={greenWireframe}>
+    <mesh receiveShadow ref={ref} >
+      {/* <mesh receiveShadow ref={ref} material={greenWireframe}> */}
       <planeBufferGeometry attach="geometry" args={[500, 500, 1000, 1000]} />
-      {/* <meshStandardMaterial attach="material" color={color} /> */}
+      <meshStandardMaterial attach="material" color={color} />
     </mesh>
   );
 }
@@ -345,7 +355,6 @@ function Arena(props) {
   return (
     <group>
       {Object.values(props).map(plane =>
-
         <Plane {...plane} />
       )}
     </group>
@@ -357,13 +366,13 @@ export default function Game(props) {
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      <Court />
-      <Lamp />
+      {/* <Court /> */}
+      {/* <Lamp /> */}
       <Table />
       <Arena {...props.arenaProps} />
       <StartOverSurfaces {...props.startOverSurfacesProps} />
       {/* <BouncyGround /> */}
-      {gameIsOn && <Ball onInit={() => setGameIsOn(true)} />}
+      {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
       <Suspense fallback={null}>
         <Equipment />
       </Suspense>
