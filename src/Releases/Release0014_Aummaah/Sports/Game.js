@@ -63,12 +63,12 @@ function Equipment() {
   const { currentTrackName, audioPlayer } = useAudioPlayer();
 
   return (<>
-    <GolfClub />
-    {/* // <group>
-    //   {currentTrackName == C.AummaahTrack.Cricket && <CricketBat />}
-    //   {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet />}
-    //   {currentTrackName == C.AummaahTrack.Golf && <GolfClub />}
-    // </group> */}
+    {/* <GolfClub /> */}
+    <group>
+      {currentTrackName == C.AummaahTrack.Cricket && <CricketBat />}
+      {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet />}
+      {currentTrackName == C.AummaahTrack.Golf && <GolfClub />}
+    </group>
   </>
   )
 }
@@ -77,7 +77,7 @@ function CricketBat({ }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.CRICKET_BAT_GLB)
   const { greenWireframe } = useContext(MaterialsContext)
-  const paddleBoxArgs = useMemo(() => [1, 1, 1])
+  const paddleBoxArgs = useMemo(() => [8, 2, 1])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
   const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
@@ -85,15 +85,16 @@ function CricketBat({ }) {
   let values = useRef([0, 0])
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
-    values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
-    values.current[1] = lerp(values.current[1], (state.mouse.x * Math.PI) / 5, 0.2)
-    api.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
-    api.rotation.set(-2 * Math.PI, 0, values.current[1])
+    // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
+    values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 1.5, 0.2)
+    api.position.set(state.mouse.x * 5, state.mouse.y * 3, -state.mouse.y * 5)
+    const mouseLeftOfCenter = state.mouse.x < -2.1;
+    api.rotation.set(-2 * Math.PI, mouseLeftOfCenter ? -values.current[1] : values.current[1], 0)
     // Left/right mouse movement rotates it a liitle for effect only
-    const modelRotationZ = state.mouse.x < -0.3 ? -Math.PI : 0;
-    model.current.rotation.z = modelRotationZ;
+    const modelRotation = mouseLeftOfCenter ? -Math.PI : 0;
+    model.current.rotation.x = modelRotation;
+    model.current.rotation.z = modelRotation;
   })
-
 
   return (
     <group>
@@ -106,9 +107,9 @@ function CricketBat({ }) {
           </mesh>
           {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
           {/* children={count.toString()} /> */}
-          <group position-x={-2} rotation={[0, -0.04, 0]} >
+          <group rotation={[0, -0.04, 0]} >
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_0.geometry} />
-            <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />
+            <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />>
           </group>
         </group>
       </mesh>
@@ -129,12 +130,14 @@ function TennisRacquet({ }) {
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
     // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
-    values.current[1] = lerp(values.current[1], (state.mouse.x * Math.PI) / 5, 0.2)
-    api.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
-    api.rotation.set(-2 * Math.PI, 0, values.current[1])
+    values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 3, 0.2)
+    api.position.set(state.mouse.x * 5, state.mouse.y * 3, -state.mouse.y * 5)
+    const mouseLeftOfCenter = state.mouse.x < -0.5;
+    api.rotation.set(-2 * Math.PI, mouseLeftOfCenter ? -values.current[1] : values.current[1], 0)
     // Left/right mouse movement rotates it a liitle for effect only
-    const modelRotationZ = state.mouse.x < -0.3 ? -Math.PI : 0;
-    model.current.rotation.z = modelRotationZ;
+    const modelRotation = mouseLeftOfCenter ? -Math.PI : 0;
+    model.current.rotation.x = modelRotation;
+    model.current.rotation.z = modelRotation;
   })
 
   return (
@@ -164,7 +167,7 @@ function GolfClub({ }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
   const { greenWireframe } = useContext(MaterialsContext)
-  const poleArgs = useMemo(() => [1, 16, 2])
+  const poleArgs = useMemo(() => [1, 16, 5])
   // const clubArgs = useMemo(() => [2, 2, 2])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
@@ -244,6 +247,7 @@ function StartOverSurfaces({ rotation, position }) {
   // const { reset } = useStore(state => state.api)
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameShouldStartOver, setGameIsOn } = useStore(state => state.api)
+  const { greenWireframe } = useContext(MaterialsContext)
   const [ref, api] = usePlane(() => ({
     type: "Static",
     rotation: rotation ? rotation : [-Math.PI / 2, 0, 0],
@@ -261,9 +265,9 @@ function StartOverSurfaces({ rotation, position }) {
     api.position.set(...position)
 
   }, [rotation, position])
-  return <mesh ref={ref}>
+  return <mesh ref={ref} material={greenWireframe}>
     <boxBufferGeometry attach="geometry" args={[1000, 1000]} />
-    <meshStandardMaterial attach="material" color="black" />
+    {/* <meshStandardMaterial attach="material" color="black" /> */}
   </mesh>
 }
 
@@ -340,10 +344,10 @@ function Plane({ transparent, color, ...props }) {
   const [ref] = usePlane(() => ({ ...props }));
   const { greenWireframe } = useContext(MaterialsContext)
   return (
-    <mesh receiveShadow ref={ref} >
-      {/* <mesh receiveShadow ref={ref} material={greenWireframe}> */}
+    // <mesh receiveShadow ref={ref} >
+      <mesh receiveShadow ref={ref} material={greenWireframe}>
       <planeBufferGeometry attach="geometry" args={[500, 500, 1000, 1000]} />
-      <meshStandardMaterial attach="material" color={color} />
+      {/* <meshStandardMaterial attach="material" color={color} /> */}
     </mesh>
   );
 }
@@ -366,8 +370,8 @@ export default function Game(props) {
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      {/* <Court /> */}
-      {/* <Lamp /> */}
+      <Court />
+      <Lamp />
       <Table />
       <Arena {...props.arenaProps} />
       <StartOverSurfaces {...props.startOverSurfacesProps} />

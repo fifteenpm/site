@@ -26,7 +26,7 @@ export const AummaahTrack = {
 }
 
 export const TRACKS_CONFIG = {}
-export const FIRST_TRACK = AummaahTrack.Golf
+export const FIRST_TRACK = AummaahTrack.Cricket
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     equipmentURL: TENNIS_RACQUET_GLB,
@@ -68,11 +68,28 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
         position: [0, -10, 0],
     },
     ballProps: {
-        position: [0, 5, 0],
-        velocity: [0, 0, 0],
+        position: [0, 5, -10],
+        velocity: [0, -3, 0],
         mass: 1.,
         radius: .5,
     },
+    arenaProps: {
+        leftBorder: {
+            position: [-24, 0, 0],
+            rotation: [0, 0.9, 0],
+            color: "aqua"
+        },
+        rightBorder: {
+            position: [24, 0, 0],
+            rotation: [0, -0.9, 0],
+            color: "chartreuse",
+        },
+        ground: {
+            position: [0, -6, 0],
+            rotation: [-1.4, 0, 0],
+            color: "lightcoral",
+        },
+    }
 }
 
 
