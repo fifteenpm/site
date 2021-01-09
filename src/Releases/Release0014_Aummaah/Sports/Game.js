@@ -13,6 +13,7 @@ import * as C from '../constants.js';
 import { MaterialsContext } from '../MaterialsContext';
 import earthImg from "./resources/cross.jpg";
 import pingSound from "./resources/ping.mp3";
+import niceColors from 'nice-color-palettes';
 import Text from "./Text";
 import Court from './TennisCourt'
 import useAudioPlayer from '../../../Common/UI/Player/hooks/useAudioPlayer'
@@ -101,10 +102,10 @@ function CricketBat({ }) {
       {/*  */}
       <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
         <group ref={model}  >
-          <mesh >
+          {/* <mesh >
             <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
-          </mesh>
+          </mesh> */}
           {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
           {/* children={count.toString()} /> */}
           <group rotation={[0, -0.04, 0]} >
@@ -242,7 +243,7 @@ const tempObject = new THREE.Object3D()
 const colors = new Array(numInstances).fill().map(() => 0xff00ff)
 const tempColor = new THREE.Color()
 
-function StartOverSurfaces({ rotation, position }) {
+function StartOverSurfaces({ rotation, position, geometryArgs = [1000, 1000] }) {
   // When the ground was hit we reset the game ...
   // const { reset } = useStore(state => state.api)
   const gameIsOn = useStore(state => state.gameIsOn)
@@ -266,7 +267,7 @@ function StartOverSurfaces({ rotation, position }) {
 
   }, [rotation, position])
   return <mesh ref={ref} material={greenWireframe}>
-    <boxBufferGeometry attach="geometry" args={[1000, 1000]} />
+    <boxBufferGeometry attach="geometry" args={geometryArgs} />
     {/* <meshStandardMaterial attach="material" color="black" /> */}
   </mesh>
 }
@@ -313,12 +314,81 @@ function Table() {
       <Box ref={leg2} />
       <Box ref={leg3} />
       <Box ref={leg4} />
-      {/* <Suspense fallback={null}>
-        <Mug />
-      </Suspense> */}
     </>
   )
 }
+
+
+function CricketWicket() {
+  const contactMaterial = {
+    // friction: 10,
+    // restitution: 0.1,
+    // contactEquationStiffness: 1e7,
+    // contactEquationRelaxation: 1,
+    // frictionEquationStiffness: 1e7,
+    // frictionEquationRelaxation: 2,
+  }
+
+  const defaultMass = .1
+  const props = useMemo(() => {
+    return {
+      leg1: {
+        args: [2, 7, 2],
+        position: [-4, 4, -20],
+        mass: defaultMass,
+        // velocity: [0, 2, 0]
+      },
+      leg2: {
+        args: [2, 7, 2],
+        position: [0, 4, -20],
+        mass: defaultMass,
+      },
+      leg3: {
+        args: [2, 7, 2],
+        position: [4, 4, -20],
+        mass: defaultMass,
+      },
+      topLeft: {
+        args: [2, 3.5, 2],
+        rotation: [0, 0, Math.PI / 2],
+        position: [-2, 9, -20],
+        mass: defaultMass,
+      },
+      topRight: {
+        args: [2, 3.5, 2],
+        rotation: [0, 0, Math.PI / 2],
+        position: [2, 9, -20],
+        mass: defaultMass,
+      },
+    }
+  })
+  const [leg1] = useBox(() => ({ ...props.leg1 }))
+  const [leg2] = useBox(() => ({ ...props.leg2 }))
+  const [leg3] = useBox(() => ({ ...props.leg3 }))
+  const [topLeft] = useBox(() => ({ ...props.topLeft }))
+  const [topRight] = useBox(() => ({ ...props.topRight }))
+
+  return (
+    <>
+      <Box ref={leg1} {...props.leg1} />
+      <Box ref={leg2} {...props.leg2} />
+      <Box ref={leg3} {...props.leg3} />
+      <Box ref={topLeft} {...props.topLeft} />
+      <Box ref={topRight} {...props.topRight} />
+    </>
+  )
+}
+
+function GolfPinPedestal() {
+  const [plate] = useBox(() => ({ type: 'Static', position: [0, -0.8, 0], scale: [15, 0.5, 5], args: [2.5, 0.25, 2.5] }))
+
+  return (
+    <>
+      <Box ref={plate} />
+    </>
+  )
+}
+
 
 
 const Lamp = () => {
@@ -333,24 +403,65 @@ const Lamp = () => {
       <mesh ref={lamp} {...bind}>
         <coneBufferGeometry attach="geometry" args={[2, 2.5, 32]} />
         <meshStandardMaterial attach="material" />
-        <pointLight intensity={10} distance={5} />
-        <spotLight ref={light} position={[0, 20, 0]} angle={0.4} penumbra={1} intensity={0.6} castShadow />
+        {/* <pointLight intensity={1} distance={5} /> */}
+        <spotLight ref={light} color="yellow" position={[0, 20, 0]} angle={0.4} penumbra={1} intensity={0.2} castShadow />
       </mesh>
     </>
   )
 }
 
-function Plane({ transparent, color, ...props }) {
-  const [ref] = usePlane(() => ({ ...props }));
-  const { greenWireframe } = useContext(MaterialsContext)
+function Plane({ transparent, color, boxArgs, ...props }) {
+  const [ref] = useBox(() => ({ type: "Kinematic", args: boxArgs, ...props }));
+  const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
   return (
-    // <mesh receiveShadow ref={ref} >
-      <mesh receiveShadow ref={ref} material={greenWireframe}>
-      <planeBufferGeometry attach="geometry" args={[500, 500, 1000, 1000]} />
-      {/* <meshStandardMaterial attach="material" color={color} /> */}
+    <mesh receiveShadow ref={ref} >
+      {/* <mesh receiveShadow ref={ref} material={greenWireframe}> */}
+      {/* <planeBufferGeometry attach="geometry" args={boxArgs} /> */}
+      <boxBufferGeometry attach="geometry" args={boxArgs} />
+      <meshStandardMaterial attach="material" color={color} />
     </mesh>
   );
 }
+
+
+function Obstacles({ number = 15 }) {
+  // const map = useLoader(THREE.TextureLoader, '/carbon_normal.jpg')
+  const [ref] = useBox(index => ({
+    mass: .02,
+    position: [Math.random() - 0.5 * 5, Math.random() - 0.5, index * 2 - 40],
+    // args: 1
+    args: [.25, .25, .25],
+
+  }))
+  const colors = useMemo(() => {
+    const array = new Float32Array(number * 3)
+    const color = new THREE.Color()
+    for (let i = 0; i < number; i++)
+      color
+        .set(niceColors[17][Math.floor(Math.random() * 5)])
+        .convertSRGBToLinear()
+        .toArray(array, i * 3)
+    return array
+  }, [number])
+  return (
+    <instancedMesh ref={ref} castShadow receiveShadow args={[null, null, number]}>
+      <sphereBufferGeometry attach="geometry" args={[1, 16, 16]}>
+        <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colors, 3]} />
+      </sphereBufferGeometry>
+      <meshBasicMaterial attach="material" color="blue" />
+      {/* <meshPhongMaterial
+        attach="material"
+        vertexColors={THREE.VertexColors}
+        normalMap={map}
+        normalScale={[1, 1]}
+        normalMap-wrapS={THREE.RepeatWrapping}
+        normalMap-wrapT={THREE.RepeatWrapping}
+        normalMap-repeat={[10, 10]}
+      /> */}
+    </instancedMesh>
+  )
+}
+
 
 
 
@@ -370,16 +481,19 @@ export default function Game(props) {
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      <Court />
-      <Lamp />
-      <Table />
+      {/* <Court /> */}
+      {/* <Lamp /> */}
+      {/* <Table /> */}
+      {/* <Obstacles /> */}
+      {/* <GolfPinPedestal /> */}
+      <CricketWicket />
       <Arena {...props.arenaProps} />
-      <StartOverSurfaces {...props.startOverSurfacesProps} />
+      {/* <StartOverSurfaces {...props.startOverSurfacesProps} /> */}
       {/* <BouncyGround /> */}
-      {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
-      <Suspense fallback={null}>
+      {/* {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />} */}
+      {/* <Suspense fallback={null}>
         <Equipment />
-      </Suspense>
+      </Suspense> */}
     </>
   )
 }

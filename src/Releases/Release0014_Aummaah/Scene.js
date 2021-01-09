@@ -9,31 +9,34 @@ import Games from './Sports/Games.js';
 import { BloomEffect } from '../../Common/Effects/Effects'
 import AummaahMarquee from './AummaahMarquee'
 import Sun from './Sun';
-
+import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
+import * as C from './constants';
 
 export function Scene({ }) {
-    
+
     const { camera, scene, raycaster, gl } = useThree()
     useEffect(() => {
         // hack to get physics to work :(
         gl.xr = { isPresenting: false }
-        // scene.background = new THREE.Color(0x000000);
-        scene.background = new THREE.Color("white");
+        scene.background = new THREE.Color(0x000000);
+        console.log("camera:", camera)
+        // scene.background = new THREE.Color("white");
     }, [])
-  
 
-  
+
+    const { currentTrackName } = useAudioPlayer();
     return <>
         {/* <Flying /> */}
+        {/* <Orbit  autoRotate={false} maxDistance={2}/> */}
         <Orbit autoRotate={false} />
         {/* <FirstPerson /> */}
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
-        {/* <ambientLight /> */}
-        {/* <pointLight position={[0, 1, -5]} intensity={.1} color={"green"}/> */}
-        <BloomEffect />
+        <ambientLight intensit={.1} />
+        <pointLight position={[0, 1, -5]} intensity={.5} color={"green"} />
+        {/* <BloomEffect /> */}
         <MaterialsProvider>
             <Suspense fallback={null}>
-                <Games />
+                <Games {...C.TRACKS_CONFIG[currentTrackName || C.FIRST_TRACK]} />
                 {/* <AummaahMarquee /> */}
                 {/* <Sun /> */}
             </Suspense>

@@ -91,7 +91,8 @@ export default function Court({ ...props }) {
                     <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
                     {/* </boxBufferGeometry> */}
                 </planeBufferGeometry>
-                <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors}
+                <meshStandardMaterial attach="material" color={"white"} transparent={false} opacity={1} />
+                {/* <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors}
                     lights
                     receiveShadow
                     // castShadow
@@ -106,7 +107,7 @@ export default function Court({ ...props }) {
                     envMap={envMapCube}
                     // refractionRatio={props.refractionRatio || 1.0}
                     // combine={THREE.AddOperation}
-                />
+                /> */}
 
             </instancedMesh>
         </group>

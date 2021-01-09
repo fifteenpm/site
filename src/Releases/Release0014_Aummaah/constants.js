@@ -56,7 +56,21 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             rotation: [-1.7, 0, 0],
             color: "lightcoral",
         },
+    },
+    physicsProps: {
+        iterations: 20,
+        tolerance: 0.0001,
+        defaultContactMaterial: {
+            friction: 0.9,
+            restitution: 0.7,
+            contactEquationStiffness: 1e7,
+            contactEquationRelaxation: 1,
+            frictionEquationStiffness: 1e7,
+            frictionEquationRelaxation: 2,
+        },
+        gravity: [0, -40, 0]
     }
+
 
 }
 
@@ -66,6 +80,7 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
     startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
+        geometryArgs: [250, 250, 20, 20],
     },
     ballProps: {
         position: [0, 5, -10],
@@ -75,21 +90,27 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
     },
     arenaProps: {
         leftBorder: {
-            position: [-24, 0, 0],
+            position: [-48, 0, 0],
             rotation: [0, 0.9, 0],
-            color: "aqua"
+            color: "aqua",
+            boxArgs: [100, 100, 1, 100, 100, 10]
         },
         rightBorder: {
-            position: [24, 0, 0],
+            position: [48, 0, 0],
             rotation: [0, -0.9, 0],
             color: "chartreuse",
+            boxArgs: [100, 100, 1, 100, 100, 10]
         },
         ground: {
-            position: [0, -6, 0],
-            rotation: [-1.4, 0, 0],
+            position: [0, 0, 0],
+            rotation: [-Math.PI / 2, 0, 0],
             color: "lightcoral",
+            boxArgs: [100, 100, 1, 100, 100, 10]
         },
-    }
+    },
+    physicsProps: {
+        allowSleep: false,
+    },
 }
 
 
@@ -121,5 +142,19 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             rotation: [-1.4, 0, 0],
             color: "lightcoral",
         },
+    },
+    physicsProps: {
+        iterations: 20,
+        tolerance: 0.0001,
+        defaultContactMaterial: {
+            friction: 0.9,
+            restitution: 0.7,
+            contactEquationStiffness: 1e7,
+            contactEquationRelaxation: 1,
+            frictionEquationStiffness: 1e7,
+            frictionEquationRelaxation: 2,
+        },
+        gravity: [0, -40, 0],
+        allowSleep: false,
     }
 }
