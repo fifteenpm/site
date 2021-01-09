@@ -26,7 +26,7 @@ export const AummaahTrack = {
 }
 
 export const TRACKS_CONFIG = {}
-export const FIRST_TRACK = AummaahTrack.Cricket
+export const FIRST_TRACK = AummaahTrack.Golf
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     equipmentURL: TENNIS_RACQUET_GLB,
@@ -57,19 +57,8 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             color: "lightcoral",
         },
     },
-    physicsProps: {
-        iterations: 20,
-        tolerance: 0.0001,
-        defaultContactMaterial: {
-            friction: 0.9,
-            restitution: 0.7,
-            contactEquationStiffness: 1e7,
-            contactEquationRelaxation: 1,
-            frictionEquationStiffness: 1e7,
-            frictionEquationRelaxation: 2,
-        },
-        gravity: [0, -40, 0]
-    }
+
+
 
 
 }
@@ -87,6 +76,14 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
         velocity: [0, -30, 5],
         mass: 1.,
         radius: .5,
+        contactMaterial: {
+            friction: 0.9,
+            restitution: 0.7,
+            contactEquationStiffness: 1e7,
+            contactEquationRelaxation: 1,
+            frictionEquationStiffness: 1e7,
+            frictionEquationRelaxation: 2,
+        }
     },
     arenaProps: {
         leftBorder: {
@@ -105,12 +102,18 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
             position: [0, 0, 0],
             rotation: [-Math.PI / 2, 0, 0],
             color: "lightcoral",
-            boxArgs: [12, 248, 1, 100, 100, 10]
+            boxArgs: [12, 248, 1, 100, 100, 10],
+            contactMaterial: {
+                friction: 0.9,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }
         },
     },
-    physicsProps: {
-        allowSleep: false,
-    },
+
 }
 
 
@@ -121,40 +124,32 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
         position: [0, -10, 0],
     },
     ballProps: {
-        position: [0, 1, -20],
+        position: [0, 5, 2],
         velocity: [0, 0, 0],
         mass: 1.,
         radius: .5,
     },
     arenaProps: {
-        leftBorder: {
-            position: [-24, 0, 0],
-            rotation: [0, 0.9, 0],
-            color: "aqua"
-        },
-        rightBorder: {
-            position: [24, 0, 0],
-            rotation: [0, -0.9, 0],
-            color: "chartreuse",
-        },
+        // leftBorder: {
+        //     position: [-24, 0, 0],
+        //     rotation: [0, 0.9, 0],
+        //     color: "aqua"
+        // },
+        // rightBorder: {
+        //     position: [24, 0, 0],
+        //     rotation: [0, -0.9, 0],
+        //     color: "chartreuse",
+        // },
         ground: {
-            position: [0, -6, 0],
-            rotation: [-1.4, 0, 0],
+            position: [0, 0, 0],
+            rotation: [-Math.PI / 2, 0, 0],
             color: "lightcoral",
+            boxArgs: [100, 100, 1, 100, 100, 10],
         },
     },
-    physicsProps: {
-        iterations: 20,
-        tolerance: 0.0001,
-        defaultContactMaterial: {
-            friction: 0.9,
-            restitution: 0.7,
-            contactEquationStiffness: 1e7,
-            contactEquationRelaxation: 1,
-            frictionEquationStiffness: 1e7,
-            frictionEquationRelaxation: 2,
-        },
-        gravity: [0, -40, 0],
-        allowSleep: false,
+    golfTeeProps: {
+        position: [0, .5, 2],
+        args: [.25, 2, .1],
+        type: "Kinematic",
     }
 }

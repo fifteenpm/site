@@ -174,7 +174,7 @@ function GolfClub({ }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
   const { greenWireframe } = useContext(MaterialsContext)
-  const poleArgs = useMemo(() => [1, 16, 5])
+  const poleArgs = useMemo(() => [1, 16, .2])
   // const clubArgs = useMemo(() => [2, 2, 2])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
@@ -187,7 +187,7 @@ function GolfClub({ }) {
 
     // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
     values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 2, .7)
-    poleAPI.position.set(state.mouse.x * 10, 0, 0)//state.mouse.y * 10, -state.mouse.y * 10)
+    poleAPI.position.set(state.mouse.x * 10, 4, 0)//state.mouse.y * 10, -state.mouse.y * 10)
     poleAPI.rotation.set(values.current[1], 0, 0)
     // clubAPI.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
     // clubAPI.rotation.set(-2 * Math.PI, 0, values.current[1])
@@ -217,21 +217,15 @@ function GolfClub({ }) {
   )
 }
 
-function Ball({ onInit, mass = 1, radius = 0.5, velocity = [0, 5, 0], position = [0, 0, 0] }) {
+function Ball({ onInit, contactMaterial, mass = 1, radius = 0.5, velocity = [0, 5, 0], position = [0, 0, 0] }) {
 
   const [ref] = useSphere(() => ({
     mass: mass,
     args: radius,
     velocity: velocity,
     position: position,
-    material: {
-      friction: 0.9,
-      restitution: 0.7,
-      contactEquationStiffness: 1e7,
-      contactEquationRelaxation: 1,
-      frictionEquationStiffness: 1e7,
-      frictionEquationRelaxation: 2,
-    },
+    material: contactMaterial,
+
   }))
 
 
@@ -393,12 +387,13 @@ function CricketWicket() {
   )
 }
 
-function GolfPinPedestal() {
-  const [plate] = useBox(() => ({ type: 'Static', position: [0, -0.8, 0], scale: [15, 0.5, 5], args: [2.5, 0.25, 2.5] }))
+function GolfTee(props) {
+
+  const [plate] = useBox(() => ({ type: 'Static', ...props }))
 
   return (
     <>
-      <Box ref={plate} />
+      <Box ref={plate} {...props} />
     </>
   )
 }
@@ -424,16 +419,9 @@ const Lamp = () => {
   )
 }
 
-function Plane({ transparent, color, boxArgs, ...props }) {
+function Plane({ transparent, color, boxArgs, contactMaterial = {}, ...props }) {
   const [ref] = useBox(() => ({
-    type: "Kinematic", args: boxArgs, material: {
-      friction: 0.9,
-      restitution: 0.7,
-      contactEquationStiffness: 1e7,
-      contactEquationRelaxation: 1,
-      frictionEquationStiffness: 1e7,
-      frictionEquationRelaxation: 2,
-    }, ...props
+    type: "Kinematic", args: boxArgs, material: contactMaterial, ...props
   }));
   const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
   return (
@@ -508,8 +496,8 @@ export default function Game(props) {
       {/* <Lamp /> */}
       {/* <Table /> */}
       {/* <Obstacles /> */}
-      {/* <GolfPinPedestal /> */}
-      <CricketWicket />
+      <GolfTee {...props.golfTeeProps} />
+      {/* <CricketWicket /> */}
       <Arena {...props.arenaProps} />
       <StartOverSurfaces {...props.startOverSurfacesProps} />
       {/* <BouncyGround /> */}

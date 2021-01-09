@@ -7,7 +7,7 @@ import * as C from '../constants';
 export default function Games(props) {
     return (
         <Physics
-            {...props.physicsProps}
+            allowSleep={false}
         >
             <Game {...props} />
         </Physics >
