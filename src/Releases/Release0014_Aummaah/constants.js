@@ -127,7 +127,7 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
         position: [0, 5, 2],
         velocity: [0, 0, 0],
         mass: 1.,
-        radius: .5,
+        radius: .1,
     },
     arenaProps: {
         // leftBorder: {
@@ -149,7 +149,7 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
     },
     golfTeeProps: {
         position: [0, .5, 2],
-        args: [.25, 2, .1],
+        args: [.05, 1, .015],
         type: "Kinematic",
     }
 }

@@ -183,11 +183,9 @@ function GolfClub({ }) {
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   useFrame(state => {
-
-
     // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
     values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 2, .7)
-    poleAPI.position.set(state.mouse.x * 10, 4, 0)//state.mouse.y * 10, -state.mouse.y * 10)
+    poleAPI.position.set(state.mouse.x * 10, 4, 4)//state.mouse.y * 10, -state.mouse.y * 10)
     poleAPI.rotation.set(values.current[1], 0, 0)
     // clubAPI.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
     // clubAPI.rotation.set(-2 * Math.PI, 0, values.current[1])
