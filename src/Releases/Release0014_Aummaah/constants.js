@@ -35,8 +35,8 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
         position: [0, -10, 0],
     },
     ballProps: {
-        position: [0, 5, 0],
-        velocity: [0, 0, 0],
+        position: [0, 10, -20],
+        velocity: [0, -2, 1],
         mass: 1.,
         radius: .5,
     },
@@ -83,8 +83,8 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
         geometryArgs: [250, 250, 20, 20],
     },
     ballProps: {
-        position: [0, 5, -10],
-        velocity: [0, -3, 0],
+        position: [0, 5, -15],
+        velocity: [0, -30, 5],
         mass: 1.,
         radius: .5,
     },
@@ -105,7 +105,7 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
             position: [0, 0, 0],
             rotation: [-Math.PI / 2, 0, 0],
             color: "lightcoral",
-            boxArgs: [100, 100, 1, 100, 100, 10]
+            boxArgs: [12, 248, 1, 100, 100, 10]
         },
     },
     physicsProps: {

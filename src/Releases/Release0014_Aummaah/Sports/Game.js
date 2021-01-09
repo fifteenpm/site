@@ -84,17 +84,25 @@ function CricketBat({ }) {
   const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
+  const yOffset = 2;
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
     // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
-    values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 1.5, 0.2)
-    api.position.set(state.mouse.x * 5, state.mouse.y * 3, -state.mouse.y * 5)
+    values.current[1] = lerp(values.current[1], state.mouse.y, 0.2)
+    api.position.set(state.mouse.x * 5, state.mouse.y + yOffset, 0)
     const mouseLeftOfCenter = state.mouse.x < -2.1;
-    api.rotation.set(-2 * Math.PI, mouseLeftOfCenter ? -values.current[1] : values.current[1], 0)
+    let rotationY = values.current[1]
+    if (mouseLeftOfCenter) {
+      rotationY = -rotationY
+    } else if (state.mouse.y > .75) {
+      rotationY = lerp(rotationY, 0, .2)
+    }
+    api.rotation.set(-2 * Math.PI, rotationY, 0)
     // Left/right mouse movement rotates it a liitle for effect only
     const modelRotation = mouseLeftOfCenter ? -Math.PI : 0;
     model.current.rotation.x = modelRotation;
     model.current.rotation.z = modelRotation;
+    console.log(state.mouse.y)
   })
 
   return (
@@ -102,13 +110,11 @@ function CricketBat({ }) {
       {/*  */}
       <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
         <group ref={model}  >
-          {/* <mesh >
+          <mesh >
             <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
-          </mesh> */}
-          {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
-          {/* children={count.toString()} /> */}
-          <group rotation={[0, -0.04, 0]} >
+          </mesh>
+          <group >
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_0.geometry} />
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />>
           </group>
@@ -218,6 +224,14 @@ function Ball({ onInit, mass = 1, radius = 0.5, velocity = [0, 5, 0], position =
     args: radius,
     velocity: velocity,
     position: position,
+    material: {
+      friction: 0.9,
+      restitution: 0.7,
+      contactEquationStiffness: 1e7,
+      contactEquationRelaxation: 1,
+      frictionEquationStiffness: 1e7,
+      frictionEquationRelaxation: 2,
+    },
   }))
 
 
@@ -333,31 +347,31 @@ function CricketWicket() {
   const props = useMemo(() => {
     return {
       leg1: {
-        args: [2, 7, 2],
-        position: [-4, 4, -20],
+        args: [.25, 2, .5],
+        position: [-.7, 2, -10],
         mass: defaultMass,
         // velocity: [0, 2, 0]
       },
       leg2: {
-        args: [2, 7, 2],
-        position: [0, 4, -20],
+        args: [.25, 2, .5],
+        position: [0, 2, -10],
         mass: defaultMass,
       },
       leg3: {
-        args: [2, 7, 2],
-        position: [4, 4, -20],
+        args: [.25, 2, .5],
+        position: [.7, 2, -10],
         mass: defaultMass,
       },
       topLeft: {
-        args: [2, 3.5, 2],
+        args: [.1, .6, .5],
         rotation: [0, 0, Math.PI / 2],
-        position: [-2, 9, -20],
+        position: [-.4, 3.1, -10],
         mass: defaultMass,
       },
       topRight: {
-        args: [2, 3.5, 2],
+        args: [.1, .6, .5],
         rotation: [0, 0, Math.PI / 2],
-        position: [2, 9, -20],
+        position: [.4, 3.1, -10],
         mass: defaultMass,
       },
     }
@@ -411,7 +425,16 @@ const Lamp = () => {
 }
 
 function Plane({ transparent, color, boxArgs, ...props }) {
-  const [ref] = useBox(() => ({ type: "Kinematic", args: boxArgs, ...props }));
+  const [ref] = useBox(() => ({
+    type: "Kinematic", args: boxArgs, material: {
+      friction: 0.9,
+      restitution: 0.7,
+      contactEquationStiffness: 1e7,
+      contactEquationRelaxation: 1,
+      frictionEquationStiffness: 1e7,
+      frictionEquationRelaxation: 2,
+    }, ...props
+  }));
   const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
   return (
     <mesh receiveShadow ref={ref} >
@@ -488,12 +511,12 @@ export default function Game(props) {
       {/* <GolfPinPedestal /> */}
       <CricketWicket />
       <Arena {...props.arenaProps} />
-      {/* <StartOverSurfaces {...props.startOverSurfacesProps} /> */}
+      <StartOverSurfaces {...props.startOverSurfacesProps} />
       {/* <BouncyGround /> */}
-      {/* {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />} */}
-      {/* <Suspense fallback={null}>
+      {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
+      <Suspense fallback={null}>
         <Equipment />
-      </Suspense> */}
+      </Suspense>
     </>
   )
 }
