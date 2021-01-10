@@ -60,15 +60,15 @@ const [useStore] = create(set => ({
 }))
 
 // The paddle was made in blender and auto-converted to JSX by https://github.com/react-spring/gltfjsx
-function Equipment() {
+function Equipment(props) {
   const { currentTrackName, audioPlayer } = useAudioPlayer();
 
   return (<>
     {/* <GolfClub /> */}
     <group>
-      {currentTrackName == C.AummaahTrack.Cricket && <CricketBat />}
-      {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet />}
-      {currentTrackName == C.AummaahTrack.Golf && <GolfClub />}
+      {currentTrackName == C.AummaahTrack.Cricket && <CricketBat {...props} />}
+      {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet {...props} />}
+      {currentTrackName == C.AummaahTrack.Golf && <GolfClub {...props} />}
     </group>
   </>
   )
@@ -170,27 +170,38 @@ function TennisRacquet({ }) {
   )
 }
 
-function GolfClub({ }) {
+function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
   const { greenWireframe } = useContext(MaterialsContext)
-  const poleArgs = useMemo(() => [1, 16, .2])
   // const clubArgs = useMemo(() => [2, 2, 2])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [poleRef, poleAPI] = useBox(() => ({ type: "Kinematic", args: poleArgs }))
+  const [poleRef, poleAPI] = useBox(() => ({
+    type: "Kinematic",
+    mass: mass,
+    args: poleArgs,
+    material: contactMaterial,
+    onCollide: () => {
+      collideBehavior()
+    }
+  }))
+
+  function collideBehavior() {
+    console.log("COLLID BEHAVIOR!")
+    poleAPI.applyForce([1, 10, -10], [0, 0, 0])
+  }
   // const [clubRef, clubAPI] = useBox(() => ({ type: "Kinematic", args: clubArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
-  let values = useRef([0, 0])
+  let values = useRef(0)
   useFrame(state => {
     // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
-    values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 2, .7)
-    poleAPI.position.set(state.mouse.x * 10, 4, 4)//state.mouse.y * 10, -state.mouse.y * 10)
-    poleAPI.rotation.set(values.current[1], 0, 0)
-    // clubAPI.position.set(state.mouse.x * 10, state.mouse.y * 10, -state.mouse.y * 10)
-    // clubAPI.rotation.set(-2 * Math.PI, 0, values.current[1])
-    // Left/right mouse movement rotates it a liitle for effect only
+    values.current = lerp(values.current, (state.mouse.y * Math.PI), 0.2)
+    poleAPI.position.set(state.mouse.x * 1.5, positionY, positionZ)
+    poleAPI.rotation.set(values.current, 0, 0)
 
+    poleAPI.angularVelocity.set(values.current * 10, 0, 0)
+    // Left/right mouse movement rotates it a liitle for effect only
     model.current.rotation.y = state.mouse.x > -0.3 ? -Math.PI : 0;;
   })
 
@@ -215,24 +226,37 @@ function GolfClub({ }) {
   )
 }
 
-function Ball({ onInit, contactMaterial, mass = 1, radius = 0.5, velocity = [0, 5, 0], position = [0, 0, 0] }) {
+function GolfTee(props) {
+  const [plate] = useBox(() => ({ type: 'Static', ...props }))
 
-  const [ref] = useSphere(() => ({
+  return (
+    <>
+      <Box ref={plate} {...props} />
+    </>
+  )
+}
+
+function Ball({ onInit, contactMaterial, mass = 1, radius = 0.5, velocity = [0, 5, 0], position = [0, 0, 0] }) {
+  const [ref, api] = useSphere(() => ({
     mass: mass,
     args: radius,
     velocity: velocity,
     position: position,
     material: contactMaterial,
-
+    onCollide: (e) => {
+      console.log("BALL COLLIDE:", e)
+    }
   }))
-
 
   useEffect(() => {
     onInit()
   }, [])
 
   return (
-    <mesh castShadow ref={ref}>
+    <mesh castShadow ref={ref} onClick={e => {
+      console.log('forceful!')
+      api.applyImpulse([10, 30, 0], [0, 0, 0])
+    }}>
       <sphereBufferGeometry attach="geometry" args={[radius, 64, 64]} />
       <meshStandardMaterial attach="material" color="red" />
     </mesh>
@@ -278,7 +302,6 @@ function StartOverSurfaces({ rotation, position, geometryArgs = [1000, 1000] }) 
   </mesh>
 }
 
-
 function BouncyGround() {
   // When the ground was hit we reset the game ...
   // const { reset } = useStore(state => state.api)
@@ -306,7 +329,6 @@ const Box = React.forwardRef(({ children, transparent = false, opacity = 1, colo
   )
 })
 
-
 function Table() {
   const [plate] = useBox(() => ({ type: 'Static', position: [0, -0.8, 0], scale: [15, 0.5, 5], args: [2.5, 0.25, 2.5] }))
   const [leg1] = useBox(() => ({ type: 'Static', position: [-1.8, -3, 1.8], scale: [0.5, 4, 0.5], args: [0.25, 2, 0.25] }))
@@ -323,7 +345,6 @@ function Table() {
     </>
   )
 }
-
 
 function CricketWicket() {
   const contactMaterial = {
@@ -384,19 +405,6 @@ function CricketWicket() {
     </>
   )
 }
-
-function GolfTee(props) {
-
-  const [plate] = useBox(() => ({ type: 'Static', ...props }))
-
-  return (
-    <>
-      <Box ref={plate} {...props} />
-    </>
-  )
-}
-
-
 
 const Lamp = () => {
   const light = useRef()
@@ -471,11 +479,7 @@ function Obstacles({ number = 15 }) {
   )
 }
 
-
-
-
 function Arena(props) {
-
   return (
     <group>
       {Object.values(props).map(plane =>
@@ -501,7 +505,7 @@ export default function Game(props) {
       {/* <BouncyGround /> */}
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
       <Suspense fallback={null}>
-        <Equipment />
+        <Equipment {...props.equipmentProps} />
       </Suspense>
     </>
   )

@@ -20,6 +20,8 @@ export function Scene({ }) {
         gl.xr = { isPresenting: false }
         scene.background = new THREE.Color(0x000000);
         console.log("camera:", camera)
+        camera.position.z = 6
+        camera.position.y = 2
         // scene.background = new THREE.Color("white");
     }, [])
 

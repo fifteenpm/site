@@ -15,6 +15,7 @@ export default function AummaahCanvas({ }) {
                 value => (
                     <Canvas
                         id="canvas"
+                        // orthographic
                         pixelRatio={window.devicePixelRatio}
                         shadowMap
                         sRGB
