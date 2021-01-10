@@ -18,10 +18,10 @@ function TennisCourtSurface({ color, ...props }) {
         </mesh>
     )
 }
-const dimensionSizeZ = 48
-const dimensionSizeX = 48
-const scaleX = 3
-const scaleZ = 3
+const dimensionSizeZ = 66
+const dimensionSizeX = 66
+const scaleX = 2
+const scaleZ = 2
 const dimensionSizeY = 10
 const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
 const tempObject = new THREE.Object3D()
@@ -65,7 +65,7 @@ export default function Court({ ...props }) {
                 tempObject.rotation.x = -Math.PI / 2
                 tempObject.position.set(
                     (x - dimensionSizeX / 2) * scaleX,
-                    -5,
+                    -2,
                     (z - dimensionSizeZ / 2) * scaleZ,
                 )
                 tempObject.updateMatrix()
@@ -91,8 +91,8 @@ export default function Court({ ...props }) {
                     <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
                     {/* </boxBufferGeometry> */}
                 </planeBufferGeometry>
-                <meshStandardMaterial attach="material" color={"white"} transparent={false} opacity={1} />
-                {/* <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors}
+                {/* <meshStandardMaterial attach="material" color={"white"} transparent={false} opacity={1} /> */}
+                <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors}
                     lights
                     receiveShadow
                     // castShadow
@@ -107,7 +107,7 @@ export default function Court({ ...props }) {
                     envMap={envMapCube}
                     // refractionRatio={props.refractionRatio || 1.0}
                     // combine={THREE.AddOperation}
-                /> */}
+                />
 
             </instancedMesh>
         </group>

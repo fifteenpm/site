@@ -30,12 +30,13 @@ export const FIRST_TRACK = AummaahTrack.Tennis
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     equipmentURL: TENNIS_RACQUET_GLB,
+    cameraStart: [0, 1.5, 12],
     startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
     },
     ballProps: {
-        position: [0, 10, -20],
+        position: [0, 8, -20],
         velocity: [0, 0, 7],
         mass: .5,
         radius: .25,
@@ -54,7 +55,8 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             rotation: [0, 0.9, 0],
             color: "aqua",
             boxArgs: [20, 15, 1, 100, 100, 10],
-             contactMaterial: {
+            visible: true,
+            contactMaterial: {
                 friction: 0.0,
                 restitution: 0.7,
                 contactEquationStiffness: 1e7,
@@ -68,6 +70,7 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             rotation: [0, -0.9, 0],
             color: "chartreuse",
             boxArgs: [20, 15, 1, 100, 100, 10],
+            visible: true,
             contactMaterial: {
                 friction: 0.0,
                 restitution: 0.7,
@@ -78,10 +81,11 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             }
         },
         ground: {
-            position: [0, 0, 0],
+            position: [0, -2, 0],
             rotation: [-Math.PI / 2, 0, 0],
             color: "lightcoral",
             boxArgs: [20, 45, 1, 100, 100, 10],
+            // visible: true,
             contactMaterial: {
                 friction: 0.0,
                 restitution: 0.7,
@@ -93,14 +97,16 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
         }
     },
     equipmentProps: {
-        boxArgs: [4, 3, 1],
-        contactMaterial: {
-            friction: 0.2,
-            restitution: 0.7,
-            contactEquationStiffness: 1e7,
-            contactEquationRelaxation: 1,
-            frictionEquationStiffness: 1e7,
-            frictionEquationRelaxation: 2,
+        tennisRacquetProps: {
+            boxArgs: [4, 3, 1],
+            contactMaterial: {
+                friction: 0.2,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }
         }
     }
 
@@ -112,6 +118,7 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
 
 TRACKS_CONFIG[AummaahTrack.Cricket] = {
     equipmentURL: CRICKET_BAT_GLB,
+    cameraStart: [0, 4, 10],
     startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
@@ -159,12 +166,47 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
             }
         },
     },
+    equipmentProps: {
+        cricketBatProps: {
+            boxArgs: [5, 2, 1],
+        },
+        cricketWicketProps: {
+            leg1: {
+                args: [.25, 2, .5],
+                position: [-.7, 2, -10],
+                mass: .1,
+            },
+            leg2: {
+                args: [.25, 2, .5],
+                position: [0, 2, -10],
+                mass: .1,
+            },
+            leg3: {
+                args: [.25, 2, .5],
+                position: [.7, 2, -10],
+                mass: .1,
+            },
+            topLeft: {
+                args: [.1, .6, .5],
+                rotation: [0, 0, Math.PI / 2],
+                position: [-.4, 3.1, -10],
+                mass: .1,
+            },
+            topRight: {
+                args: [.1, .6, .5],
+                rotation: [0, 0, Math.PI / 2],
+                position: [.4, 3.1, -10],
+                mass: .1,
+            },
+        }
+    }
 
 }
 
 
 TRACKS_CONFIG[AummaahTrack.Golf] = {
     equipmentURL: GOLF_CLUB_GLB,
+    cameraStart: [0, 2, 6],
     startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
@@ -184,16 +226,6 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
         },
     },
     arenaProps: {
-        // leftBorder: {
-        //     position: [-24, 0, 0],
-        //     rotation: [0, 0.9, 0],
-        //     color: "aqua"
-        // },
-        // rightBorder: {
-        //     position: [24, 0, 0],
-        //     rotation: [0, -0.9, 0],
-        //     color: "chartreuse",
-        // },
         ground: {
             position: [0, 0, -10],
             rotation: [-Math.PI / 2, 0, 0],
@@ -201,23 +233,26 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             boxArgs: [20, 15, 1, 100, 100, 10],
         },
     },
-    golfTeeProps: {
-        position: [0, .5, 3.5],
-        args: [.05, .25, .015],
-        type: "Kinematic",
-    },
+
     equipmentProps: {
-        poleArgs: [1, 3, .2],
-        positionY: 1.5,
-        positionZ: 4.4,
-        mass: 100,
-        contactMaterial: {
-            friction: 0,
-            restitution: 0.1,
-            contactEquationStiffness: 1e7,
-            contactEquationRelaxation: 1,
-            frictionEquationStiffness: 1e7,
-            frictionEquationRelaxation: 2,
-        }
+        golfClubProps: {
+            poleArgs: [1, 3, .2],
+            positionY: 1.5,
+            positionZ: 4.4,
+            mass: 100,
+            contactMaterial: {
+                friction: 0,
+                restitution: 0.1,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }
+        },
+        golfTeeProps: {
+            position: [0, .5, 3.5],
+            args: [.05, .25, .015],
+            type: "Kinematic",
+        },
     }
 }

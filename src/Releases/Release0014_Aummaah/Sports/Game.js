@@ -66,22 +66,43 @@ function Equipment(props) {
   return (<>
     {/* <GolfClub /> */}
     <group>
-      {currentTrackName == C.AummaahTrack.Cricket && <CricketBat {...props} />}
-      {currentTrackName == C.AummaahTrack.Tennis && <TennisRacquet {...props} />}
-      {currentTrackName == C.AummaahTrack.Golf && <GolfClub {...props} />}
+      {currentTrackName == C.AummaahTrack.Cricket && <CricketEquipment {...props} />}
+      {currentTrackName == C.AummaahTrack.Tennis && <TennisEquipment {...props} />}
+      {currentTrackName == C.AummaahTrack.Golf && <GolfEquipment {...props} />}
     </group>
   </>
   )
 }
 
-function CricketBat({ }) {
+function CricketEquipment(props) {
+  return <group>
+    <CricketBat {...props.cricketBatProps} />
+    <CricketWicket {...props.cricketWicketProps} />
+  </group>
+}
+
+function GolfEquipment(props) {
+  return <group>
+    <GolfTee {...props.golfTeeProps} />
+    <GolfClub {...props.golfClubProps} />
+  </group>
+}
+
+function TennisEquipment(props) {
+  return <group>
+    <Court />
+    <TennisRacquet {...props.tennisRacquetProps} />
+  </group>
+}
+
+function CricketBat({ boxArgs }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.CRICKET_BAT_GLB)
   const { greenWireframe } = useContext(MaterialsContext)
-  const paddleBoxArgs = useMemo(() => [8, 2, 1])
+
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
   const yOffset = 2;
@@ -98,6 +119,7 @@ function CricketBat({ }) {
       rotationY = lerp(rotationY, 0, .2)
     }
     api.rotation.set(-2 * Math.PI, rotationY, 0)
+    api.angularVelocity.set(values.current[1] * 40, 0, 0);// -values.current[1] * 4 )
     // Left/right mouse movement rotates it a liitle for effect only
     const modelRotation = mouseLeftOfCenter ? -Math.PI : 0;
     model.current.rotation.x = modelRotation;
@@ -111,7 +133,7 @@ function CricketBat({ }) {
       <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
         <group ref={model}  >
           <mesh >
-            <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
+            <boxBufferGeometry attach="geometry" args={boxArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
           </mesh>
           <group >
@@ -131,7 +153,7 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
   const { greenWireframe } = useContext(MaterialsContext)
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs, material: contactMaterial , onCollide: () => handleCollision()}))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs, material: contactMaterial, onCollide: () => handleCollision() }))
   // const handleCollision = () => {
   //   console.log("APPLY FORCE: ", api)
   //   api.applyImpulse([5, 5, 500], [0, 0, 0])
@@ -140,13 +162,13 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   // let lerpVal = useRef(0)
   let values = useRef([0, 0])
-  
+
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
     values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 1)
     values.current[1] = lerp(values.current[1], state.mouse.y, 1)
-    api.position.set(state.mouse.x * 7.5, state.mouse.y + 2, 4 - values.current[1] * .5)
-    api.angularVelocity.set(values.current[1] * 40 , 0, 0);// -values.current[1] * 4 )
+    api.position.set(state.mouse.x * 7.5, state.mouse.y, 4 - values.current[1] * .5)
+    api.angularVelocity.set(values.current[1] * 40, 0, 0);// -values.current[1] * 4 )
 
     const mouseLeftOfCenter = state.mouse.x < -2.1;
     let rotationX = values.current[0] * .5
@@ -154,7 +176,7 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
     if (mouseLeftOfCenter) {
       rotationX = -rotationX
       rotationY = -rotationX
-    } 
+    }
 
     api.rotation.set(0, 0, 0)
 
@@ -275,7 +297,7 @@ function Ball({ onInit, contactMaterial, mass = 1, radius = 0.5, velocity = [0, 
       api.applyImpulse([10, 30, 0], [0, 0, 0])
     }}>
       <sphereBufferGeometry attach="geometry" args={[radius, 64, 64]} />
-      <meshStandardMaterial attach="material" color="red" />
+      <meshStandardMaterial attach="material" color="white" />
     </mesh>
   )
 }
@@ -290,7 +312,7 @@ const tempObject = new THREE.Object3D()
 const colors = new Array(numInstances).fill().map(() => 0xff00ff)
 const tempColor = new THREE.Color()
 
-function StartOverSurfaces({ rotation, position, geometryArgs = [1000, 1000] }) {
+function StartOverSurfaces({ rotation, position, geometryArgs = [100, 100] }) {
   // When the ground was hit we reset the game ...
   // const { reset } = useStore(state => state.api)
   const gameIsOn = useStore(state => state.gameIsOn)
@@ -313,7 +335,7 @@ function StartOverSurfaces({ rotation, position, geometryArgs = [1000, 1000] }) 
     api.position.set(...position)
 
   }, [rotation, position])
-  return <mesh ref={ref} material={greenWireframe}>
+  return <mesh visible={false} ref={ref} material={greenWireframe}>
     <boxBufferGeometry attach="geometry" args={geometryArgs} />
     {/* <meshStandardMaterial attach="material" color="black" /> */}
   </mesh>
@@ -349,7 +371,7 @@ function Table() {
   )
 }
 
-function CricketWicket() {
+function CricketWicket(props) {
   const contactMaterial = {
     // friction: 10,
     // restitution: 0.1,
@@ -359,39 +381,6 @@ function CricketWicket() {
     // frictionEquationRelaxation: 2,
   }
 
-  const defaultMass = .1
-  const props = useMemo(() => {
-    return {
-      leg1: {
-        args: [.25, 2, .5],
-        position: [-.7, 2, -10],
-        mass: defaultMass,
-        // velocity: [0, 2, 0]
-      },
-      leg2: {
-        args: [.25, 2, .5],
-        position: [0, 2, -10],
-        mass: defaultMass,
-      },
-      leg3: {
-        args: [.25, 2, .5],
-        position: [.7, 2, -10],
-        mass: defaultMass,
-      },
-      topLeft: {
-        args: [.1, .6, .5],
-        rotation: [0, 0, Math.PI / 2],
-        position: [-.4, 3.1, -10],
-        mass: defaultMass,
-      },
-      topRight: {
-        args: [.1, .6, .5],
-        rotation: [0, 0, Math.PI / 2],
-        position: [.4, 3.1, -10],
-        mass: defaultMass,
-      },
-    }
-  })
   const [leg1] = useBox(() => ({ ...props.leg1 }))
   const [leg2] = useBox(() => ({ ...props.leg2 }))
   const [leg3] = useBox(() => ({ ...props.leg3 }))
@@ -428,18 +417,18 @@ const Lamp = () => {
   )
 }
 
-function Plane({ transparent, color, boxArgs, contactMaterial = {}, ...props }) {
+function Plane({ transparent, color, boxArgs, visible = false, contactMaterial = {}, ...props }) {
   console.log("CONTACT MATERIAxxL", contactMaterial)
   const [ref] = useBox(() => ({
     type: "Kinematic", args: boxArgs, material: contactMaterial, ...props
   }));
   const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
   return (
-    <mesh receiveShadow ref={ref} >
-      {/* <mesh receiveShadow ref={ref} material={greenWireframe}> */}
+    // <mesh receiveShadow ref={ref} >
+    <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
       {/* <planeBufferGeometry attach="geometry" args={boxArgs} /> */}
       <boxBufferGeometry attach="geometry" args={boxArgs} />
-      <meshStandardMaterial attach="material" color={color} />
+      {/* <meshStandardMaterial attach="material" color={color} /> */}
     </mesh>
   );
 }
@@ -498,15 +487,11 @@ export default function Game(props) {
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-      {/* <Court /> */}
-      {/* <Lamp /> */}
-      {/* <Table /> */}
-      {/* <Obstacles /> */}
-      <GolfTee {...props.golfTeeProps} />
-      {/* <CricketWicket /> */}
+
+      <Lamp />
+
       <Arena {...props.arenaProps} />
       <StartOverSurfaces {...props.startOverSurfacesProps} />
-      {/* <BouncyGround /> */}
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
       <Suspense fallback={null}>
         <Equipment {...props.equipmentProps} />
