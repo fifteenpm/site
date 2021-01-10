@@ -624,6 +624,11 @@ export const CONTENT = {
     purchaseLink: "https://buy.fifteen.pm/album/sports-ep",
     tracks: [
       {
+        name: "Tennis",
+        type: "s3",
+        url: "https://s3.amazonaws.com/cdn.fifteen.pm/01+-+Aummaah+-+Tennis.wav",
+      },
+      {
         name: "Golf",
         type: "soundcloud",
         id: "862855780",
@@ -636,11 +641,7 @@ export const CONTENT = {
         id: "862855783",
         secretToken: "s-8Ac9QyayEtV",
       },
-      {
-        name: "Tennis",
-        type: "s3",
-        url: "https://s3.amazonaws.com/cdn.fifteen.pm/01+-+Aummaah+-+Tennis.wav",
-      },
+  
 
      
 

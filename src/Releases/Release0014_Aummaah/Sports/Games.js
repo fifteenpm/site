@@ -8,6 +8,7 @@ export default function Games(props) {
     return (
         <Physics
             allowSleep={false}
+            // gravity={[0,-5,0]}
         >
             <Game {...props} />
         </Physics >

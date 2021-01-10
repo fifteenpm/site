@@ -124,36 +124,53 @@ function CricketBat({ }) {
   )
 }
 
-function TennisRacquet({ }) {
+
+function TennisRacquet({ boxArgs, contactMaterial }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.TENNIS_RACQUET_GLB)
   const { greenWireframe } = useContext(MaterialsContext)
-  const paddleBoxArgs = useMemo(() => [4, 3, 1])
   const model = useRef()
   // Make it a physical object that adheres to gravitation and impact
-  const [ref, api] = useBox(() => ({ type: "Kinematic", args: paddleBoxArgs }))
+  const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs, material: contactMaterial , onCollide: () => handleCollision()}))
+  // const handleCollision = () => {
+  //   console.log("APPLY FORCE: ", api)
+  //   api.applyImpulse([5, 5, 500], [0, 0, 0])
+  // }
+
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
+  // let lerpVal = useRef(0)
   let values = useRef([0, 0])
+  
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
-    // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
-    values.current[1] = lerp(values.current[1], (state.mouse.y * Math.PI) / 5 * 3, 0.2)
-    api.position.set(state.mouse.x * 5, state.mouse.y * 3, -state.mouse.y * 5)
-    const mouseLeftOfCenter = state.mouse.x < -0.5;
-    api.rotation.set(-2 * Math.PI, mouseLeftOfCenter ? -values.current[1] : values.current[1], 0)
-    // Left/right mouse movement rotates it a liitle for effect only
+    values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 1)
+    values.current[1] = lerp(values.current[1], state.mouse.y, 1)
+    api.position.set(state.mouse.x * 7.5, state.mouse.y + 2, 4 - values.current[1] * .5)
+    api.angularVelocity.set(values.current[1] * 40 , 0, 0);// -values.current[1] * 4 )
+
+    const mouseLeftOfCenter = state.mouse.x < -2.1;
+    let rotationX = values.current[0] * .5
+    let rotationY = values.current[1] * .5
+    if (mouseLeftOfCenter) {
+      rotationX = -rotationX
+      rotationY = -rotationX
+    } 
+
+    api.rotation.set(0, 0, 0)
+
     const modelRotation = mouseLeftOfCenter ? -Math.PI : 0;
     model.current.rotation.x = modelRotation;
+    model.current.rotation.y = rotationY
     model.current.rotation.z = modelRotation;
   })
 
   return (
     <group>
       {/*  */}
-      <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
+      <mesh ref={ref} dispose={null} >
         <group ref={model}  >
           <mesh >
-            <boxBufferGeometry attach="geometry" args={paddleBoxArgs} />
+            <boxBufferGeometry attach="geometry" args={boxArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
           </mesh>
           {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
@@ -302,21 +319,7 @@ function StartOverSurfaces({ rotation, position, geometryArgs = [1000, 1000] }) 
   </mesh>
 }
 
-function BouncyGround() {
-  // When the ground was hit we reset the game ...
-  // const { reset } = useStore(state => state.api)
-  const bouncyGroundBoxArgs = useMemo(() => [30, 1, 100])
-  const [ref, api] = useBox(() => ({
-    type: "Static",
-    // rotation: [-Math.PI / 2, 0, 0],
-    position: [0, -8, 0],
-    args: bouncyGroundBoxArgs,
-  }))
-  return <mesh ref={ref} >
-    {/* <meshBasicMaterial attach="material" color="yellow" />
-    <boxBufferGeometry attach="geometry" args={bouncyGroundBoxArgs} /> */}
-  </mesh>
-}
+
 
 const Box = React.forwardRef(({ children, transparent = false, opacity = 1, color = 'white', args = [1, 1, 1], ...props }, ref) => {
   console.log(children)
@@ -426,6 +429,7 @@ const Lamp = () => {
 }
 
 function Plane({ transparent, color, boxArgs, contactMaterial = {}, ...props }) {
+  console.log("CONTACT MATERIAxxL", contactMaterial)
   const [ref] = useBox(() => ({
     type: "Kinematic", args: boxArgs, material: contactMaterial, ...props
   }));
