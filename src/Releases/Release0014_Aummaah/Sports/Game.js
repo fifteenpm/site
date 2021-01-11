@@ -1,7 +1,7 @@
 // source: https://codesandbox.io/s/white-resonance-0mgum?file=/src/App.js:388-427
 // react-three-fiber is a way to express threejs declaratively: https://github.com/react-spring/react-three-fiber
 // use-cannon is a hook around the cannon.js physics library: https://github.com/react-spring/use-cannon
-import { Physics, useBox, useCylinder, useSphere, usePlane, useConeTwistConstraint, usePointToPointConstraint, useSpring } from '@react-three/cannon';
+import { Physics, useBox, useCylinder, useSphere, usePlane, useConeTwistConstraint, usePointToPointConstraint, useSpring, useConvexPolyhedron } from '@react-three/cannon';
 import clamp from "lodash-es/clamp";
 import React, { useMemo, createRef, Suspense, useCallback, useContext, useEffect, useRef } from "react";
 import { useFrame, useLoader } from "react-three-fiber";
@@ -60,40 +60,73 @@ const [useStore] = create(set => ({
 }))
 
 // The paddle was made in blender and auto-converted to JSX by https://github.com/react-spring/gltfjsx
-function Equipment(props) {
+function GameSpecificComponents(props) {
   const { currentTrackName, audioPlayer } = useAudioPlayer();
 
   return (<>
-    {/* <GolfClub /> */}
     <group>
-      {currentTrackName == C.AummaahTrack.Cricket && <CricketEquipment {...props} />}
-      {currentTrackName == C.AummaahTrack.Tennis && <TennisEquipment {...props} />}
-      {currentTrackName == C.AummaahTrack.Golf && <GolfEquipment {...props} />}
+      {currentTrackName == C.AummaahTrack.Cricket && <Cricket {...props} />}
+      {currentTrackName == C.AummaahTrack.Tennis && <Tennis {...props} />}
+      {currentTrackName == C.AummaahTrack.Golf && <Golf {...props} />}
     </group>
   </>
   )
 }
 
-function CricketEquipment(props) {
+
+function Tennis(props) {
   return <group>
+    {/* <Court /> */}
+    <TennisRacquet {...props.tennisRacquetProps} />
+    {Object.values(props.hittableSurfaceProps).map((props, idx) => {
+      return <HittableSurface key={idx} {...props} />
+    })}
+  </group>
+}
+
+
+function Cricket(props) {
+  return <group>
+    <Court dimensionSizeZ={25} />
     <CricketBat {...props.cricketBatProps} />
     <CricketWicket {...props.cricketWicketProps} />
+    {Object.values(props.hittableSurfaceProps).map((props, idx) => {
+      return <HittableSurface key={idx} {...props} />
+    })}
   </group>
 }
 
-function GolfEquipment(props) {
+function Golf(props) {
   return <group>
+    <Court dimensionSizeZ={50} />
+    <Ground {...props.groundProps} />
     <GolfTee {...props.golfTeeProps} />
     <GolfClub {...props.golfClubProps} />
+    {props.golfClubMoundProps.map((moundProps, idx) => {
+      return <Mound key={idx} {...moundProps} />
+    })}
+
   </group>
 }
 
-function TennisEquipment(props) {
-  return <group>
-    <Court />
-    <TennisRacquet {...props.tennisRacquetProps} />
-  </group>
+
+function Ground({ transparent, color, visible = false, contactMaterial = {}, ...props }) {
+  const [ref] = usePlane(() => ({
+    //  args: boxArgs, 
+    mass: 0,
+    ...props,
+  }));
+  const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
+  return (
+    // <mesh receiveShadow ref={ref} >
+    <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
+      {/* <planeBufferGeometry attach="geometry" args={boxArgs} /> */}
+      <boxBufferGeometry attach="geometry" args={[100, 100]} />
+      {/* <meshStandardMaterial attach="material" color={color} /> */}
+    </mesh>
+  );
 }
+
 
 function CricketBat({ boxArgs }) {
   // Load the gltf file
@@ -167,7 +200,7 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
     values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 1)
     values.current[1] = lerp(values.current[1], state.mouse.y, 1)
-    api.position.set(state.mouse.x * 7.5, state.mouse.y, 4 - values.current[1] * .5)
+    api.position.set(state.mouse.x * 7.5, state.mouse.y, 5 - values.current[1] * .5)
     api.angularVelocity.set(values.current[1] * 40, 0, 0);// -values.current[1] * 4 )
 
     const mouseLeftOfCenter = state.mouse.x < -2.1;
@@ -209,6 +242,22 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
   )
 }
 
+function Mound({ sides, contactMaterial = {}, ...props }) {
+
+  const geo = useMemo(() => {
+    const g = new THREE.ConeGeometry(0.7, 0.7, sides, 1)
+    g.mergeVertices()
+    return g
+  }, [])
+  const [ref] = useConvexPolyhedron(() => ({ mass: 1, ...props, args: geo }))
+  return (
+    <mesh castShadow ref={ref} {...props} geometry={geo} dispose={null}>
+      <meshNormalMaterial attach="material" />
+    </mesh>
+  )
+}
+
+
 function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
   // Load the gltf file
   const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
@@ -222,12 +271,12 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
     args: poleArgs,
     material: contactMaterial,
     onCollide: () => {
+      // TODO (jeremy) not sure this does anything for kinematic other than compute
       collideBehavior()
     }
   }))
 
   function collideBehavior() {
-    console.log("COLLID BEHAVIOR!")
     poleAPI.applyForce([1, 10, -10], [0, 0, 0])
   }
   // const [clubRef, clubAPI] = useBox(() => ({ type: "Kinematic", args: clubArgs }))
@@ -238,7 +287,6 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
     values.current = lerp(values.current, (state.mouse.y * Math.PI), 0.2)
     poleAPI.position.set(state.mouse.x * 1.5, positionY, positionZ)
     poleAPI.rotation.set(values.current, 0, 0)
-
     poleAPI.angularVelocity.set(values.current * 10, 0, 0)
     // Left/right mouse movement rotates it a liitle for effect only
     model.current.rotation.y = state.mouse.x > -0.3 ? -Math.PI : 0;;
@@ -252,7 +300,7 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
             <boxBufferGeometry attach="geometry" args={poleArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
           </mesh>
-          <group rotation-y={Math.PI / 2}>
+          <group scale={[.85, .85, .85]} rotation-y={Math.PI / 2}>
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
           </group>
         </group>
@@ -386,6 +434,7 @@ function CricketWicket(props) {
   const [leg3] = useBox(() => ({ material: contactMaterial, ...props.leg3 }))
   const [topLeft] = useBox(() => ({ material: contactMaterial, ...props.topLeft }))
   const [topRight] = useBox(() => ({ material: contactMaterial, ...props.topRight }))
+  const [base] = useBox(() => ({ type: "Kinematic", ...props.base }))
 
   return (
     <>
@@ -394,6 +443,7 @@ function CricketWicket(props) {
       <Box ref={leg3} {...props.leg3} />
       <Box ref={topLeft} {...props.topLeft} />
       <Box ref={topRight} {...props.topRight} />
+      <Box ref={base} {...props.base} />
     </>
   )
 }
@@ -417,15 +467,16 @@ const Lamp = () => {
   )
 }
 
-function Plane({ transparent, color, boxArgs, visible = false, contactMaterial = {}, ...props }) {
-  console.log("CONTACT MATERIAxxL", contactMaterial)
+function HittableSurface({ transparent, color, boxArgs, visible = false, contactMaterial = {}, ...props }) {
   const [ref] = useBox(() => ({
-    type: "Kinematic", args: boxArgs, material: contactMaterial, ...props
+    args: boxArgs,
+    material: contactMaterial,
+    ...props,
   }));
   const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
   return (
     // <mesh receiveShadow ref={ref} >
-      <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
+    <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
       {/* <planeBufferGeometry attach="geometry" args={boxArgs} /> */}
       <boxBufferGeometry attach="geometry" args={boxArgs} />
       {/* <meshStandardMaterial attach="material" color={color} /> */}
@@ -472,29 +523,17 @@ function Obstacles({ number = 15 }) {
   )
 }
 
-function Arena(props) {
-  return (
-    <group>
-      {Object.values(props).map(plane =>
-        <Plane {...plane} />
-      )}
-    </group>
-  )
-}
-
 export default function Game(props) {
   const gameIsOn = useStore(state => state.gameIsOn)
   const { setGameIsOn } = useStore(state => state.api)
   return (
     <>
-
       <Lamp />
 
-      <Arena {...props.arenaProps} />
       <StartOverSurfaces {...props.startOverSurfacesProps} />
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
       <Suspense fallback={null}>
-        <Equipment {...props.equipmentProps} />
+        <GameSpecificComponents {...props.gameProps} />
       </Suspense>
     </>
   )

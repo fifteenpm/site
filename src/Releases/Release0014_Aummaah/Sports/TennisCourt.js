@@ -18,20 +18,16 @@ function TennisCourtSurface({ color, ...props }) {
         </mesh>
     )
 }
-const dimensionSizeZ = 66
-const dimensionSizeX = 66
-const scaleX = 2
-const scaleZ = 2
-const dimensionSizeY = 10
-const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
+
 const tempObject = new THREE.Object3D()
-// const colors = new Array(numInstances).fill().map(() => 0xff00ff)
-const greenColors = [0x1d592e, 0x112e17]
-const colors = new Array(numInstances).fill().map(() => greenColors[Math.floor(Math.random() * 4)])
+
 const tempColor = new THREE.Color()
 
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
-export default function Court({ ...props }) {
+export default function Court({ dimensionSizeZ = 66, dimensionSizeX = 66, scaleX = 2, scaleZ = 2, ...props }) {
+    const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
+    const greenColors = [0x1d592e, 0x112e17]
+    const colors = useMemo(() => new Array(numInstances).fill().map(() => greenColors[Math.floor(Math.random() * 4)]))
     const { sunsetGradient, greenWireframe } = useContext(MaterialsContext)
     // const [hovered, set] = useState()
     const colorArray = useMemo(() => Float32Array.from(new Array(numInstances).fill().flatMap((_, i) => {
@@ -105,8 +101,8 @@ export default function Court({ ...props }) {
                     //  aoMap={aoMap}
                     //  specularMap={specularMap}
                     envMap={envMapCube}
-                    // refractionRatio={props.refractionRatio || 1.0}
-                    // combine={THREE.AddOperation}
+                // refractionRatio={props.refractionRatio || 1.0}
+                // combine={THREE.AddOperation}
                 />
 
             </instancedMesh>

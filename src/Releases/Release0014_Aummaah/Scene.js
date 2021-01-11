@@ -24,7 +24,7 @@ export function Scene({ }) {
         gl.xr = { isPresenting: false }
         scene.background = new THREE.Color(0x000000);
         console.log("camera:", camera)
-        camera.position.set(...trackProps.cameraStart)
+        camera.position.set(...C.CAMERA_START)
         
     }, [currentTrackName])
 
@@ -33,7 +33,7 @@ export function Scene({ }) {
     return <>
         {/* <Flying /> */}
         {/* <Orbit  autoRotate={false} maxDistance={2}/> */}
-        {/* <Orbit autoRotate={false} /> */}
+        <Orbit autoRotate={false} />
         {/* <FirstPerson /> */}
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
         {/* <ambientLight intensit={.1} /> */}
