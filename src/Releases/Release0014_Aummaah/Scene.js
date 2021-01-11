@@ -38,7 +38,7 @@ export function Scene({ }) {
         {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
         {/* <ambientLight intensit={.1} /> */}
         <pointLight position={[0, 1, -5]} intensity={.5} color={"green"} />
-        <BloomEffect />
+        {/* <BloomEffect /> */}
         <MaterialsProvider>
             <Suspense fallback={null}>
                 <Games {...trackProps} />

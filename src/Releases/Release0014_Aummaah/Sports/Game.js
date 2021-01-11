@@ -105,12 +105,12 @@ function CricketBat({ boxArgs }) {
   const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs }))
   // use-frame allows the component to subscribe to the render-loop for frame-based actions
   let values = useRef([0, 0])
-  const yOffset = 2;
+  const yOffset = 0;
   useFrame(state => {
     // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
     // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
     values.current[1] = lerp(values.current[1], state.mouse.y, 0.2)
-    api.position.set(state.mouse.x * 5, state.mouse.y + yOffset, 0)
+    api.position.set(state.mouse.x * 5, state.mouse.y + yOffset, 5)
     const mouseLeftOfCenter = state.mouse.x < -2.1;
     let rotationY = values.current[1]
     if (mouseLeftOfCenter) {
@@ -130,15 +130,15 @@ function CricketBat({ boxArgs }) {
   return (
     <group>
       {/*  */}
-      <mesh ref={ref} dispose={null} rotation-x={-2 * Math.PI}>
+      <mesh ref={ref} dispose={null} position-x={-1} rotation-x={-2 * Math.PI}>
         <group ref={model}  >
           <mesh >
             <boxBufferGeometry attach="geometry" args={boxArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
           </mesh>
-          <group >
+          <group position-x={-1}>
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_0.geometry} />
-            <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />>
+            <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />
           </group>
         </group>
       </mesh>
@@ -373,19 +373,19 @@ function Table() {
 
 function CricketWicket(props) {
   const contactMaterial = {
-    // friction: 10,
-    // restitution: 0.1,
+    friction: 10,
+    restitution: 0.01,
     // contactEquationStiffness: 1e7,
     // contactEquationRelaxation: 1,
     // frictionEquationStiffness: 1e7,
     // frictionEquationRelaxation: 2,
   }
 
-  const [leg1] = useBox(() => ({ ...props.leg1 }))
-  const [leg2] = useBox(() => ({ ...props.leg2 }))
-  const [leg3] = useBox(() => ({ ...props.leg3 }))
-  const [topLeft] = useBox(() => ({ ...props.topLeft }))
-  const [topRight] = useBox(() => ({ ...props.topRight }))
+  const [leg1] = useBox(() => ({ material: contactMaterial, ...props.leg1 }))
+  const [leg2] = useBox(() => ({ material: contactMaterial, ...props.leg2 }))
+  const [leg3] = useBox(() => ({ material: contactMaterial, ...props.leg3 }))
+  const [topLeft] = useBox(() => ({ material: contactMaterial, ...props.topLeft }))
+  const [topRight] = useBox(() => ({ material: contactMaterial, ...props.topRight }))
 
   return (
     <>
@@ -425,7 +425,7 @@ function Plane({ transparent, color, boxArgs, visible = false, contactMaterial =
   const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
   return (
     // <mesh receiveShadow ref={ref} >
-    <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
+      <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
       {/* <planeBufferGeometry attach="geometry" args={boxArgs} /> */}
       <boxBufferGeometry attach="geometry" args={boxArgs} />
       {/* <meshStandardMaterial attach="material" color={color} /> */}

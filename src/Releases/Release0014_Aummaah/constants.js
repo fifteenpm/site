@@ -55,7 +55,7 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             rotation: [0, 0.9, 0],
             color: "aqua",
             boxArgs: [20, 15, 1, 100, 100, 10],
-            visible: true,
+            // visible: true,
             contactMaterial: {
                 friction: 0.0,
                 restitution: 0.7,
@@ -70,7 +70,7 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             rotation: [0, -0.9, 0],
             color: "chartreuse",
             boxArgs: [20, 15, 1, 100, 100, 10],
-            visible: true,
+            // visible: true,
             contactMaterial: {
                 friction: 0.0,
                 restitution: 0.7,
@@ -118,7 +118,7 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
 
 TRACKS_CONFIG[AummaahTrack.Cricket] = {
     equipmentURL: CRICKET_BAT_GLB,
-    cameraStart: [0, 4, 10],
+    cameraStart: [0, 1.5, 12],
     startOverSurfacesProps: {
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
@@ -140,24 +140,13 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
     },
     arenaProps: {
         leftBorder: {
-            position: [-48, 0, 0],
+            position: [-12, 0, 0],
             rotation: [0, 0.9, 0],
             color: "aqua",
-            boxArgs: [100, 100, 1, 100, 100, 10]
-        },
-        rightBorder: {
-            position: [48, 0, 0],
-            rotation: [0, -0.9, 0],
-            color: "chartreuse",
-            boxArgs: [100, 100, 1, 100, 100, 10]
-        },
-        ground: {
-            position: [0, 0, 0],
-            rotation: [-Math.PI / 2, 0, 0],
-            color: "lightcoral",
-            boxArgs: [12, 248, 1, 100, 100, 10],
+            boxArgs: [20, 15, 1, 100, 100, 10],
+            visible: true,
             contactMaterial: {
-                friction: 0.9,
+                friction: 0.0,
                 restitution: 0.7,
                 contactEquationStiffness: 1e7,
                 contactEquationRelaxation: 1,
@@ -165,38 +154,69 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
                 frictionEquationRelaxation: 2,
             }
         },
+        rightBorder: {
+            position: [12, 0, 0],
+            rotation: [0, -0.9, 0],
+            color: "chartreuse",
+            boxArgs: [20, 15, 1, 100, 100, 10],
+            visible: true,
+            contactMaterial: {
+                friction: 0.0,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }
+        },
+        ground: {
+            position: [0, -2, 0],
+            rotation: [-Math.PI / 2, 0, 0],
+            color: "lightcoral",
+            boxArgs: [20, 45, 1, 100, 100, 10],
+            visible: true,
+            contactMaterial: {
+                friction: 1,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }
+        }
     },
     equipmentProps: {
         cricketBatProps: {
-            boxArgs: [5, 2, 1],
+            boxArgs: [9, 2, 1],
+
         },
         cricketWicketProps: {
             leg1: {
-                args: [.25, 2, .5],
-                position: [-.7, 2, -10],
+                args: [.25, 2.1, .5],
+                position: [-.7, 2, -3],
                 mass: .1,
             },
             leg2: {
-                args: [.25, 2, .5],
-                position: [0, 2, -10],
+                args: [.25, 2.1, .5],
+                position: [0, 2, -3],
                 mass: .1,
             },
             leg3: {
-                args: [.25, 2, .5],
-                position: [.7, 2, -10],
+                args: [.25, 2.1, .5],
+                position: [.7, 2, -3],
                 mass: .1,
             },
             topLeft: {
+                position: [-.35, 5.2, -3],
                 args: [.1, .6, .5],
                 rotation: [0, 0, Math.PI / 2],
-                position: [-.4, 3.1, -10],
-                mass: .1,
+                mass: .01,
             },
             topRight: {
+                position: [.35, 5.2, -3],
                 args: [.1, .6, .5],
                 rotation: [0, 0, Math.PI / 2],
-                position: [.4, 3.1, -10],
-                mass: .1,
+                mass: .01,
             },
         }
     }
