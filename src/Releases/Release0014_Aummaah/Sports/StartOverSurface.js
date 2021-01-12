@@ -7,7 +7,7 @@ import { MaterialsContext } from '../MaterialsContext';
 import { useStore } from "./hooks.js";
 
 
-export default function StartOverSurfaces({ rotation, position, geometryArgs = [100, 100] }) {
+export default function StartOverSurface({ visible=false, rotation, position, geometryArgs = [100, 100] }) {
     // When the ground was hit we reset the game ...
     // const { reset } = useStore(state => state.api)
     const gameIsOn = useStore(state => state.gameIsOn)
@@ -30,8 +30,8 @@ export default function StartOverSurfaces({ rotation, position, geometryArgs = [
         api.position.set(...position)
 
     }, [rotation, position])
-    return <mesh visible={false} ref={ref} material={greenWireframe}>
+    return <mesh visible={visible} ref={ref} >
         <boxBufferGeometry attach="geometry" args={geometryArgs} />
-        {/* <meshStandardMaterial attach="material" color="black" /> */}
+        <meshStandardMaterial attach="material" color="red" />
     </mesh>
 }

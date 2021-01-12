@@ -7,6 +7,7 @@ import { MaterialsContext } from '../MaterialsContext';
 import { Box } from './Box';
 import HittableSurface from './HittableSurface';
 import InstancedGrid from './InstancedGrid';
+import StartOverSurface from './StartOverSurface';
 import { lerp } from './utils.js';
 
 
@@ -96,6 +97,9 @@ function CricketWicket(props) {
 export default function Cricket(props) {
     return <group>
         <InstancedGrid dimensionSizeZ={25} />
+        {props.startOverSurfacesProps.map((surfaceProps, idx) => {
+            return <StartOverSurface key={idx} {...surfaceProps} />
+        })}
         <CricketBat {...props.cricketBatProps} />
         <CricketWicket {...props.cricketWicketProps} />
         {Object.values(props.hittableSurfaceProps).map((props, idx) => {

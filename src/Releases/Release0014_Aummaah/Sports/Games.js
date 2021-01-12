@@ -7,7 +7,6 @@ import Cricket from './Cricket';
 import Golf from './Golf';
 import { useStore } from './hooks.js';
 import { Lamp } from './Lamp';
-import StartOverSurfaces from './StartOverSurfaces';
 import Tennis from './Tennis';
 import BigCenterFlag from './BigCenterFlag';
 
@@ -29,7 +28,6 @@ export default function Games({hasEnteredWorld, ...props}) {
                 iterations={6}
             >
                 <Lamp />
-                <StartOverSurfaces {...props.startOverSurfacesProps} />
                 {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
                 <Suspense fallback={null}>
                     <group>

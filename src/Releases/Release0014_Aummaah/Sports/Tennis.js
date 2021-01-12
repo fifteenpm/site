@@ -10,8 +10,8 @@ import { MaterialsContext } from '../MaterialsContext';
 import HittableSurface from './HittableSurface';
 import InstancedGrid from './InstancedGrid';
 import ParametricCloth from './ParametricCloth.js';
+import StartOverSurface from './StartOverSurface';
 import { lerp } from './utils.js';
-
 
 
 function TennisCube(props) {
@@ -33,7 +33,7 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
     // Make it a physical object that adheres to gravitation and impact
     const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs, material: contactMaterial, onCollide: () => handleCollision() }))
     const handleCollision = () => {
-    //   api.applyImpulse([5, 5, 500], [0, 0, 0])
+        //   api.applyImpulse([5, 5, 500], [0, 0, 0])
     }
 
     // use-frame allows the component to subscribe to the render-loop for frame-based actions
@@ -86,7 +86,7 @@ function TennisNet(props) {
     return (
         <>
             <ParametricCloth material={greenWireframe} setPinHandler={(u, v, xSegments, ySegments) => {
-                return u == 0 || u == xSegments -1
+                return u == 0 || u == xSegments - 1
             }} {...props} />
         </>
     )
@@ -96,6 +96,9 @@ function TennisNet(props) {
 export default function Tennis(props) {
     return <group>
         <InstancedGrid />
+        {props.startOverSurfacesProps.map((surfaceProps, idx) => {
+            return <StartOverSurface key={idx} {...surfaceProps} />
+        })}
         <TennisRacquet {...props.tennisRacquetProps} />
         <TennisCube />
         <TennisNet {...props.tennisNetProps} />

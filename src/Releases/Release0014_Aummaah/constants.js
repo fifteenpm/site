@@ -33,11 +33,10 @@ export const FIRST_TRACK = AummaahTrack.Tennis
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     equipmentURL: TENNIS_RACQUET_GLB,
-
-    startOverSurfacesProps: {
+    startOverSurfacesProps: [{
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
-    },
+    }],
     ballProps: {
         position: [0, 8, -20],
         velocity: [0, 0, 7],
@@ -117,18 +116,18 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
         windStrength: 4,
         windStrengthConstant: 80,
         windStrengthTimeDivisor: 100,
-        
+
         // timestep: .001,
     }
 }
 
 TRACKS_CONFIG[AummaahTrack.Cricket] = {
     equipmentURL: CRICKET_BAT_GLB,
-    startOverSurfacesProps: {
+    startOverSurfacesProps: [{
         rotation: [-Math.PI / 2, 0, 0],
         position: [0, -10, 0],
         geometryArgs: [250, 250, 20, 20],
-    },
+    }],
     ballProps: {
         position: [0, 10, -5],
         velocity: [0, -8, 5],
@@ -234,11 +233,28 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
 
 TRACKS_CONFIG[AummaahTrack.Golf] = {
     equipmentURL: GOLF_CLUB_GLB,
-
-    startOverSurfacesProps: {
-        rotation: [-Math.PI / 2, 0, 0],
-        position: [0, -10, 0],
-    },
+    startOverSurfacesProps: [
+        {
+            rotation: [0, 0, 0],
+            position: [0, 0, -20],
+            // visible: true,
+        },
+        {
+            rotation: [0, -Math.PI, 0],
+            position: [0, 0, 15],
+            // visible: true,
+        },
+        {
+            rotation: [0, -Math.PI / 2, 0],
+            position: [10, 0, 0],
+            // visible: true,
+        }, 
+        {
+            rotation: [0, Math.PI / 2, 0],
+            position: [-10, 0, 0],
+            // visible: true,
+        }, 
+    ],
     ballProps: {
         position: [0, 5, 9.5],
         velocity: [0, 0, 0],
@@ -336,10 +352,10 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             }
         },
         {
-            position: [10, 5, -50],
+            position: [15, 5, -10],
             //rotation: [0.5, 0.1, 0.1],
             sides: 8,
-            scale: [10, 5, 10]
+            scale: [8, 5, 7]
         }
     ],
     flagProps: {
@@ -349,9 +365,7 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
         windStrength: 3,
         windStrengthConstant: 800,
         windStrengthTimeDivisor: 100,
-        
+
         // timestep: .001,
-    }
-
-
+    },
 }

@@ -8,6 +8,7 @@ import { MaterialsContext } from '../MaterialsContext';
 import { Box } from './Box';
 import Ground from './Ground';
 import ParametricCloth from './ParametricCloth.js';
+import StartOverSurface from './StartOverSurface';
 import { lerp } from './utils.js';
 
 function Mound({ sides, contactMaterial = {}, ...props }) {
@@ -47,7 +48,6 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
     // Load the gltf file
     const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
     const { greenWireframe } = useContext(MaterialsContext)
-    // const clubArgs = useMemo(() => [2, 2, 2])
     const model = useRef()
     // Make it a physical object that adheres to gravitation and impact
     const [poleRef, poleAPI] = useBox(() => ({
@@ -112,6 +112,9 @@ export default function Golf(props) {
     return <group>
         {/* <InstancedGrid dimensionSizeZ={50} /> */}
         <Ground {...props.groundProps} />
+        {props.startOverSurfacesProps.map((surfaceProps, idx) => {
+            return <StartOverSurface key={idx} {...surfaceProps} />
+        })}
         <GolfFlag {...props.flagProps} />
         <GolfTee {...props.golfTeeProps} />
         <GolfClub {...props.golfClubProps} />
