@@ -46,10 +46,10 @@ const MaterialsProvider = ({ ...props }) => {
     })
 
     return <MaterialsContext.Provider value={{ materialsLoaded, ...materials }}>
-        {/* <NaiveGlass
+        <NaiveGlass
             materialRef={naiveGlassRef}
             envMapURL={assetPath("11/textures/env-maps/old-cathedral-jamescastle-24128368@N00_49318613712.jpg")}
-        /> */}
+        />
         {/* <FoamGrip materialRef={foamGripRef}  color={0xff00af} specular={0x00ff00} /> */}
         <TennisBall materialRef={tennisBallRef} />
         <meshBasicMaterial color="orange" wireframe={true} ref={orangeWireframeRef} />

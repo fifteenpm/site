@@ -71,7 +71,7 @@ function CricketWicket(props) {
         // frictionEquationStiffness: 1e7,
         // frictionEquationRelaxation: 2,
     }
-
+    const { naiveGlass } = useContext(MaterialsContext)
     const [leg1] = useBox(() => ({ material: contactMaterial, ...props.leg1 }))
     const [leg2] = useBox(() => ({ material: contactMaterial, ...props.leg2 }))
     const [leg3] = useBox(() => ({ material: contactMaterial, ...props.leg3 }))
@@ -81,12 +81,12 @@ function CricketWicket(props) {
 
     return (
         <>
-            <Box ref={leg1} {...props.leg1} />
-            <Box ref={leg2} {...props.leg2} />
-            <Box ref={leg3} {...props.leg3} />
-            <Box ref={topLeft} {...props.topLeft} />
-            <Box ref={topRight} {...props.topRight} />
-            <Box ref={base} {...props.base} />
+            <Box ref={leg1} material={naiveGlass} {...props.leg1} />
+            <Box ref={leg2} material={naiveGlass} {...props.leg2} />
+            <Box ref={leg3} material={naiveGlass} {...props.leg3} />
+            <Box ref={topLeft} material={naiveGlass}{...props.topLeft} />
+            <Box ref={topRight} material={naiveGlass}{...props.topRight} />
+            <Box ref={base} material={naiveGlass} {...props.base} />
         </>
     )
 }

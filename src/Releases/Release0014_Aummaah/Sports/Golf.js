@@ -11,6 +11,7 @@ import ParametricCloth from './ParametricCloth.js';
 import { lerp } from './utils.js';
 
 function Mound({ sides, contactMaterial = {}, ...props }) {
+    const { naiveGlass } = useContext(MaterialsContext)
     const geo = useMemo(() => {
         const g = new THREE.ConeGeometry(0.7, 0.7, sides, 1)
         g.mergeVertices()
@@ -18,9 +19,7 @@ function Mound({ sides, contactMaterial = {}, ...props }) {
     }, [])
     const [ref] = useConvexPolyhedron(() => ({ mass: 1, ...props, args: geo }))
     return (
-        <mesh castShadow ref={ref} {...props} geometry={geo} dispose={null}>
-            <meshNormalMaterial attach="material" />
-        </mesh>
+        <mesh castShadow receiveShadow ref={ref} {...props} material={naiveGlass} geometry={geo} dispose={null} />
     )
 }
 
@@ -35,7 +34,7 @@ function GolfFlag(props) {
                     return u == 0
                 }} {...props} />
                 <group>
-                    <mesh material={basicMaterial} position-x={props.position[0]-.1} position-z={props.position[2]} position-y={1.7} >
+                    <mesh material={basicMaterial} position-x={props.position[0] - .1} position-z={props.position[2]} position-y={1.7} >
                         <boxBufferGeometry attach="geometry" args={[.02, 3, .01]} />
                     </mesh>
                 </group>
@@ -57,8 +56,6 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
         args: poleArgs,
         material: contactMaterial,
         onCollide: () => {
-            // TODO (jeremy) not sure this does anything for kinematic other than
-            // compute
             collideBehavior()
         }
     }))

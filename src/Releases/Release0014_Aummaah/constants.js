@@ -148,34 +148,34 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
     },
     cricketWicketProps: {
         leg1: {
-            args: [.25, 2.1, .5],
+            args: [.25, 1.5, .5],
             position: [-.7, 2, -3],
             mass: .1,
         },
         leg2: {
-            args: [.25, 2.1, .5],
+            args: [.25, 1.5, .5],
             position: [0, 2, -3],
             mass: .1,
         },
         leg3: {
-            args: [.25, 2.1, .5],
+            args: [.25, 1.5, .5],
             position: [.7, 2, -3],
             mass: .1,
         },
         topLeft: {
-            position: [-.36, 5.4, -3],
+            position: [-.36, 4.8, -3],
             args: [.1, .6, .5],
             rotation: [0, 0, Math.PI / 2],
             mass: .01,
         },
         topRight: {
-            position: [.36, 5.4, -3],
+            position: [.36, 4.8, -3],
             args: [.1, .6, .5],
             rotation: [0, 0, Math.PI / 2],
             mass: .01,
         },
         base: {
-            args: [4, .1, 1],
+            args: [4, -.5, 1],
             position: [0, 0, -3],
             // rotation: [Math.PI/2, 0, 0],
             // visible: false,
@@ -336,10 +336,10 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             }
         },
         {
-            position: [0, 5, -50],
+            position: [10, 5, -50],
             //rotation: [0.5, 0.1, 0.1],
             sides: 8,
-            scale: [50, 5, 50]
+            scale: [10, 5, 10]
         }
     ],
     flagProps: {
