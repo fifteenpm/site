@@ -626,19 +626,17 @@ export const CONTENT = {
       {
         name: "Tennis",
         type: "s3",
-        url: "https://s3.amazonaws.com/cdn.fifteen.pm/01+-+Aummaah+-+Tennis.wav",
+        url: "https://s3.amazonaws.com/1111lighting/t53f2fe",
       },
       {
         name: "Cricket",
-        type: "soundcloud",
-        id: "862855783",
-        secretToken: "s-8Ac9QyayEtV",
+        type: "s3",
+        url: "https://s3.amazonaws.com/1111lighting/c3a20d",
       },
       {
         name: "Golf",
-        type: "soundcloud",
-        id: "862855780",
-        secretToken: "s-krM6xurN6cV",
+        type: "s3",
+        url: "https://s3.amazonaws.com/1111lighting/g3b08e",
       },
     ],
     colors: {
