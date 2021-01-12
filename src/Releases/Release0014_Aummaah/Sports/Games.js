@@ -9,7 +9,7 @@ import { useStore } from './hooks.js';
 import { Lamp } from './Lamp';
 import StartOverSurfaces from './StartOverSurfaces';
 import Tennis from './Tennis';
-
+import Flag, {BigCenterFlag} from './Flag';
 
 // initial inspo: https://codesandbox.io/s/white-resonance-0mgum?file=/src/App.js:388-427
 export default function Games(props) {
@@ -23,19 +23,22 @@ export default function Games(props) {
         }, 1000)
     }, [currentTrackName])
     return (
-        <Physics
-            iterations={6}
-        >
-            <Lamp />
-            <StartOverSurfaces {...props.startOverSurfacesProps} />
-            {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
-            <Suspense fallback={null}>
-                <group>
-                    {currentTrackName == C.AummaahTrack.Cricket && <Cricket {...props} />}
-                    {currentTrackName == C.AummaahTrack.Tennis && <Tennis {...props} />}
-                    {currentTrackName == C.AummaahTrack.Golf && <Golf {...props} />}
-                </group>
-            </Suspense>
-        </Physics >
+        <group>
+            <BigCenterFlag />
+            <Physics
+                iterations={6}
+            >
+                <Lamp />
+                <StartOverSurfaces {...props.startOverSurfacesProps} />
+                {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
+                <Suspense fallback={null}>
+                    <group>
+                        {currentTrackName == C.AummaahTrack.Cricket && <Cricket {...props} />}
+                        {currentTrackName == C.AummaahTrack.Tennis && <Tennis {...props} />}
+                        {currentTrackName == C.AummaahTrack.Golf && <Golf {...props} />}
+                    </group>
+                </Suspense>
+            </Physics >
+        </group>
     );
 }
