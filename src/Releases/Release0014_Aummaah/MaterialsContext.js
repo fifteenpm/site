@@ -25,8 +25,11 @@ const MaterialsProvider = ({ ...props }) => {
     const [circleAlphaShaderRef, circleAlphaShader] = useResource();
     const [naiveGlassRef, naiveGlass] = useResource()
     const [foamGripRef, foamGrip] = useResource()
+    const [basicMaterialRef, basicMaterial] = useResource() 
+
     const materials = {
-        // naiveGlass,
+        naiveGlass,
+        basicMaterial,
         tennisBall,
         greenWireframe,
         linedCement,
@@ -55,6 +58,7 @@ const MaterialsProvider = ({ ...props }) => {
         <LinedCement materialRef={linedCementRef} />
         <RGBAShader materialRef={rgbashaderRef} imagePath={C.GAMES_FLAG_IMG} side={THREE.DoubleSide} />
         <RGBAShader materialRef={circleAlphaShaderRef} imagePath={C.SUN_PNG} side={THREE.DoubleSide} />
+        <meshBasicMaterial ref={basicMaterialRef} receiveShadow color="white" />
         {props.children}
     </MaterialsContext.Provider >
 }

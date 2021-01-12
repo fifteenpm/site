@@ -109,6 +109,16 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
                 frictionEquationRelaxation: 2,
             }
         }
+    },
+    tennisNetProps: {
+        position: [0, 0, -2],
+        scale: [.5, .1, .00001],
+        distance: 1,
+        windStrength: 4,
+        windStrengthConstant: 80,
+        windStrengthTimeDivisor: 100,
+        
+        // timestep: .001,
     }
 }
 
@@ -331,5 +341,17 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             sides: 8,
             scale: [50, 5, 50]
         }
-    ]
+    ],
+    flagProps: {
+        position: [-5, 3, -2],
+        scale: [.04, .03, .00001],
+        distance: 1,
+        windStrength: 3,
+        windStrengthConstant: 800,
+        windStrengthTimeDivisor: 100,
+        
+        // timestep: .001,
+    }
+
+
 }

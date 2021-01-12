@@ -9,7 +9,9 @@ import * as C from '../constants.js';
 import { MaterialsContext } from '../MaterialsContext';
 import HittableSurface from './HittableSurface';
 import InstancedGrid from './InstancedGrid';
+import ParametricCloth from './ParametricCloth.js';
 import { lerp } from './utils.js';
+
 
 
 function TennisCube(props) {
@@ -59,7 +61,6 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
     })
     return (
         <group>
-            {/*  */}
             <mesh ref={ref} dispose={null} >
                 <group ref={model}  >
                     <mesh >
@@ -80,11 +81,24 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
     )
 }
 
+function TennisNet(props) {
+    const { greenWireframe } = useContext(MaterialsContext)
+    return (
+        <>
+            <ParametricCloth material={greenWireframe} setPinHandler={(u, v, xSegments, ySegments) => {
+                return u == 0 || u == xSegments -1
+            }} {...props} />
+        </>
+    )
+}
+
+
 export default function Tennis(props) {
     return <group>
         <InstancedGrid />
         <TennisRacquet {...props.tennisRacquetProps} />
         <TennisCube />
+        <TennisNet {...props.tennisNetProps} />
         {Object.values(props.hittableSurfaceProps).map((props, idx) => {
             return <HittableSurface key={idx} {...props} />
         })}

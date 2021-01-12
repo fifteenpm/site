@@ -7,6 +7,7 @@ import * as C from '../constants.js';
 import { MaterialsContext } from '../MaterialsContext';
 import { Box } from './Box';
 import Ground from './Ground';
+import ParametricCloth from './ParametricCloth.js';
 import { lerp } from './utils.js';
 
 function Mound({ sides, contactMaterial = {}, ...props }) {
@@ -24,8 +25,23 @@ function Mound({ sides, contactMaterial = {}, ...props }) {
 }
 
 
-function GolfFlag({}){
-    
+function GolfFlag(props) {
+    const { basicMaterial } = useContext(MaterialsContext)
+    return (
+        <>
+
+            <group>
+                <ParametricCloth setPinHandler={(u, v, xSegments, ySegments) => {
+                    return u == 0
+                }} {...props} />
+                <group>
+                    <mesh material={basicMaterial} position-x={props.position[0]-.1} position-z={props.position[2]} position-y={1.7} >
+                        <boxBufferGeometry attach="geometry" args={[.02, 3, .01]} />
+                    </mesh>
+                </group>
+            </group>
+        </>
+    )
 }
 
 function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
@@ -95,9 +111,11 @@ function GolfTee({ boxArgs, color, ...props }) {
 
 
 export default function Golf(props) {
+
     return <group>
         {/* <InstancedGrid dimensionSizeZ={50} /> */}
         <Ground {...props.groundProps} />
+        <GolfFlag {...props.flagProps} />
         <GolfTee {...props.golfTeeProps} />
         <GolfClub {...props.golfClubProps} />
         {props.golfClubMoundProps.map((moundProps, idx) => {

@@ -1,16 +1,17 @@
 
 import { default as React, useContext, useEffect, useRef, useState } from 'react';
+import * as THREE from 'three';
 import { useFrame } from "react-three-fiber";
 import Cloth from '../../../Common/Utils/cloth.js';
 import { MaterialsContext } from '../MaterialsContext';
 
 
-export default function ParametricCloth({ material, scale = [.1, .1, .1], position = [0, 2, -75], distance = 100, windStrength = 1, windStrengthConstant = 2, timestep = 18 / 1000, shouldSetPinHandler = undefined, ...props }) {
+export default function ParametricCloth({ material, scale = [.1, .1, .1], position = [0, 2, -75], distance = 100, windStrength = 1, windStrengthConstant = 2, timestep = 18 / 1000, setPinHandler = undefined, ...props }) {
     const [cloth, setCloth] = useState(null);
     const [wind, setWind] = useState(true);
     const mesh = useRef();
     const geometry = useRef();
-    const { circleAlphaShader } = useContext(MaterialsContext);
+    const { sunsetGradient , circleAlphaShader} = useContext(MaterialsContext);
     const defaultPinHandler = (u, v, xSegments, ySegments) => {
         if (
             // top
@@ -24,9 +25,9 @@ export default function ParametricCloth({ material, scale = [.1, .1, .1], positi
         }
     }
     useEffect(() => {
-        const shouldSetPin = shouldSetPinHandler ? shouldSetPinHandler : defaultPinHandler;
+        const pinHandler = setPinHandler ? setPinHandler : defaultPinHandler;
         const cloth = new Cloth({
-            shouldSetPin,
+            shouldSetPin: pinHandler,
             distance: distance,
             windStrength: windStrength,
             windStrengthConstant: windStrengthConstant
@@ -58,7 +59,7 @@ export default function ParametricCloth({ material, scale = [.1, .1, .1], positi
                 ref={mesh}
                 castShadow
                 scale={scale}
-                material={material || circleAlphaShader}
+                material={material ? material : sunsetGradient}
             >
                 <parametricGeometry
                     attach="geometry"
@@ -66,14 +67,7 @@ export default function ParametricCloth({ material, scale = [.1, .1, .1], positi
                     ref={geometry}
                     dynamic
                 />
-                {/* <meshLambertMaterial
-                    attach="material"
-                    side={DoubleSide}
-                    map={flagMapTexture}
-                    // alphaMap={flagAlphaTexture}
-                    color={hover ? 'orange' : 'white'}
-                /> */}
-            </mesh>Î
+            </mesh>
         </group>
     );
 }

@@ -16,7 +16,6 @@ export default function Games({hasEnteredWorld, ...props}) {
     const gameIsOn = useStore(state => state.gameIsOn)
     const { currentTrackName } = useAudioPlayer()
     const { setGameIsOn } = useStore(state => state.api)
-    console.log("HAS ENTERD WORLD", hasEnteredWorld)
     useEffect(() => {
         setGameIsOn(false)
         setTimeout(() => {
