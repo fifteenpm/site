@@ -122,7 +122,7 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
         geometryArgs: [250, 250, 20, 20],
     },
     ballProps: {
-        position: [0, 15, -10],
+        position: [0, 10, -5],
         velocity: [0, -8, 5],
         mass: 1,
         radius: .25,
