@@ -11,14 +11,37 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import create from "zustand";
 import * as C from '../constants.js';
 import { MaterialsContext } from '../MaterialsContext';
-import earthImg from "./resources/cross.jpg";
-import pingSound from "./resources/ping.mp3";
+// import earthImg from "./resources/cross.jpg";
+// import pingSound from "./resources/ping.mp3";
 import niceColors from 'nice-color-palettes';
-import Text from "./Text";
-import Court from './TennisCourt'
+// import Text from "./Text";
 import useAudioPlayer from '../../../Common/UI/Player/hooks/useAudioPlayer'
 
-// import TennisCourt from './TennisCourt';
+import InstancedGrid from './InstancedGrid';
+
+
+
+// Create a store ...
+// const ping = new Audio(pingSound)
+const [useStore] = create(set => ({
+  // count: 0,
+  gameIsOn: true,
+  api: {
+
+    setGameIsOn: gameIsOn => set({ gameIsOn })
+    // console.log("gameIsOn set to:", gameIsOn)
+  }
+  // pong(velocity) {
+  //   set({ startOver: false })
+  //   ping.currentTime = 0
+  //   ping.volume = clamp(velocity / 20, 0, 1)
+  //   ping.play()
+  //   if (velocity > 4) set(state => ({ count: state.count + 1 }))
+  // },
+  // reset: () => set({ startOver: true })
+}))
+
+
 // https://github.com/mattdesl/lerp/blob/master/index.js
 function lerp(v0, v1, t) {
   return v0 * (1 - t) + v1 * t
@@ -38,27 +61,6 @@ function useDragConstraint(child) {
   return { onPointerUp, onPointerDown }
 }
 
-// Create a store ...
-// const ping = new Audio(pingSound)
-const [useStore] = create(set => ({
-  // count: 0,
-  gameIsOn: true,
-  api: {
-
-    setGameIsOn: gameIsOn => set({ gameIsOn })
-    // console.log("gameIsOn set to:", gameIsOn)
-  }
-
-  // pong(velocity) {
-  //   set({ startOver: false })
-  //   ping.currentTime = 0
-  //   ping.volume = clamp(velocity / 20, 0, 1)
-  //   ping.play()
-  //   if (velocity > 4) set(state => ({ count: state.count + 1 }))
-  // },
-  // reset: () => set({ startOver: true })
-}))
-
 // The paddle was made in blender and auto-converted to JSX by https://github.com/react-spring/gltfjsx
 function GameSpecificComponents(props) {
   const { currentTrackName, audioPlayer } = useAudioPlayer();
@@ -76,8 +78,9 @@ function GameSpecificComponents(props) {
 
 function Tennis(props) {
   return <group>
-    {/* <Court /> */}
+    <InstancedGrid />
     <TennisRacquet {...props.tennisRacquetProps} />
+    <TennisCube />
     {Object.values(props.hittableSurfaceProps).map((props, idx) => {
       return <HittableSurface key={idx} {...props} />
     })}
@@ -87,7 +90,7 @@ function Tennis(props) {
 
 function Cricket(props) {
   return <group>
-    <Court dimensionSizeZ={25} />
+    <InstancedGrid dimensionSizeZ={25} />
     <CricketBat {...props.cricketBatProps} />
     <CricketWicket {...props.cricketWicketProps} />
     {Object.values(props.hittableSurfaceProps).map((props, idx) => {
@@ -96,9 +99,20 @@ function Cricket(props) {
   </group>
 }
 
+function TennisCube(props){
+    const ref = useRef()
+    
+    const { greenWireframe } = useContext(MaterialsContext)
+    return (
+      <mesh receiveShadow ref={ref} material={greenWireframe}>
+        <boxBufferGeometry attach="geometry" scale-y={0} args={[100, 100, 100, 100]} />
+      </mesh>
+    );
+}
+
 function Golf(props) {
   return <group>
-    <Court dimensionSizeZ={50} />
+    {/* <InstancedGrid dimensionSizeZ={50} /> */}
     <Ground {...props.groundProps} />
     <GolfTee {...props.golfTeeProps} />
     <GolfClub {...props.golfClubProps} />
@@ -112,16 +126,13 @@ function Golf(props) {
 
 function Ground({ transparent, color, visible = false, contactMaterial = {}, ...props }) {
   const [ref] = usePlane(() => ({
-    //  args: boxArgs, 
     mass: 0,
     ...props,
   }));
   const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
   return (
-    // <mesh receiveShadow ref={ref} >
     <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
-      {/* <planeBufferGeometry attach="geometry" args={boxArgs} /> */}
-      <boxBufferGeometry attach="geometry" args={[100, 100]} />
+      <planeBufferGeometry attach="geometry" args={[100, 100, 100, 100]} />
       {/* <meshStandardMaterial attach="material" color={color} /> */}
     </mesh>
   );
@@ -271,7 +282,8 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
     args: poleArgs,
     material: contactMaterial,
     onCollide: () => {
-      // TODO (jeremy) not sure this does anything for kinematic other than compute
+      // TODO (jeremy) not sure this does anything for kinematic other than
+      // compute
       collideBehavior()
     }
   }))
@@ -300,7 +312,7 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
             <boxBufferGeometry attach="geometry" args={poleArgs} />
             <meshBasicMaterial attach="material" wireframe color="red" />
           </mesh>
-          <group scale={[.85, .85, .85]} rotation-y={Math.PI / 2}>
+          <group scale={[.85, .85, .85]} position-x={.14} rotation-y={Math.PI / 2}>
             <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
           </group>
         </group>
@@ -313,12 +325,11 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
   )
 }
 
-function GolfTee(props) {
-  const [plate] = useBox(() => ({ type: 'Static', ...props }))
-
+function GolfTee({ boxArgs, color, ...props }) {
+  const [tee] = useBox(() => ({ type: 'Static', args: boxArgs, ...props }))
   return (
     <>
-      <Box ref={plate} {...props} />
+      <Box ref={tee} args={boxArgs} color={color} />
     </>
   )
 }
@@ -350,15 +361,6 @@ function Ball({ onInit, contactMaterial, mass = 1, radius = 0.5, velocity = [0, 
   )
 }
 
-const dimensionSizeZ = 15
-const dimensionSizeX = 30
-const scaleX = .75
-const scaleZ = 5
-const dimensionSizeY = 10
-const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
-const tempObject = new THREE.Object3D()
-const colors = new Array(numInstances).fill().map(() => 0xff00ff)
-const tempColor = new THREE.Color()
 
 function StartOverSurfaces({ rotation, position, geometryArgs = [100, 100] }) {
   // When the ground was hit we reset the game ...
@@ -460,7 +462,7 @@ const Lamp = () => {
       <mesh ref={lamp} {...bind}>
         <coneBufferGeometry attach="geometry" args={[2, 2.5, 32]} />
         <meshStandardMaterial attach="material" />
-        {/* <pointLight intensity={1} distance={5} /> */}
+        <pointLight intensity={1} distance={5} />
         <spotLight ref={light} color="yellow" position={[0, 20, 0]} angle={0.4} penumbra={1} intensity={0.2} castShadow />
       </mesh>
     </>
@@ -523,13 +525,22 @@ function Obstacles({ number = 15 }) {
   )
 }
 
+
 export default function Game(props) {
   const gameIsOn = useStore(state => state.gameIsOn)
+  const { currentTrackName } = useAudioPlayer()
   const { setGameIsOn } = useStore(state => state.api)
+  useEffect(() => {
+    setGameIsOn(false)
+    setTimeout(() => {
+      setGameIsOn(true)
+    }, 1000)
+
+  }, [currentTrackName])
+
   return (
     <>
       <Lamp />
-
       <StartOverSurfaces {...props.startOverSurfacesProps} />
       {gameIsOn && <Ball onInit={() => setGameIsOn(true)} {...props.ballProps} />}
       <Suspense fallback={null}>

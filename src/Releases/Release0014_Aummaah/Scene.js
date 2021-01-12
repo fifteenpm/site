@@ -11,9 +11,9 @@ import AummaahMarquee from './AummaahMarquee'
 import Sun from './Sun';
 import useAudioPlayer from '../../Common/UI/Player/hooks/useAudioPlayer';
 import * as C from './constants';
+import {isMobile} from '../../Common/Utils/BrowserDetection'
 
 export function Scene({ }) {
-
     const { camera, scene, raycaster, gl } = useThree()
     const { currentTrackName } = useAudioPlayer();
     const trackProps = useMemo(() => {
@@ -21,22 +21,14 @@ export function Scene({ }) {
     }, [currentTrackName])
     useEffect(() => {
         // hack to get physics to work :(
-        gl.xr = { isPresenting: false }
+        // gl.xr = { isPresenting: false }
         scene.background = new THREE.Color(0x000000);
-        console.log("camera:", camera)
         camera.position.set(...C.CAMERA_START)
-        
     }, [currentTrackName])
 
 
-    
     return <>
-        {/* <Flying /> */}
-        {/* <Orbit  autoRotate={false} maxDistance={2}/> */}
-        <Orbit autoRotate={false} />
-        {/* <FirstPerson /> */}
-        {/* <FirstPerson autoRotate={false} heightMax={.1} heightMin={.1} heightSpeed={true} heightCoefficient={-1} /> */}
-        {/* <ambientLight intensit={.1} /> */}
+        {!isMobile && <Orbit autoRotate={false} maxDistance={50} />}
         <pointLight position={[0, 1, -5]} intensity={.5} color={"green"} />
         {/* <BloomEffect /> */}
         <MaterialsProvider>

@@ -100,7 +100,7 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
                 rotation: [-Math.PI / 2, 0, 0],
                 color: "lightcoral",
                 boxArgs: [20, 45, 1, 100, 100, 10],
-                visible: true,
+                visible: false,
                 contactMaterial: {
                     friction: 0.0,
                     restitution: 0.7,
@@ -234,7 +234,7 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
         position: [0, -10, 0],
     },
     ballProps: {
-        position: [0, 5, 3.5],
+        position: [0, 5, 9.5],
         velocity: [0, 0, 0],
         mass: .01,
         radius: .1,
@@ -247,7 +247,6 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             frictionEquationRelaxation: 2,
         },
     },
-
     arenaProps: {
         leftBorder: {
             position: [-12, 0, 0],
@@ -298,7 +297,7 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             }
         },
         golfClubProps: {
-            poleArgs: [1, 1, .2],
+            poleArgs: [.3, 1.5, .2],
             positionY: 1,
             positionZ: 10,
             contactMaterial: {
@@ -311,16 +310,17 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
             }
         },
         golfTeeProps: {
-            position: [0, .5, 3.5],
-            args: [.05, .25, .015],
+            position: [0, .5, 9.5],
+            boxArgs: [.05, .25, .015],
             type: "Kinematic",
+            color: "white",
         },
         golfClubMoundProps: [
             {
-                position: [-1, 5, 0.5],
+                position: [-5, 3, -2],
                 //rotation: [0.1, 0.2, 0.1],
                 sides: 3,
-                scale: [3, 3, 3],
+                scale: [5, 3, 5],
                 contactMaterial: {
                     // friction: 100,
                     // restitution: 0,
@@ -331,10 +331,10 @@ TRACKS_CONFIG[AummaahTrack.Golf] = {
                 }
             },
             {
-                position: [3, 7, 5],
+                position: [0, 5, -50],
                 //rotation: [0.5, 0.1, 0.1],
                 sides: 8,
-                scale: [1.5, 1.5, 1.5]
+                scale: [50, 5, 50]
             }
         ]
     }

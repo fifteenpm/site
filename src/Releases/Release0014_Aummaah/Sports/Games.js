@@ -8,7 +8,6 @@ export default function Games(props) {
     return (
         <Physics
             iterations={6}
-        // allowSleep={false}
         >
             <Game {...props} />
         </Physics >

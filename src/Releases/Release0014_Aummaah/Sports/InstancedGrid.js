@@ -8,23 +8,13 @@ import '../../../Common/Utils/GridHelper';
 import { cloudEnvMap } from '../../../Common/Materials/utils';
 
 
-function TennisCourtSurface({ color, ...props }) {
-    const [ref] = usePlane(() => ({ type: "Kinematic", ...props }))
-    const scale = 1
-    return (
-        <mesh ref={ref} receiveShadow scale={[scale, scale, scale]}>
-            <planeBufferGeometry attach="geometry" args={[props.size / 2, props.size / 2]} />
-            <meshPhongMaterial attach="material" color={color} side={THREE.Double} />
-        </mesh>
-    )
-}
 
 const tempObject = new THREE.Object3D()
 
 const tempColor = new THREE.Color()
 
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
-export default function Court({ dimensionSizeZ = 66, dimensionSizeX = 66, scaleX = 2, scaleZ = 2, ...props }) {
+export default function InstancedGrid({ dimensionSizeZ = 66, dimensionSizeX = 66, scaleX = 2, scaleZ = 2, ...props }) {
     const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
     const greenColors = [0x1d592e, 0x112e17]
     const colors = useMemo(() => new Array(numInstances).fill().map(() => greenColors[Math.floor(Math.random() * 4)]))

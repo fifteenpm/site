@@ -17,7 +17,6 @@ const MaterialsContext = React.createContext([{}, () => { }]);
 const MaterialsProvider = ({ ...props }) => {
     const [materialsLoaded, setLoaded] = useState(false);
     const [tennisBallRef, tennisBall] = useResource();
-    const [tennisCourtSurfaceRef, tennisCourtSurface] = useResource();
     const [linedCementRef, linedCement] = useResource();
     const [greenWireframeRef, greenWireframe] = useResource();
     const [orangeWireframeRef, orangeWireframe] = useResource();
@@ -30,7 +29,6 @@ const MaterialsProvider = ({ ...props }) => {
         // naiveGlass,
         tennisBall,
         greenWireframe,
-        tennisCourtSurface,
         linedCement,
         circleAlphaShader,
         orangeWireframe,
@@ -53,7 +51,6 @@ const MaterialsProvider = ({ ...props }) => {
         <TennisBall materialRef={tennisBallRef} />
         <meshBasicMaterial color="orange" wireframe={true} ref={orangeWireframeRef} />
         <meshBasicMaterial color={0x112e17} wireframe={true} ref={greenWireframeRef} />
-        <meshBasicMaterial color="green" ref={tennisCourtSurfaceRef} />
         <SunsetGradient materialRef={sunsetGradientRef} side={THREE.DoubleSide} />
         <LinedCement materialRef={linedCementRef} />
         <RGBAShader materialRef={rgbashaderRef} imagePath={C.GAMES_FLAG_IMG} side={THREE.DoubleSide} />
