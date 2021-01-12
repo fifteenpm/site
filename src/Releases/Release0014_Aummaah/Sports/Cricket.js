@@ -49,10 +49,10 @@ function CricketBat({ boxArgs }) {
             {/*  */}
             <mesh ref={ref} dispose={null} position-x={-1} rotation-x={-2 * Math.PI}>
                 <group ref={model}  >
-                    <mesh >
+                    {/* <mesh >
                         <boxBufferGeometry attach="geometry" args={boxArgs} />
                         <meshBasicMaterial attach="material" wireframe color="red" />
-                    </mesh>
+                    </mesh> */}
                     <group position-x={-1}>
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_0.geometry} />
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />

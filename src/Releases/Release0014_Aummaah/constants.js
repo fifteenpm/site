@@ -111,11 +111,11 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
     },
     tennisNetProps: {
         position: [0, 0, -2],
-        scale: [.5, .1, .00001],
+        scale: [.5, .1, .1],
         distance: 1,
         windStrength: 4,
         windStrengthConstant: 80,
-        windStrengthTimeDivisor: 100,
+        windStrengthTimeDivisor: 1000,
 
         // timestep: .001,
     }
@@ -216,7 +216,7 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
             rotation: [-Math.PI / 2, 0, 0],
             color: "lightcoral",
             boxArgs: [20, 45, 1, 100, 100, 10],
-            visible: true,
+            // visible: true,
             contactMaterial: {
                 friction: .2,
                 restitution: 0.7,

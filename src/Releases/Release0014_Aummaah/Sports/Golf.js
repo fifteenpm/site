@@ -80,10 +80,10 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
         <group>
             <mesh ref={poleRef} dispose={null} rotation-x={-2 * Math.PI}>
                 <group ref={model}  >
-                    <mesh >
+                    {/* <mesh >
                         <boxBufferGeometry attach="geometry" args={poleArgs} />
                         <meshBasicMaterial attach="material" wireframe color="red" />
-                    </mesh>
+                    </mesh> */}
                     <group scale={[.85, .85, .85]} position-x={.14} rotation-y={Math.PI / 2}>
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
                     </group>

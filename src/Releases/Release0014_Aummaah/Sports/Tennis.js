@@ -63,10 +63,10 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
         <group>
             <mesh ref={ref} dispose={null} >
                 <group ref={model}  >
-                    <mesh >
+                    {/* <mesh >
                         <boxBufferGeometry attach="geometry" args={boxArgs} />
                         <meshBasicMaterial attach="material" wireframe color="red" />
-                    </mesh>
+                    </mesh> */}
                     {/* <Text rotation={[-Math.PI / 2, 0, 0]} position={[0, 1, 2]} size={1} /> */}
                     {/* children={count.toString()} /> */}
                     <group position-x={-2} rotation={[0, -0.04, 0]} >
@@ -100,7 +100,7 @@ export default function Tennis(props) {
             return <StartOverSurface key={idx} {...surfaceProps} />
         })}
         <TennisRacquet {...props.tennisRacquetProps} />
-        <TennisCube />
+        {/* <TennisCube /> */}
         <TennisNet {...props.tennisNetProps} />
         {Object.values(props.hittableSurfaceProps).map((props, idx) => {
             return <HittableSurface key={idx} {...props} />
