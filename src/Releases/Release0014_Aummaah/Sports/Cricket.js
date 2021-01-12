@@ -41,7 +41,6 @@ function CricketBat({ boxArgs }) {
         const modelRotation = mouseLeftOfCenter ? -Math.PI : 0;
         model.current.rotation.x = modelRotation;
         model.current.rotation.z = modelRotation;
-        console.log(state.mouse.y)
     })
 
     return (

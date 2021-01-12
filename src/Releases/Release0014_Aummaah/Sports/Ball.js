@@ -10,7 +10,6 @@ export default function Ball({ onInit, contactMaterial, mass = 1, radius = 0.5, 
       position: position,
       material: contactMaterial,
       onCollide: (e) => {
-        console.log("BALL COLLIDE:", e)
       }
     }))
   
@@ -20,7 +19,6 @@ export default function Ball({ onInit, contactMaterial, mass = 1, radius = 0.5, 
   
     return (
       <mesh castShadow ref={ref} onClick={e => {
-        console.log('forceful!')
         api.applyImpulse([10, 30, 0], [0, 0, 0])
       }}>
         <sphereBufferGeometry attach="geometry" args={[radius, 64, 64]} />

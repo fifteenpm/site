@@ -31,7 +31,6 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
     // Make it a physical object that adheres to gravitation and impact
     const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs, material: contactMaterial, onCollide: () => handleCollision() }))
     // const handleCollision = () => {
-    //   console.log("APPLY FORCE: ", api)
     //   api.applyImpulse([5, 5, 500], [0, 0, 0])
     // }
 

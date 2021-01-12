@@ -167,10 +167,8 @@ export default function FrogCube(props) {
       }
 
       if (frogCubeMesh.position.x <= C.FROG_CUBE_MIN_X) {
-        console.log('back')
         setFrogMovingForward(false) 
       } else if (frogCubeMesh.position.x >= C.FROG_CUBE_MAX_X) {
-        console.log('fwd')
         setFrogMovingForward(true)
       }
     }
