@@ -3,7 +3,7 @@ import { Canvas } from 'react-three-fiber';
 import { AudioPlayerContext } from '../../Common/UI/Player/AudioPlayerContext';
 import { Scene } from './Scene';
 
-export default function AummaahCanvas({ }) {
+export default function AummaahCanvas({ hasEnteredWorld }) {
 
     return (
         // Unfortunately some gymnastics required here to pass music player context through canvas.
@@ -19,7 +19,7 @@ export default function AummaahCanvas({ }) {
                         pixelRatio={window.devicePixelRatio}
                         shadowMap
                         sRGB
-                        camera={{ position: [0, 2, 5]}}
+                        camera={{ position: [0, 2, 5] }}
                         onCreated={({ gl }) => {
                             gl.shadowMap.enabled = true;
                             gl.gammaInput = true;
@@ -31,7 +31,7 @@ export default function AummaahCanvas({ }) {
                     >
                         <AudioPlayerContext.Provider value={value}>
                             <Suspense fallback={null}>
-                                <Scene />
+                                <Scene hasEnteredWorld={hasEnteredWorld}/>
                             </Suspense>
                         </AudioPlayerContext.Provider>
                     </Canvas>

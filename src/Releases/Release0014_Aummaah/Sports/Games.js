@@ -9,13 +9,14 @@ import { useStore } from './hooks.js';
 import { Lamp } from './Lamp';
 import StartOverSurfaces from './StartOverSurfaces';
 import Tennis from './Tennis';
-import Flag, {BigCenterFlag} from './Flag';
+import BigCenterFlag from './BigCenterFlag';
 
 // initial inspo: https://codesandbox.io/s/white-resonance-0mgum?file=/src/App.js:388-427
-export default function Games(props) {
+export default function Games({hasEnteredWorld, ...props}) {
     const gameIsOn = useStore(state => state.gameIsOn)
     const { currentTrackName } = useAudioPlayer()
     const { setGameIsOn } = useStore(state => state.api)
+    console.log("HAS ENTERD WORLD", hasEnteredWorld)
     useEffect(() => {
         setGameIsOn(false)
         setTimeout(() => {
@@ -24,7 +25,7 @@ export default function Games(props) {
     }, [currentTrackName])
     return (
         <group>
-            <BigCenterFlag />
+            {!hasEnteredWorld && <BigCenterFlag />}
             <Physics
                 iterations={6}
             >

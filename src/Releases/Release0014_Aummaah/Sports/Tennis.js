@@ -30,9 +30,9 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
     const model = useRef()
     // Make it a physical object that adheres to gravitation and impact
     const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs, material: contactMaterial, onCollide: () => handleCollision() }))
-    // const handleCollision = () => {
+    const handleCollision = () => {
     //   api.applyImpulse([5, 5, 500], [0, 0, 0])
-    // }
+    }
 
     // use-frame allows the component to subscribe to the render-loop for frame-based actions
     // let lerpVal = useRef(0)

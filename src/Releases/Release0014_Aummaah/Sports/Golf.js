@@ -9,7 +9,6 @@ import { Box } from './Box';
 import Ground from './Ground';
 import { lerp } from './utils.js';
 
-
 function Mound({ sides, contactMaterial = {}, ...props }) {
     const geo = useMemo(() => {
         const g = new THREE.ConeGeometry(0.7, 0.7, sides, 1)
@@ -24,6 +23,10 @@ function Mound({ sides, contactMaterial = {}, ...props }) {
     )
 }
 
+
+function GolfFlag({}){
+    
+}
 
 function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
     // Load the gltf file

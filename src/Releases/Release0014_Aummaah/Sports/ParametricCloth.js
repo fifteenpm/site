@@ -5,7 +5,7 @@ import Cloth from '../../../Common/Utils/cloth.js';
 import { MaterialsContext } from '../MaterialsContext';
 
 
-function ParametricCloth({ material, scale = [.1, .1, .1], position = [0, 2, -75], distance = 100, windStrength = 1, windStrengthConstant = 2, timestep = 18 / 1000, shouldSetPinHandler = undefined, ...props }) {
+export default function ParametricCloth({ material, scale = [.1, .1, .1], position = [0, 2, -75], distance = 100, windStrength = 1, windStrengthConstant = 2, timestep = 18 / 1000, shouldSetPinHandler = undefined, ...props }) {
     const [cloth, setCloth] = useState(null);
     const [wind, setWind] = useState(true);
     const mesh = useRef();
@@ -76,12 +76,4 @@ function ParametricCloth({ material, scale = [.1, .1, .1], position = [0, 2, -75
             </mesh>Î
         </group>
     );
-}
-
-export function BigCenterFlag() {
-    const { rgbashader, circleAlphaShader } = useContext(MaterialsContext)
-    return <>
-        <ParametricCloth material={rgbashader} />
-        <ParametricCloth material={circleAlphaShader} />
-    </>
 }

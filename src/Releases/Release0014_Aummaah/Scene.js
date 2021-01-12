@@ -9,7 +9,7 @@ import * as C from './constants';
 import { MaterialsProvider } from './MaterialsContext.js';
 import Games from './Sports/Games.js';
 
-export function Scene({ }) {
+export function Scene({ hasEnteredWorld }) {
     const { camera, scene } = useThree()
     const { currentTrackName } = useAudioPlayer();
     const trackProps = useMemo(() => {
@@ -27,7 +27,7 @@ export function Scene({ }) {
         <BloomEffect />
         <MaterialsProvider>
             <Suspense fallback={null}>
-                <Games {...trackProps} />
+                <Games hasEnteredWorld={hasEnteredWorld} {...trackProps} />
             </Suspense>
         </MaterialsProvider>
     </>
