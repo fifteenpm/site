@@ -11,3 +11,11 @@ export const randVal = (obj) => {
   const randIdx = THREE.Math.randInt(0, numKeys - 1);
   return obj[keys[randIdx]];
 }
+
+
+// https://github.com/mattdesl/lerp/blob/master/index.js
+export function lerp(v0, v1, t) {
+  return v0 * (1 - t) + v1 * t
+}
+
+
