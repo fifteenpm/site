@@ -10,6 +10,7 @@ import HittableSurface from './HittableSurface';
 import InstancedGrid from './InstancedGrid';
 import StartOverSurface from './StartOverSurface';
 import { lerp } from './utils.js';
+import ParametricCloth from './ParametricCloth';
 
 function CricketBat({ boxArgs }) {
     // Load the gltf file
@@ -94,6 +95,17 @@ function CricketWicket(props) {
 }
 
 
+function CricketNet(props) {
+    const { greenWireframe } = useContext(MaterialsContext)
+    return (
+        <>
+            <ParametricCloth material={greenWireframe} setPinHandler={(u, v, xSegments, ySegments) => {
+                return u == 0 || u == xSegments - 1
+            }} {...props} />
+        </>
+    )
+}
+
 export default function Cricket(props) {
     const wicketZ = -3
     const hittableSurfaceContactMaterial = useMemo(() => {
@@ -108,8 +120,18 @@ export default function Cricket(props) {
     })
     return <group>
         <InstancedGrid dimensionSizeZ={20} dimensionSizeX={5} offsetX={1} />
+
         <pointLight position={[0, 4, -10]} intensity={1} color={props.light1Color} />
         <pointLight position={[0, 4, wicketZ]} intensity={1} color={props.light2Color} />
+        <CricketNet 
+            position={[1, 10, -1]}
+            rotation={[-Math.PI/2, 0, 0]}
+            scale={[5, 10, .1]}
+            distance={1}
+            windStrength={400}
+            windStrengthConstant={800}
+            windStrengthTimeDivisor={1000}
+        />
         <StartOverSurface
             rotation={[-Math.PI / 2, 0, 0]}
             position={[0, -10, 0]}

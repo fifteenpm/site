@@ -6,12 +6,12 @@ import Cloth from '../../../Common/Utils/cloth.js';
 import { MaterialsContext } from '../MaterialsContext';
 
 
-export default function ParametricCloth({ material, scale = [.1, .1, .1], position = [0, 2, -75], distance = 100, windStrength = 1, windStrengthConstant = 2, timestep = 18 / 1000, setPinHandler = undefined, ...props }) {
+export default function ParametricCloth({ material, scale = [.1, .1, .1], position = [0, 2, -75], rotation = [0, 0, 0], distance = 100, windStrength = 1, windStrengthConstant = 2, timestep = 18 / 1000, setPinHandler = undefined, ...props }) {
     const [cloth, setCloth] = useState(null);
     const [wind, setWind] = useState(true);
     const mesh = useRef();
     const geometry = useRef();
-    const { sunsetGradient , circleAlphaShader} = useContext(MaterialsContext);
+    const { sunsetGradient, circleAlphaShader } = useContext(MaterialsContext);
     const defaultPinHandler = (u, v, xSegments, ySegments) => {
         if (
             // top
@@ -54,7 +54,7 @@ export default function ParametricCloth({ material, scale = [.1, .1, .1], positi
     // anisotropy is good for liguididty
     //   if (flagTexture) flagTexture.anisotropy = 16;
     return (
-        <group position={position}>
+        <group position={position} rotation={rotation}>
             <mesh
                 ref={mesh}
                 castShadow
@@ -68,6 +68,6 @@ export default function ParametricCloth({ material, scale = [.1, .1, .1], positi
                     dynamic
                 />
             </mesh>
-        </group>
+        </group >
     );
 }
