@@ -23,7 +23,7 @@ export function Scene({ hasEnteredWorld }) {
 
     return <>
         {!isMobile && <Orbit autoRotate={false} maxDistance={50} />}
-        <pointLight position={[0, 1, -5]} intensity={.5} color={"green"} />
+        <pointLight position={[0, 2, -10]} intensity={3} color={"green"} />
         <BloomEffect />
         <MaterialsProvider>
             <Suspense fallback={null}>

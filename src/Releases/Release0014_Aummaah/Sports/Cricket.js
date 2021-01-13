@@ -1,6 +1,7 @@
 import { useBox } from '@react-three/cannon';
 import React, { useContext, useRef } from "react";
 import { useFrame, useLoader } from "react-three-fiber";
+import { useMemo } from 'react/cjs/react.development';
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as C from '../constants.js';
 import { MaterialsContext } from '../MaterialsContext';
@@ -20,25 +21,41 @@ function CricketBat({ boxArgs }) {
 
     const model = useRef()
     // Make it a physical object that adheres to gravitation and impact
-    const [ref, api] = useBox(() => ({ type: "Kinematic", args: boxArgs }))
+    const [ref, api] = useBox(() => ({
+        type: "Kinematic",
+        args: boxArgs,
+        onCollide: () => {
+            onCollideBehavior()
+        }
+    }))
+    function onCollideBehavior() {
+        api.applyForce([0, 20, -20], [0, 0, 0])
+    }
     // use-frame allows the component to subscribe to the render-loop for frame-based actions
     let values = useRef([0, 0])
-    const yOffset = 0;
     useFrame(state => {
-        // The paddle is kinematic (not subject to gravitation), we move it with the api returned by useBox
-        // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
+        // x lerp
+        values.current[0] = lerp(values.current[0], state.mouse.x, 0.2)
+        // y lerp
         values.current[1] = lerp(values.current[1], state.mouse.y, 0.2)
-        api.position.set(state.mouse.x * 5, state.mouse.y + yOffset, 5)
+
+        // set position
+        api.position.set(state.mouse.x * 5, state.mouse.y, -state.mouse.y + 6)
+
+        // set rotation
         const mouseLeftOfCenter = state.mouse.x < -2.1;
-        let rotationY = values.current[1]
+        let movementX = values.current[0]
         if (mouseLeftOfCenter) {
-            rotationY = -rotationY
+            movementX = -movementX
         } else if (state.mouse.y > .75) {
-            rotationY = lerp(rotationY, 0, .2)
+            movementX = lerp(movementX, 0, .2)
         }
-        api.rotation.set(-2 * Math.PI, rotationY, 0)
+        api.rotation.set(-2 * Math.PI, movementX, 0)
+
+        // set angular velocity
         api.angularVelocity.set(values.current[1] * 40, 0, 0);// -values.current[1] * 4 )
-        // Left/right mouse movement rotates it a liitle for effect only
+
+        // set model
         const modelRotation = mouseLeftOfCenter ? -Math.PI : 0;
         model.current.rotation.x = modelRotation;
         model.current.rotation.z = modelRotation;
@@ -49,10 +66,10 @@ function CricketBat({ boxArgs }) {
             {/*  */}
             <mesh ref={ref} dispose={null} position-x={-1} rotation-x={-2 * Math.PI}>
                 <group ref={model}  >
-                    {/* <mesh >
+                    <mesh >
                         <boxBufferGeometry attach="geometry" args={boxArgs} />
                         <meshBasicMaterial attach="material" wireframe color="red" />
-                    </mesh> */}
+                    </mesh>
                     <group position-x={-1}>
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_0.geometry} />
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.Mesh_0_1.geometry} />
@@ -95,15 +112,30 @@ function CricketWicket(props) {
 
 
 export default function Cricket(props) {
+    const hittableSurfaceContactMaterial = useMemo(() => {
+        return {
+            friction: 0.0,
+            restitution: 0.9,
+            contactEquationStiffness: 1e7,
+            contactEquationRelaxation: 1,
+            frictionEquationStiffness: 1e7,
+            frictionEquationRelaxation: 2,
+        }
+    })
     return <group>
-        <InstancedGrid dimensionSizeZ={25} />
-        {props.startOverSurfacesProps.map((surfaceProps, idx) => {
-            return <StartOverSurface key={idx} {...surfaceProps} />
-        })}
-        <CricketBat {...props.cricketBatProps} />
+        <InstancedGrid dimensionSizeZ={20} dimensionSizeX={6} />
+        <StartOverSurface
+            rotation={[-Math.PI / 2, 0, 0]}
+            position={[0, -10, 0]}
+            geometryArgs={[250, 250, 20, 20]}
+        />
+        <CricketBat boxArgs={[9, 2, 1]} />
         <CricketWicket {...props.cricketWicketProps} />
-        {Object.values(props.hittableSurfaceProps).map((props, idx) => {
-            return <HittableSurface key={idx} {...props} />
-        })}
+        <HittableSurface
+            position={[0, -2, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            boxArgs={[8, 10, 1, 100, 100, 10]}
+            contactMaterial={hittableSurfaceContactMaterial}
+        />
     </group>
 }

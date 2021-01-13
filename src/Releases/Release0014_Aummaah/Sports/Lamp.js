@@ -30,7 +30,7 @@ export const Lamp = () => {
         material={naiveGlass}
       >
         <coneBufferGeometry attach="geometry" args={[2, 2.5, 32]} />
-        <pointLight intensity={.1} distance={5} />
+        <pointLight intensity={.01} distance={5} />
         <spotLight ref={light} color="yellow" position={[0, 20, 0]} angle={0.4} penumbra={1} intensity={0.05} castShadow />
       </mesh>
     </>

@@ -44,16 +44,16 @@ function GolfFlag(props) {
     )
 }
 
-function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
+function GolfClub({ mass, clubArgs, positionY, positionZ, contactMaterial }) {
     // Load the gltf file
     const { nodes, materials } = useLoader(GLTFLoader, C.GOLF_CLUB_GLB)
     const { greenWireframe } = useContext(MaterialsContext)
     const model = useRef()
     // Make it a physical object that adheres to gravitation and impact
-    const [poleRef, poleAPI] = useBox(() => ({
+    const [clubRef, clubAPI] = useBox(() => ({
         type: "Kinematic",
         mass: mass,
-        args: poleArgs,
+        args: clubArgs,
         material: contactMaterial,
         onCollide: () => {
             collideBehavior()
@@ -61,29 +61,28 @@ function GolfClub({ mass, poleArgs, positionY, positionZ, contactMaterial }) {
     }))
 
     function collideBehavior() {
-        poleAPI.applyForce([1, 10, -10], [0, 0, 0])
+        clubAPI.applyForce([1, 10, -10], [0, 0, 0])
     }
-    // const [clubRef, clubAPI] = useBox(() => ({ type: "Kinematic", args: clubArgs }))
     // use-frame allows the component to subscribe to the render-loop for frame-based actions
     let values = useRef(0)
     useFrame(state => {
         // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
         values.current = lerp(values.current, (state.mouse.y * Math.PI), 0.2)
-        poleAPI.position.set(state.mouse.x * 1.5, positionY, positionZ)
-        poleAPI.rotation.set(values.current, 0, 0)
-        poleAPI.angularVelocity.set(values.current * 10, 0, 0)
+        clubAPI.position.set(state.mouse.x * 1.5, positionY, positionZ)
+        clubAPI.rotation.set(values.current, 0, 0)
+        clubAPI.angularVelocity.set(values.current * 10, 0, 0)
         // Left/right mouse movement rotates it a liitle for effect only
         model.current.rotation.y = state.mouse.x > -0.3 ? -Math.PI : 0;;
     })
 
     return (
         <group>
-            <mesh ref={poleRef} dispose={null} rotation-x={-2 * Math.PI}>
+            <mesh ref={clubRef} dispose={null} rotation-x={-2 * Math.PI}>
                 <group ref={model}  >
-                    {/* <mesh >
-                        <boxBufferGeometry attach="geometry" args={poleArgs} />
+                    <mesh >
+                        <boxBufferGeometry attach="geometry" args={clubArgs} />
                         <meshBasicMaterial attach="material" wireframe color="red" />
-                    </mesh> */}
+                    </mesh>
                     <group scale={[.85, .85, .85]} position-x={.14} rotation-y={Math.PI / 2}>
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.golfClub.geometry} />
                     </group>

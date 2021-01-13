@@ -95,15 +95,28 @@ function TennisNet(props) {
 
 export default function Tennis(props) {
     return <group>
-        <InstancedGrid />
+        <InstancedGrid {...props.instancedGridProps} />
         {props.startOverSurfacesProps.map((surfaceProps, idx) => {
             return <StartOverSurface key={idx} {...surfaceProps} />
         })}
         <TennisRacquet {...props.tennisRacquetProps} />
         {/* <TennisCube /> */}
         <TennisNet {...props.tennisNetProps} />
-        {Object.values(props.hittableSurfaceProps).map((props, idx) => {
-            return <HittableSurface key={idx} {...props} />
-        })}
+        <HittableSurface
+            position={[0, -2, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            color={"lightcoral"}
+            boxArgs={[20, 45, 1, 100, 100, 10]}
+            visible={false}
+            contactMaterial={{
+                friction: 0.0,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }}
+        />
+
     </group>
 }

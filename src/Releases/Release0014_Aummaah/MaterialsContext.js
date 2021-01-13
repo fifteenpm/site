@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { useResource } from 'react-three-fiber';
 import TennisBall from '../../Common/Materials/TennisBall';
 import LinedCement from '../../Common/Materials/LinedCement';
@@ -11,7 +11,7 @@ import sunsetGradientFragment from '!raw-loader!glslify-loader!../../Common/Shad
 import NaiveGlass from '../../Common/Materials/NaiveGlass'
 import { assetPath } from '../../Common/Utils/assets';
 import FoamGrip from '../../Common/Materials/FoamGrip';
-
+import { cloudEnvMap } from '../../Common/Materials/utils';
 const MaterialsContext = React.createContext([{}, () => { }]);
 
 const MaterialsProvider = ({ ...props }) => {
@@ -25,9 +25,11 @@ const MaterialsProvider = ({ ...props }) => {
     const [circleAlphaShaderRef, circleAlphaShader] = useResource();
     const [naiveGlassRef, naiveGlass] = useResource()
     const [foamGripRef, foamGrip] = useResource()
-    const [basicMaterialRef, basicMaterial] = useResource() 
+    const [basicMaterialRef, basicMaterial] = useResource()
+    const [gridMaterialRef, gridMaterial] = useResource()
 
     const materials = {
+        gridMaterial,
         naiveGlass,
         basicMaterial,
         tennisBall,
@@ -39,6 +41,9 @@ const MaterialsProvider = ({ ...props }) => {
         rgbashader,
         // foamGrip,
     }
+
+    const envMapCube = useMemo(() => cloudEnvMap())
+
     useEffect(() => {
         const allMats = Object.values(materials);
         const loadedMats = allMats.filter(mat => mat);
@@ -59,6 +64,13 @@ const MaterialsProvider = ({ ...props }) => {
         <RGBAShader materialRef={rgbashaderRef} imagePath={C.GAMES_FLAG_IMG} side={THREE.DoubleSide} />
         <RGBAShader materialRef={circleAlphaShaderRef} imagePath={C.SUN_PNG} side={THREE.DoubleSide} />
         <meshBasicMaterial ref={basicMaterialRef} receiveShadow color="white" />
+        <meshPhongMaterial attach="material" vertexColors={THREE.VertexColors}
+            ref={gridMaterialRef}
+            lights
+            receiveShadow
+            specular={0xffffff}
+            envMap={envMapCube}
+        />
         {props.children}
     </MaterialsContext.Provider >
 }
