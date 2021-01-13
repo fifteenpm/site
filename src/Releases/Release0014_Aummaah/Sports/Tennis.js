@@ -14,13 +14,13 @@ import StartOverSurface from './StartOverSurface';
 import { lerp } from './utils.js';
 
 
-function TennisCube(props) {
+function TennisCube({ boxGeometryArgs, ...props }) {
     const ref = useRef()
 
     const { greenWireframe } = useContext(MaterialsContext)
     return (
         <mesh receiveShadow ref={ref} material={greenWireframe}>
-            <boxBufferGeometry attach="geometry" scale-y={0} args={[100, 100, 100, 100]} />
+            <boxBufferGeometry attach="geometry" scale-y={0} args={boxGeometryArgs} />
         </mesh>
     );
 }
@@ -59,6 +59,7 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
         model.current.rotation.y = rotationY
         model.current.rotation.z = modelRotation;
     })
+    console.log("tennis node", nodes)
     return (
         <group>
             <mesh ref={ref} dispose={null} >
@@ -74,6 +75,7 @@ function TennisRacquet({ boxArgs, contactMaterial }) {
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_2.geometry} />
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_3.geometry} />
                         <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_4.geometry} />
+                        <mesh castShadow receiveShadow material={greenWireframe} geometry={nodes.tennisRacket_5.geometry} />
                     </group>
                 </group>
             </mesh>
@@ -95,14 +97,15 @@ function TennisNet(props) {
 
 export default function Tennis(props) {
     return <group>
-        <InstancedGrid {...props.instancedGridProps} />
+        <InstancedGrid dimensionSizeZ={10} dimensionSizeX={10} {...props.instancedGridProps} />
         {props.startOverSurfacesProps.map((surfaceProps, idx) => {
             return <StartOverSurface key={idx} {...surfaceProps} />
         })}
         <TennisRacquet {...props.tennisRacquetProps} />
-        {/* <TennisCube /> */}
+        <TennisCube boxGeometryArgs={[50, 50, 50, 50, 50, 1]} />
         <TennisNet {...props.tennisNetProps} />
         <HittableSurface
+            key={"ground"}
             position={[0, -2, 0]}
             rotation={[-Math.PI / 2, 0, 0]}
             color={"lightcoral"}
@@ -117,6 +120,51 @@ export default function Tennis(props) {
                 frictionEquationRelaxation: 2,
             }}
         />
+        {/* <HittableSurface
+            position={[0, -2, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            color={"lightcoral"}
+            boxArgs={[20, 45, 1, 100, 100, 10]}
+            visible={false}
+            contactMaterial={{
+                friction: 0.0,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }}
+        />
+         <HittableSurface
+            position={[0, -2, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            color={"lightcoral"}
+            boxArgs={[20, 45, 1, 100, 100, 10]}
+            visible={false}
+            contactMaterial={{
+                friction: 0.0,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }}
+        />
+         <HittableSurface
+            position={[0, -2, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            color={"lightcoral"}
+            boxArgs={[20, 45, 1, 100, 100, 10]}
+            visible={false}
+            contactMaterial={{
+                friction: 0.0,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }}
+        /> */}
 
     </group>
 }

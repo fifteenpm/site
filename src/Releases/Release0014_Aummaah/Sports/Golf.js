@@ -29,7 +29,6 @@ function GolfFlag(props) {
     const { basicMaterial } = useContext(MaterialsContext)
     return (
         <>
-
             <group>
                 <ParametricCloth setPinHandler={(u, v, xSegments, ySegments) => {
                     return u == 0
@@ -64,20 +63,22 @@ function GolfClub({ mass, clubArgs, positionY, positionZ, contactMaterial }) {
         clubAPI.applyForce([1, 10, -10], [0, 0, 0])
     }
     // use-frame allows the component to subscribe to the render-loop for frame-based actions
-    let values = useRef(0)
+    let values = useRef([0, 0])
+
+    const xPositionOffset = -.1
     useFrame(state => {
-        // values.current[0] = lerp(values.current[0], (state.mouse.x * Math.PI) / 5, 0.2)
-        values.current = lerp(values.current, (state.mouse.y * Math.PI), 0.2)
-        clubAPI.position.set(state.mouse.x * 1.5, positionY, positionZ)
-        clubAPI.rotation.set(values.current, 0, 0)
-        clubAPI.angularVelocity.set(values.current * 10, 0, 0)
+        values.current[0] = lerp(values.current[0], state.mouse.x, 0.2)
+        values.current[1]= lerp(values.current[1], (state.mouse.y * Math.PI), 0.2)
+        clubAPI.position.set(state.mouse.x + xPositionOffset, positionY, positionZ)
+        clubAPI.rotation.set(values.current[1] * Math.PI / 8, values.current[0] * Math.PI / 2, 0)
+        clubAPI.angularVelocity.set(values.current[1] * 10, 0, 0)
         // Left/right mouse movement rotates it a liitle for effect only
-        model.current.rotation.y = state.mouse.x > -0.3 ? -Math.PI : 0;;
+        // model.current.rotation.y = state.mouse.x > -0.3 ? -Math.PI : 0;;
     })
 
     return (
         <group>
-            <mesh ref={clubRef} dispose={null} rotation-x={-2 * Math.PI}>
+            <mesh ref={clubRef} dispose={null} >
                 <group ref={model}  >
                     <mesh >
                         <boxBufferGeometry attach="geometry" args={clubArgs} />

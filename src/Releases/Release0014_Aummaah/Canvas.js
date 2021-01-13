@@ -22,8 +22,8 @@ export default function AummaahCanvas({ hasEnteredWorld }) {
                         camera={{ position: [0, 2, 5] }}
                         onCreated={({ gl }) => {
                             gl.shadowMap.enabled = true;
-                            gl.gammaInput = true;
-                            gl.gammaOutput = true;
+                            // gl.gammaInput = true;
+                            gl.outputEncoding = true;
                             gl.antialias = true;
                             // IMPORTANT: Comment this out during development!
                             // gl.debug.checkShaderErrors = false;

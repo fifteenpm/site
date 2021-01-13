@@ -89,42 +89,8 @@ TRACKS_CONFIG[AummaahTrack.Cricket] = {
             frictionEquationRelaxation: 2,
         }
     },
-    cricketWicketProps: {
-        leg1: {
-            args: [.25, 1.5, .5],
-            position: [-.7, 2, -3],
-            mass: .1,
-        },
-        leg2: {
-            args: [.25, 1.5, .5],
-            position: [0, 2, -3],
-            mass: .1,
-        },
-        leg3: {
-            args: [.25, 1.5, .5],
-            position: [.7, 2, -3],
-            mass: .1,
-        },
-        topLeft: {
-            position: [-.36, 4.8, -3],
-            args: [.1, .6, .5],
-            rotation: [0, 0, Math.PI / 2],
-            mass: .01,
-        },
-        topRight: {
-            position: [.36, 4.8, -3],
-            args: [.1, .6, .5],
-            rotation: [0, 0, Math.PI / 2],
-            mass: .01,
-        },
-        base: {
-            args: [4, -.5, 1],
-            position: [0, 0, -3],
-            // rotation: [Math.PI/2, 0, 0],
-            // visible: false,
-        }
-    },
-
+    light1Color: "yellow",
+    props2Color: "magenta",
 }
 
 

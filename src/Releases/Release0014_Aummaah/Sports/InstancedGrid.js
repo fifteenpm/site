@@ -14,7 +14,7 @@ const tempObject = new THREE.Object3D()
 const tempColor = new THREE.Color()
 
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
-export default function InstancedGrid({ dimensionSizeZ = 66, dimensionSizeX = 66, scaleX = 2, scaleZ = 2, ...props }) {
+export default function InstancedGrid({ positionY = -2, dimensionSizeZ = 66, dimensionSizeX = 66, scaleX = 2, scaleZ = 2, ...props }) {
     const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
     const greenColors = [0x1d592e, 0x112e17]
     const colors = useMemo(() => new Array(numInstances).fill().map(() => greenColors[Math.floor(Math.random() * 4)]))
@@ -24,11 +24,10 @@ export default function InstancedGrid({ dimensionSizeZ = 66, dimensionSizeX = 66
         return tempColor.set(colors[i]).toArray()
     })), [])
 
-
     const ref = useRef()
     // const previous = useRef()
     // useEffect(() => void (previous.current = hovered), [hovered])
-    const interval = Math.floor(Math.sqrt(numInstances))
+    // const interval = Math.floor(Math.sqrt(numInstances))
     useEffect(() => {
         let i = 0
         for (let x = 0; x < dimensionSizeX; x++)
@@ -39,7 +38,7 @@ export default function InstancedGrid({ dimensionSizeZ = 66, dimensionSizeX = 66
                 tempObject.rotation.x = -Math.PI / 2
                 tempObject.position.set(
                     (x - dimensionSizeX / 2) * scaleX,
-                    -2,
+                    positionY,
                     (z - dimensionSizeZ / 2) * scaleZ,
                 )
                 tempObject.updateMatrix()
@@ -50,7 +49,7 @@ export default function InstancedGrid({ dimensionSizeZ = 66, dimensionSizeX = 66
     
     return (
         <group>
-            <instancedMesh ref={ref} args={[null, null, numInstances]} material={gridMaterial} >
+            <instancedMesh ref={ref} args={[null, null, numInstances]} material={gridMaterial} position-x={1} >
                 <planeBufferGeometry attach="geometry" args={[scaleX - .5, scaleZ - .5]}>
                     <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
                 </planeBufferGeometry>

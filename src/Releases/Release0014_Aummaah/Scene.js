@@ -10,12 +10,14 @@ import { MaterialsProvider } from './MaterialsContext.js';
 import Games from './Sports/Games.js';
 
 export function Scene({ hasEnteredWorld }) {
-    const { camera, scene } = useThree()
+    const { camera, scene, gl } = useThree()
     const { currentTrackName } = useAudioPlayer();
     const trackProps = useMemo(() => {
         return C.TRACKS_CONFIG[currentTrackName || C.FIRST_TRACK]
     }, [currentTrackName])
     useEffect(() => {
+        // hack to get physics to work :(
+        gl.xr = {isPresenting: false}
         scene.background = new THREE.Color(0x000000);
         camera.position.set(...C.CAMERA_START)
     }, [currentTrackName])
@@ -23,7 +25,6 @@ export function Scene({ hasEnteredWorld }) {
 
     return <>
         {!isMobile && <Orbit autoRotate={false} maxDistance={50} />}
-        <pointLight position={[0, 2, -10]} intensity={3} color={"green"} />
         <BloomEffect />
         <MaterialsProvider>
             <Suspense fallback={null}>

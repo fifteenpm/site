@@ -626,17 +626,17 @@ export const CONTENT = {
       {
         name: "Tennis",
         type: "s3",
-        url: "https://s3.amazonaws.com/1111lighting/t53f2fe",
+        url: "https://s3.amazonaws.com/dev.fifteen.pm/t53f2fe",
       },
       {
         name: "Cricket",
         type: "s3",
-        url: "https://s3.amazonaws.com/1111lighting/c3a20d",
+        url: "https://s3.amazonaws.com/dev.fifteen.pm/c3a20d",
       },
       {
         name: "Golf",
         type: "s3",
-        url: "https://s3.amazonaws.com/1111lighting/g3b08e",
+        url: "https://s3.amazonaws.com/dev.fifteen.pm/g3b08e",
       },
     ],
     colors: {
