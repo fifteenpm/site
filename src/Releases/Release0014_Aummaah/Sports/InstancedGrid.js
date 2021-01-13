@@ -14,7 +14,7 @@ const tempObject = new THREE.Object3D()
 const tempColor = new THREE.Color()
 
 //https://codesandbox.io/s/r3f-instanced-colors-8fo01?from-embed
-export default function InstancedGrid({ positionY = -2, dimensionSizeZ = 66, dimensionSizeX = 66, scaleX = 2, scaleZ = 2, ...props }) {
+export default function InstancedGrid({ positionY = -2, dimensionSizeZ = 66, dimensionSizeX = 66, scaleX = 2, scaleZ = 2, offsetX=0, ...props }) {
     const numInstances = dimensionSizeZ * dimensionSizeX// * dimensionSizeY
     const greenColors = [0x1d592e, 0x112e17]
     const colors = useMemo(() => new Array(numInstances).fill().map(() => greenColors[Math.floor(Math.random() * 4)]))
@@ -49,7 +49,7 @@ export default function InstancedGrid({ positionY = -2, dimensionSizeZ = 66, dim
     
     return (
         <group>
-            <instancedMesh ref={ref} args={[null, null, numInstances]} material={gridMaterial} position-x={1} >
+            <instancedMesh ref={ref} args={[null, null, numInstances]} material={gridMaterial} position-x={offsetX} >
                 <planeBufferGeometry attach="geometry" args={[scaleX - .5, scaleZ - .5]}>
                     <instancedBufferAttribute attachObject={['attributes', 'color']} args={[colorArray, 3]} />
                 </planeBufferGeometry>

@@ -16,11 +16,10 @@ import { lerp } from './utils.js';
 
 function TennisCube({ boxGeometryArgs, ...props }) {
     const ref = useRef()
-
     const { greenWireframe } = useContext(MaterialsContext)
     return (
-        <mesh receiveShadow ref={ref} material={greenWireframe}>
-            <boxBufferGeometry attach="geometry" scale-y={0} args={boxGeometryArgs} />
+        <mesh receiveShadow ref={ref} material={greenWireframe} {...props}>
+            <boxBufferGeometry attach="geometry" args={boxGeometryArgs} />
         </mesh>
     );
 }
@@ -97,13 +96,30 @@ function TennisNet(props) {
 
 export default function Tennis(props) {
     return <group>
-        <InstancedGrid dimensionSizeZ={10} dimensionSizeX={10} {...props.instancedGridProps} />
+        <InstancedGrid dimensionSizeZ={11} dimensionSizeX={11} {...props.instancedGridProps} />
         {props.startOverSurfacesProps.map((surfaceProps, idx) => {
             return <StartOverSurface key={idx} {...surfaceProps} />
         })}
-        <TennisRacquet {...props.tennisRacquetProps} />
-        <TennisCube boxGeometryArgs={[50, 50, 50, 50, 50, 1]} />
-        <TennisNet {...props.tennisNetProps} />
+        <TennisRacquet
+            boxArgs={[4, 3, 1]}
+            contactMaterial={{
+                friction: 0.2,
+                restitution: 0.7,
+                contactEquationStiffness: 1e7,
+                contactEquationRelaxation: 1,
+                frictionEquationStiffness: 1e7,
+                frictionEquationRelaxation: 2,
+            }}
+        />
+        <TennisCube position={[-1, 0, -1]} boxGeometryArgs={[50, 50, 50, 50, 50, 1]} />
+        <TennisNet
+            position={[0, 0, -1]}
+            scale={[2, .4, .1]}
+            distance={1}
+            windStrength={400}
+            windStrengthConstant={800}
+            windStrengthTimeDivisor={1000}
+        />
         <HittableSurface
             key={"ground"}
             position={[0, -2, 0]}

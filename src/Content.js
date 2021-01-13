@@ -620,7 +620,7 @@ export const CONTENT = {
     artist: "AUMMAAH",
     // todo (jeremy) fix this navigation hack
     lastIdx: 14,
-    message: "Escape into Aummaah's Games 🎾 ⛳ 🏏",
+    message: "Aummaah 🎾 plays 🏏 games. ⛳ Play 🎾 games 🏏 with ⛳ Aummah.",
     purchaseLink: "https://buy.fifteen.pm/album/sports-ep",
     tracks: [
       {

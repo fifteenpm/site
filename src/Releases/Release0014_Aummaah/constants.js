@@ -51,26 +51,8 @@ TRACKS_CONFIG[AummaahTrack.Tennis] = {
             frictionEquationRelaxation: 2,
         }
     },
-    tennisRacquetProps: {
-        boxArgs: [4, 3, 1],
-        contactMaterial: {
-            friction: 0.2,
-            restitution: 0.7,
-            contactEquationStiffness: 1e7,
-            contactEquationRelaxation: 1,
-            frictionEquationStiffness: 1e7,
-            frictionEquationRelaxation: 2,
-        }
-    },
-    tennisNetProps: {
-        position: [0, 0, -4],
-        scale: [2, .4, .1],
-        distance: 1,
-        windStrength: 400,
-        windStrengthConstant: 800,
-        windStrengthTimeDivisor: 1000,
-        // timestep: .001,
-    },
+    
+    
 }
 
 TRACKS_CONFIG[AummaahTrack.Cricket] = {

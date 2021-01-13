@@ -107,7 +107,7 @@ export default function Cricket(props) {
         }
     })
     return <group>
-        <InstancedGrid dimensionSizeZ={20} dimensionSizeX={5} />
+        <InstancedGrid dimensionSizeZ={20} dimensionSizeX={5} offsetX={1} />
         <pointLight position={[0, 4, -10]} intensity={1} color={props.light1Color} />
         <pointLight position={[0, 4, wicketZ]} intensity={1} color={props.light2Color} />
         <StartOverSurface
@@ -115,7 +115,7 @@ export default function Cricket(props) {
             position={[0, -10, 0]}
             geometryArgs={[250, 250, 20, 20]}
         />
-          <HittableSurface
+        <HittableSurface
             position={[0, -2, 0]}
             rotation={[-Math.PI / 2, 0, 0]}
             boxArgs={[8, 15, 1, 100, 100, 10]}
@@ -154,6 +154,6 @@ export default function Cricket(props) {
                 position: [0, 0, wicketZ],
                 args: [4, -.5, 1],
             }} />
-      
+
     </group>
 }
