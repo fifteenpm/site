@@ -7,21 +7,26 @@ import { MaterialsContext } from '../MaterialsContext';
 import { useStore } from "./hooks.js";
 
 
-export default function StartOverSurface({ visible=false, rotation, position, geometryArgs = [100, 100] }) {
+export default function StartOverSurface({
+    resetTime = 2000,
+    visible = false,
+    rotation,
+    position,
+    geometryArgs = [100, 100]
+}) {
     // When the ground was hit we reset the game ...
     // const { reset } = useStore(state => state.api)
-    const gameIsOn = useStore(state => state.gameIsOn)
-    const { setGameShouldStartOver, setGameIsOn } = useStore(state => state.api)
-    const { greenWireframe } = useContext(MaterialsContext)
+    const { setGameIsOn } = useStore(state => state.api)
+    const { wireframe } = useContext(MaterialsContext)
     const [ref, api] = usePlane(() => ({
         type: "Static",
         rotation: rotation ? rotation : [-Math.PI / 2, 0, 0],
         position: position ? position : [0, -9, 0],
         onCollide: () => {
-            setGameIsOn(false)
             setTimeout(() => {
+                setGameIsOn(false)
                 setGameIsOn(true)
-            }, 2000);
+            }, resetTime);
         }
     }))
     useEffect(() => {

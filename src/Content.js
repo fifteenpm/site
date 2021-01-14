@@ -560,7 +560,7 @@ export const CONTENT = {
   "/13": {
     artist: "ISN'T OURS",
     message: "Rest in the womb of \"Laurel Leaves\", a new EP by Isn't Ours, where the cold galaxy is outside, and we're safe in here. With video by Arrien Zinghini.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/isnt-ours-laurel-leaves",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/laurel-leaves-2",
     purchaseLinkText: "Buy the album",
     instructions: [
       {
@@ -620,7 +620,7 @@ export const CONTENT = {
     artist: "AUMMAAH",
     // todo (jeremy) fix this navigation hack
     lastIdx: 14,
-    message: "Aummaah 🎾 plays 🏏 games. ⛳ Play 🎾 games 🏏 with ⛳ Aummah.",
+    message: "Play 🎾 games 🏏 with ⛳ Aummaah.",
     purchaseLink: "https://buy.fifteen.pm/album/sports-ep",
     tracks: [
       {
@@ -651,11 +651,11 @@ export const CONTENT = {
     instructions: [
       {
         icon: MouseMove,
-        text: "click and drag mouse to look around"
+        text: "one finger to play the games"
       },
       {
         icon: TwoFingerScroll,
-        text: "scroll to zoom"
+        text: "two fingers to look around"
       }
     ]
   }

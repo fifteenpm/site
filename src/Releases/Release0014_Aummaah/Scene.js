@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useMemo } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import Orbit from '../../Common/Controls/Orbit';
@@ -8,28 +8,28 @@ import { isMobile } from '../../Common/Utils/BrowserDetection';
 import * as C from './constants';
 import { MaterialsProvider } from './MaterialsContext.js';
 import Games from './Sports/Games.js';
+import { useStore } from './Sports/hooks';
 
 export function Scene({ hasEnteredWorld }) {
     const { camera, scene, gl } = useThree()
     const { currentTrackName } = useAudioPlayer();
-    const trackProps = useMemo(() => {
-        return C.TRACKS_CONFIG[currentTrackName || C.FIRST_TRACK]
-    }, [currentTrackName])
+    const gameIsOn = useStore(state => state.gameIsOn)
     useEffect(() => {
         // hack to get physics to work :(
-        gl.xr = {isPresenting: false}
+        // gl.xr = { isPresenting: false }
         scene.background = new THREE.Color(0x000000);
         camera.position.set(...C.CAMERA_START)
     }, [currentTrackName])
 
-
     return <>
         {!isMobile && <Orbit autoRotate={false} maxDistance={50} />}
-        <BloomEffect />
+        <BloomEffect radius={.1} strength={2} />
+
         <MaterialsProvider>
             <Suspense fallback={null}>
-                <Games hasEnteredWorld={hasEnteredWorld} {...trackProps} />
+                <Games hasEnteredWorld={hasEnteredWorld} />
             </Suspense>
         </MaterialsProvider>
+
     </>
 }

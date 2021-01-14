@@ -5,7 +5,7 @@ import { MaterialsContext } from '../MaterialsContext';
 import { useDragConstraint } from './hooks.js';
 import { randVal } from './utils';
 
-export const Lamp = () => {
+export const Lamp = ({color = "yellow", pointIntensity=.01, spotIntensity=.05}) => {
   const { naiveGlass } = useContext(MaterialsContext)
   const light = useRef()
   const position = useMemo(() => [0, 10, -10])
@@ -16,7 +16,6 @@ export const Lamp = () => {
   const impulseOptions = useMemo(() => [0, .1, .2, -.1, -.2])
   useFrame(({ clock }) => {
     if (Math.floor(clock.elapsedTime) % 3 == 0) {
-      console.log("SHAKE IT")
       lampAPI.applyLocalImpulse([randVal(impulseOptions), randVal(impulseOptions), randVal(impulseOptions)], [0, 0, 0])
     }
   })
@@ -30,8 +29,8 @@ export const Lamp = () => {
         material={naiveGlass}
       >
         <coneBufferGeometry attach="geometry" args={[2, 2.5, 32]} />
-        <pointLight intensity={.01} distance={5} />
-        <spotLight ref={light} color="yellow" position={[0, 20, 0]} angle={0.4} penumbra={1} intensity={0.05} castShadow />
+        <pointLight intensity={pointIntensity} distance={5} color={color} />
+        <spotLight ref={light} color={color} position={[0, 20, 0]} angle={0.4} penumbra={1} intensity={spotIntensity} castShadow />
       </mesh>
     </>
   )

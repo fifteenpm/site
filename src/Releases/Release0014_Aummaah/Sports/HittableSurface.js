@@ -8,10 +8,10 @@ export default function HittableSurface({ transparent, color, boxArgs, visible =
       material: contactMaterial,
       ...props,
     }));
-    const { greenWireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
+    const { wireframe, naiveGlass, foamGrip } = useContext(MaterialsContext)
     return (
       // <mesh receiveShadow ref={ref} >
-      <mesh visible={visible} receiveShadow ref={ref} material={greenWireframe}>
+      <mesh visible={visible} receiveShadow ref={ref} material={wireframe}>
         {/* <planeBufferGeometry attach="geometry" args={boxArgs} /> */}
         <boxBufferGeometry attach="geometry" args={boxArgs} />
         {/* <meshStandardMaterial attach="material" color={color} /> */}

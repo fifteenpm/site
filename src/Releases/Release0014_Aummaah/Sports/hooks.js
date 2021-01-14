@@ -3,29 +3,23 @@ import { createRef, useCallback, useEffect } from "react";
 // zustand is a minimal state-manager: https://github.com/react-spring/zustand
 import create from "zustand";
 
-
-
-
-
 // Create a store ...
 // const ping = new Audio(pingSound)
 export const [useStore] = create(set => ({
-    // count: 0,
-    gameIsOn: true,
-    api: {
-      setGameIsOn: gameIsOn => set({ gameIsOn })
-    }
-    // pong(velocity) {
-    //   set({ startOver: false })
-    //   ping.currentTime = 0
-    //   ping.volume = clamp(velocity / 20, 0, 1)
-    //   ping.play()
-    //   if (velocity > 4) set(state => ({ count: state.count + 1 }))
-    // },
-    // reset: () => set({ startOver: true })
-  }))
-  
-
+  // count: 0,
+  gameIsOn: true,
+  api: {
+    setGameIsOn: gameIsOn => set({ gameIsOn })
+  }
+  // pong(velocity) {
+  //   set({ startOver: false })
+  //   ping.currentTime = 0
+  //   ping.volume = clamp(velocity / 20, 0, 1)
+  //   ping.play()
+  //   if (velocity > 4) set(state => ({ count: state.count + 1 }))
+  // },
+  // reset: () => set({ startOver: true })
+}))
 
 
 const cursor = createRef()

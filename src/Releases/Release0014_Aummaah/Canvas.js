@@ -31,9 +31,10 @@ export default function AummaahCanvas({ hasEnteredWorld }) {
                     >
                         <AudioPlayerContext.Provider value={value}>
                             <Suspense fallback={null}>
-                                <Scene hasEnteredWorld={hasEnteredWorld}/>
+                                <Scene hasEnteredWorld={hasEnteredWorld} />
                             </Suspense>
                         </AudioPlayerContext.Provider>
+                     
                     </Canvas>
                 )}
         </AudioPlayerContext.Consumer>

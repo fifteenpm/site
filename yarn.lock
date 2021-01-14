@@ -1213,6 +1213,14 @@
   resolved "https://registry.yarnpkg.com/@react-three/cannon/-/cannon-0.5.3.tgz#b1849bf240629b4293155b4e611bf4417b44281c"
   integrity sha512-/Ak6AcY4KfBMSnqOxQ2drQZVXDAAwfnUi2/PxPepz9tSAl6GC5o7H5WnDRJqXClRcw8n4Q+Dm9uSl8L5mvV96A==
 
+"@react-three/postprocessing@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@react-three/postprocessing/-/postprocessing-1.5.1.tgz#4612381fdcc996c0c58668f141b73d9599a6c9b0"
+  integrity sha512-zrfDIES0osRkRGw3PuwW4e1G7Zi9qxuEckX/vwuUutFB1oDacRA2P41AwoazR5Qi6qPPlX1dKn33+eLh3JBkHQ==
+  dependencies:
+    postprocessing "^6.17.1"
+    react-merge-refs "^1.1.0"
+
 "@react-three/xr@^1.1.0":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@react-three/xr/-/xr-1.1.1.tgz#4a69f492433e57ab4efcc8184438b48ea6953254"
@@ -7380,6 +7388,11 @@ postcss@^7.0.0, postcss@^7.0.14, postcss@^7.0.26, postcss@^7.0.32, postcss@^7.0.
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
+postprocessing@^6.17.1, postprocessing@^6.19.2:
+  version "6.19.2"
+  resolved "https://registry.yarnpkg.com/postprocessing/-/postprocessing-6.19.2.tgz#7f536bd1133c836d2e43d0fa520acc5cc126d415"
+  integrity sha512-MgaPg8e43XLrPws3vcn4XdED79X7bc8A4i7dm/61vxIVlUeofnCdjplh4fj27zIwZJ2z7oW1a54sEnC2wHTL0w==
+
 prelude-ls@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
@@ -7739,7 +7752,7 @@ react-media@^1.9.2:
     json2mq "^0.2.0"
     prop-types "^15.5.10"
 
-react-merge-refs@^1.0.0:
+react-merge-refs@^1.0.0, react-merge-refs@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-merge-refs/-/react-merge-refs-1.1.0.tgz#73d88b892c6c68cbb7a66e0800faa374f4c38b06"
   integrity sha512-alTKsjEL0dKH/ru1Iyn7vliS2QRcBp9zZPGoWxUOvRGWPUYgjo+V01is7p04It6KhgrzhJGnIj9GgX8W4bZoCQ==
@@ -9119,10 +9132,10 @@ three-tween@^1.0.0:
   resolved "https://registry.yarnpkg.com/three-tween/-/three-tween-1.0.0.tgz#da69bbbcccf321bfb8356358c594ceb1f0a7fd66"
   integrity sha512-JoRS/llDmrpZq7quzuk/Y9lDDW2ziW9eulMQDMi+Qfy5GcWhnnRYcoNcPFw/VPm4xptehcWDSNNBBdweX6ZIWw==
 
-three@0.124.0:
-  version "0.124.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.124.0.tgz#14ab1a26ba6c56e51190e1b55695cd3c1e69ea55"
-  integrity sha512-ROXp1Ly7YyF+jC910DQyAWj++Qlw2lQv0qwYLNQwdDbjk4bsOXAfGO92wYTMPNei1GMJUmCxSxc3MjGBTS09Rg==
+three@0.111.0:
+  version "0.111.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.111.0.tgz#9cedb73e79b7f6bf2440cb67a273f883faa923b6"
+  integrity sha512-AcTqyGJ3H75AIusOuADy0LsP958QKQwm/YhABHFMzd6RFXPNVay1rlSbbG6WYv7KM72G2THMMwqbjQd4dVHMkQ==
 
 throat@^4.0.0:
   version "4.1.0"

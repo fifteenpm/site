@@ -11,7 +11,7 @@ import { MaterialsContext } from '../MaterialsContext';
 export default function AummaahMarquee({ }) {
     const { nodes, } = useLoader(GLTFLoader, C.AUMMAAH_MARQUEE_GLB)
     const ref = useRef()
-    const { orangeWireframe, sunsetGradient, greenWireframe } = useContext(MaterialsContext);
+    const { orangeWireframe, sunsetGradient, wireframe } = useContext(MaterialsContext);
     // return (
     //     <mesh ref={ref} dispose={null} rotation-x={Math.PI / 2} position={[0, -8, -50]} scale={[20, 20, 20]}>
     //         <group>
@@ -42,7 +42,7 @@ function Flag({ }) {
     const geometry = useRef();
     const { nodes, } = useLoader(GLTFLoader, C.AUMMAAH_MARQUEE_GLB)
     const ref = useRef()
-    const { rgbashader, orangeWireframe, circleAlphaShader, sunsetGradient, greenWireframe } = useContext(MaterialsContext);
+    const { rgbashader, orangeWireframe, circleAlphaShader, sunsetGradient, wireframe } = useContext(MaterialsContext);
 
     useEffect(() => {
         const shouldSetPin = (u, v, xSegments, ySegments) => {

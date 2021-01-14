@@ -63,6 +63,11 @@ module.exports = {
                     name: '[path][name].[ext]'
                 }
             },
+            // https://github.com/pmndrs/react-spring/issues/1078#issuecomment-743698325arn 
+            {
+                test: /react-spring/,
+                sideEffects: true
+            },
         ],
     },
     resolve: {
