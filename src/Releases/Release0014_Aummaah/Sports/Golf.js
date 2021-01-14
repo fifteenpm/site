@@ -208,7 +208,7 @@ export default function Golf(props) {
             clubArgs={[.3, 1.5, .2]}
             positionY={1}
             positionZ={golfClubTeeZ}
-            color={accentColor}
+            color={"white"}
         />
         <Mound
             position={[-5, 3, -2]}

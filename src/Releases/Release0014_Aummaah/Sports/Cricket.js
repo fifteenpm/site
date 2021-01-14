@@ -53,6 +53,7 @@ function CricketBat({ boxArgs }) {
         let movementY = values.current[1]
         api.rotation.set(movementY * .5, movementY * .5, 0)
     })
+    console.log(nodes)
     return (
         <group>
             {/*  */}
@@ -63,7 +64,7 @@ function CricketBat({ boxArgs }) {
                         <meshBasicMaterial attach="material" wireframe color="red" />
                     </mesh> */}
                     <group position-x={-1}>
-                        <mesh castShadow receiveShadow material={wireframe} geometry={nodes.Mesh_0.geometry} />
+                        <mesh castShadow receiveShadow material={wireframe} geometry={nodes.Mesh_0_0.geometry} />
                         <mesh castShadow receiveShadow material={wireframe} geometry={nodes.Mesh_0_1.geometry} />
                     </group>
                 </group>
@@ -178,13 +179,13 @@ export default function Cricket(props) {
             }}
         />}
         <CricketNet
-            position={[1, 5, -1]}
+            position={[0, 5, -3]}
             color={0x37115a}
             rotation={[-Math.PI / 2, 0, 0]}
             scale={[5, 10, .1]}
             distance={1}
             windStrength={400}
-            windStrengthConstant={800}
+            windStrengthConstant={10000}
             windStrengthTimeDivisor={1000}
         />
         <StartOverSurface

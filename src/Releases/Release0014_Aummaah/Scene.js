@@ -16,7 +16,7 @@ export function Scene({ hasEnteredWorld }) {
     const gameIsOn = useStore(state => state.gameIsOn)
     useEffect(() => {
         // hack to get physics to work :(
-        // gl.xr = { isPresenting: false }
+        gl.xr = { isPresenting: false }
         scene.background = new THREE.Color(0x000000);
         camera.position.set(...C.CAMERA_START)
     }, [currentTrackName])

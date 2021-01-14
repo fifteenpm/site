@@ -9132,10 +9132,10 @@ three-tween@^1.0.0:
   resolved "https://registry.yarnpkg.com/three-tween/-/three-tween-1.0.0.tgz#da69bbbcccf321bfb8356358c594ceb1f0a7fd66"
   integrity sha512-JoRS/llDmrpZq7quzuk/Y9lDDW2ziW9eulMQDMi+Qfy5GcWhnnRYcoNcPFw/VPm4xptehcWDSNNBBdweX6ZIWw==
 
-three@0.111.0:
-  version "0.111.0"
-  resolved "https://registry.yarnpkg.com/three/-/three-0.111.0.tgz#9cedb73e79b7f6bf2440cb67a273f883faa923b6"
-  integrity sha512-AcTqyGJ3H75AIusOuADy0LsP958QKQwm/YhABHFMzd6RFXPNVay1rlSbbG6WYv7KM72G2THMMwqbjQd4dVHMkQ==
+three@0.113.0:
+  version "0.113.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.113.0.tgz#b5f82500a34eaca43fe3305e163eefe38b4c3221"
+  integrity sha512-H1IuGiyyBciP+L8fM5WCgXSm/nYbLr+tGgY9WWu7PPBxDxki/XJovC/Hz5JI/V7d6kx+1R/8zXWEmsIotLH/aA==
 
 throat@^4.0.0:
   version "4.1.0"

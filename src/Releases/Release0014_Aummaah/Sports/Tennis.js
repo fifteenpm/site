@@ -84,7 +84,7 @@ function TennisRacquet({ color, boxArgs, contactMaterial }) {
                         <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_2.geometry} />
                         <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_3.geometry} />
                         <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_4.geometry} />
-                        <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_5.geometry} />
+                        {/* <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_5.geometry} /> */}
                     </group>
                 </group>
             </mesh>

@@ -23,7 +23,7 @@ export default function AummaahCanvas({ hasEnteredWorld }) {
                         onCreated={({ gl }) => {
                             gl.shadowMap.enabled = true;
                             // gl.gammaInput = true;
-                            gl.outputEncoding = true;
+                            // gl.outputEncoding = true;
                             gl.antialias = true;
                             // IMPORTANT: Comment this out during development!
                             // gl.debug.checkShaderErrors = false;
