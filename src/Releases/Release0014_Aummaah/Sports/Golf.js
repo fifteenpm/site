@@ -132,7 +132,10 @@ export default function Golf(props) {
     const { setGameIsOn } = useStore(state => state.api)
     const golfClubTeeZ = 10
     const golfFlagPos = [-5, 3, -2]
-
+    const { waterMaterial } = useContext(MaterialsContext)
+    useFrame((e) => {
+        waterMaterial.userData.disturbancePos.current.set(Math.sin(e.clock.elapsedTime), Math.cos(e.clock.elapsedTime))
+    })
     const { color1, color2, accentColor, light1, light2 } = {
         bloomFilter: {
             radius: 0,
@@ -151,13 +154,14 @@ export default function Golf(props) {
     const { circleAlphaShader, wireframe2 } = useContext(MaterialsContext)
 
     return <group>
-        {/* <pointLight
+        <pointLight
             ref={light1}
-            position={[100, 100, 100]}
+            position={[0, 2, 5]}
             intensity={2}
-            color="green"
+            color="yellow"
             castShadow
-        /> */}
+        />
+
         {/* <pointLight
             ref={light2}
             position={[0, 0, golfClubTeeZ]}

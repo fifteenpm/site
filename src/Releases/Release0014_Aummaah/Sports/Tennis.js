@@ -137,7 +137,7 @@ export default function Tennis({ ...props }) {
             windStrengthConstant={1000}
         />
         <Lamp color="red" spotIntensity={.03} pointIntensity={5} castShadow/>
-        <pointLight position={[-1200, 1000, -5000]} color="turqoise" intensity={0.1} castShadow />
+        <pointLight position={[-1200, 1000, -5000]} color="turquoise" intensity={0.1} castShadow />
         <pointLight position={[1200, 1000, -5000]} color="orange" intensity={0.2} castShadow/>
 
         <ambientLight intensity={.2} />
