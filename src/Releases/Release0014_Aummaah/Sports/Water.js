@@ -4,7 +4,7 @@ import { MaterialsContext } from '../MaterialsContext';
 import * as THREE from 'three'
 import ParametricCloth from './ParametricCloth'
 
-export default function Water({ color, ...props }) {
+export default function Water({ color, material, ...props }) {
   const [ref] = usePlane(() => ({
     mass: 0,
     ...props,

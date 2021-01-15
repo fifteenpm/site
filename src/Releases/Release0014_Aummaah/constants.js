@@ -2,7 +2,7 @@ import { Vec3 } from 'cannon'
 import { assetPath } from '../../Common/Utils/assets.js'
 
 // SCENE
-export const CAMERA_START = [0, 1.5, 12]
+export const CAMERA_START = [0, 2.2, 15]
 
 // EQUIPMENT
 export const PING_PONG_GLB = assetPath("14/objects/pingpong/main.glb")

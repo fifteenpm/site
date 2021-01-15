@@ -5,7 +5,7 @@ import { MaterialsContext } from '../MaterialsContext';
 import { useDragConstraint } from './hooks.js';
 import { randVal } from './utils';
 
-export const Lamp = ({color = "yellow", pointIntensity=.01, spotIntensity=.05}) => {
+export const Lamp = ({color = "orange", pointIntensity=.01, spotIntensity=.05}) => {
   const { naiveGlass } = useContext(MaterialsContext)
   const light = useRef()
   const position = useMemo(() => [0, 10, -10])
@@ -24,7 +24,7 @@ export const Lamp = ({color = "yellow", pointIntensity=.01, spotIntensity=.05}) 
       <mesh ref={lamp} {...bind}
         onClick={() => {
           // make the lamp move around
-          lampAPI.applyLocalImpulse([0, 1, -8], [0, 0, 0])
+          lampAPI.applyLocalImpulse([1, 1, -8], [0, 0, 0])
         }}
         material={naiveGlass}
       >

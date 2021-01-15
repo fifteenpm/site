@@ -148,12 +148,15 @@ export default function Golf(props) {
         //     color: 0x82004e,
         // }
     }
+    const { circleAlphaShader, wireframe2 } = useContext(MaterialsContext)
+
     return <group>
         {/* <pointLight
             ref={light1}
-            position={[golfFlagPos[0], golfFlagPos[1] - 1, golfFlagPos[2]]}
-            intensity={1.5}
-            color={props.color1}
+            position={[100, 100, 100]}
+            intensity={2}
+            color="green"
+            castShadow
         /> */}
         {/* <pointLight
             ref={light2}
@@ -188,28 +191,40 @@ export default function Golf(props) {
             color="blue"
         /> */}
         <Water  
+         //material={circleAlphaShader}
          position={[0, -1, 0]} 
-         rotation={[-Math.PI / 2, 0, 0]}
+         rotation={[-Math.PI / 2, 0, -Math.PI / 2]}
           color="blue" 
-          windStrengthConstant={30}/>
+         windStrengthConstant={100}/>
+
         <GolfFlag position={golfFlagPos}
             scale={[.04, .03, .00001]}
             distance={1}
             windStrength={3}
             windStrengthConstant={800}
             windStrengthTimeDivisor={100} />
+
         <GolfTee
-            position={[0, .5, 9.5]}
+            position={[0, 0, 9.5]}
             boxArgs={[.05, .25, .015]}
             type={"Kinematic"}
             color={accentColor}
         />
         <GolfClub
-            clubArgs={[.3, 1.5, .2]}
-            positionY={1}
-            positionZ={golfClubTeeZ}
+            clubArgs={[2, 1.5, .2]}
+            positionY={0.6}
+            positionZ={golfClubTeeZ - 0.2}
             color={"white"}
         />
+        <Mound
+            position={[0, -0.3, 9.5]}
+            sides={4}
+            scale={[1, 1, 1]}
+            physicsType="Kinematic"
+            color={color1}
+        />
+
+        {/* Obstacles */}
         <Mound
             position={[-5, 3, -2]}
             sides={3}
@@ -217,22 +232,39 @@ export default function Golf(props) {
             color={color2}
         />
         <Mound
-            position={[0, -.25, 9.5]}
-            sides={5}
-            scale={[2, 2, 2]}
-            physicsType="Kinematic"
-            color={color1}
-        />
-        <Mound
-            position={[15, 5, -10]}
+            position={[15, 5, -20]}
             sides={8}
             scale={[8, 5, 7]}
             color={color2}
         />
-        <StartOverSurface rotation={[0, 0, 0]} position={[0, 0, -13]} />
+        <StartOverSurface rotation={[0, 0, 0]} position={[0, 0, -23]} />
         <StartOverSurface rotation={[0, -Math.PI, 0]} position={[0, 0, 15]} />
         <StartOverSurface rotation={[0, -Math.PI / 2, 0]} position={[10, 0, 0]} />
         <StartOverSurface rotation={[0, Math.PI / 2, 0]} position={[-10, 0, 0]} />
+
+        {/* <Mound
+            position={golfFlagPos}
+            sides={4}
+            scale={[5, 3, 5]}
+            color={color2}
+        />
+        <Mound
+            position={[0, 10, -15]}
+            sides={4}
+            scale={[8, 5, 7]}
+            color={color2}
+        />
+        <Mound
+            position={[10, 13, -10]}
+            sides={4}
+            scale={[5, 3, 5]}
+            color={color2}
+        />
+
+        <StartOverSurface rotation={[0, 0, 0]} position={[0, 0, -13]} />
+        <StartOverSurface rotation={[0, -Math.PI, 0]} position={[0, 0, 15]} />
+        <StartOverSurface rotation={[0, -Math.PI / 2, 0]} position={[10, 0, 0]} />
+        <StartOverSurface rotation={[0, Math.PI / 2, 0]} position={[-10, 0, 0]} /> */}
 
     </group>
 }
