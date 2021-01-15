@@ -1,0 +1,91 @@
+rm public/assets/13/videos/hls/master\ 3.m3u8
+rm public/assets/13/videos/hls/master\ 4.m3u8
+rm public/assets/13/videos/hls/v0\ 2/fileSequence11\ 3.ts
+rm public/assets/13/videos/hls/v0\ 2/fileSequence7\ 3.ts
+rm public/assets/13/videos/hls/v0\ 2/fileSequence80\ 3.ts
+rm public/assets/13/videos/hls/v0\ 2/fileSequence83\ 3.ts
+rm public/assets/13/videos/hls/v0\ 2/fileSequence85\ 3.ts
+rm public/assets/13/videos/hls/v0\ 2/fileSequence86\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence10\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence100\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence101\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence103\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence104\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence11\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence12\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence15\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence17\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence19\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence2\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence23\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence24\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence25\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence26\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence27\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence28\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence29\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence3\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence30\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence32\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence33\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence34\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence35\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence36\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence4\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence41\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence42\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence43\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence44\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence45\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence46\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence47\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence48\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence49\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence50\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence51\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence53\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence54\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence55\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence56\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence58\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence59\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence6\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence61\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence62\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence63\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence64\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence65\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence67\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence68\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence69\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence7\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence70\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence71\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence72\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence73\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence75\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence76\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence77\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence78\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence8\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence82\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence89\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence9\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence92\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence93\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence94\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence95\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence96\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence97\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence98\ 3.ts
+rm public/assets/13/videos/hls/v1\ 2/fileSequence99\ 3.ts
+rm src/Releases/Release0013_IsntOurs/ArrienZinghiniFlatScreen\ 2.js
+rm src/Releases/Release0013_IsntOurs/ArrienZinghiniNoiseScreen\ 2.js
+rm src/Releases/Release0013_IsntOurs/ArrienZinghiniSphereScreen\ 4.js
+rm src/Releases/Release0013_IsntOurs/Canvas\ 2.js
+rm src/Releases/Release0013_IsntOurs/Controls\ 2.js
+rm src/Releases/Release0013_IsntOurs/EncompassingSphere\ 2.js
+rm src/Releases/Release0013_IsntOurs/FixedLights\ 2.js
+rm src/Releases/Release0013_IsntOurs/Release\ 2.js
+rm src/Releases/Release0013_IsntOurs/index\ 2.css
+rm src/Releases/Release0013_IsntOurs/index\ 2.js

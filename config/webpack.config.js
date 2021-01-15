@@ -16,21 +16,21 @@ module.exports = {
             minSize: 0,
             cacheGroups: {
                 reactVendor: {
-                  test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
-                  name: "reactvendor"
+                    test: /[\\/]node_modules[\\/](react|react-dom)[\\/]/,
+                    name: "reactvendor"
                 },
                 utilityVendor: {
-                  test: /[\\/]node_modules[\\/](lodash|moment|moment-timezone)[\\/]/,
-                  name: "utilityVendor"
+                    test: /[\\/]node_modules[\\/](lodash|moment|moment-timezone)[\\/]/,
+                    name: "utilityVendor"
                 },
                 bootstrapVendor: {
-                  test: /[\\/]node_modules[\\/](react-bootstrap)[\\/]/,
-                  name: "bootstrapVendor"
+                    test: /[\\/]node_modules[\\/](react-bootstrap)[\\/]/,
+                    name: "bootstrapVendor"
                 },
                 vendor: {
-                   test: /[\\/]node_modules[\\/](!react-bootstrap)(!lodash)(!moment)(!moment-timezone)[\\/]/,
-                name: "vendor"
-              },
+                    test: /[\\/]node_modules[\\/](!react-bootstrap)(!lodash)(!moment)(!moment-timezone)[\\/]/,
+                    name: "vendor"
+                },
             },
         },
     },
@@ -55,7 +55,19 @@ module.exports = {
                         loader: 'file-loader',
                     },
                 ],
-            }
+            },
+            {
+                test: /\.(ogg|mp3|wav|mpe?g)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]'
+                }
+            },
+            // https://github.com/pmndrs/react-spring/issues/1078#issuecomment-743698325arn 
+            {
+                test: /react-spring/,
+                sideEffects: true
+            },
         ],
     },
     resolve: {

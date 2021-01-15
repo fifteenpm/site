@@ -176,7 +176,9 @@ export default class Scene extends PureComponent {
         this.offOrbs = this.scratchyOrbs;
 
         // FILTER SPHERE add an invisible sphere for raycasting (TODO move)
+        
         let geometry = new THREE.SphereGeometry(RADIUS + FILTER_RADIUS_BUFFER);
+        // let geometry = new THREE.SphereGeometry(RADIUS + FILTER_RADIUS_BUFFER);
         var material = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0.0 });
         var sphere = new THREE.Mesh(geometry, material);
         sphere.name = "filterSphere";
@@ -546,8 +548,8 @@ export default class Scene extends PureComponent {
 
         // first check if the mouse has intersected with the inner sphere
         if (this.insideInnerSphere()) {
-            let minfilterrange = 0.0;
-            let maxfilterrange = (radius + filter_radius_buffer);
+            let minFilterRange = 0.0;
+            let maxFilterRange = (RADIUS + FILTER_RADIUS_BUFFER);
             let adj = Math.max(Math.abs(this.camera.position.z), Math.abs(this.camera.position.y), Math.abs(this.camera.position.x));
             let freq = this.scaleFreq(adj, minFilterRange, maxFilterRange, FLYTHRU_MIN_FILTER_FREQ, FLYTHRU_MAX_FILTER_FREQ);
             audioStream.filter.frequency.value = freq;

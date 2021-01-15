@@ -91,7 +91,6 @@ export default function Sax(props) {
               saxSounds.offset = soundOffset[0];
               saxSounds.duration = soundOffset[1];
             }
-            console.log('HERE!')
             saxSounds.play();
             startCycle = clock.getElapsedTime();
           }

@@ -30,12 +30,13 @@ export const CONTENT = {
   "/1": {
     artist: "YAHCEPH",
     message: 'Yahceph\'s production debut, "wun 4 jas", is composed of voice memos and buoyant pads floating somewhere between him and Jasmine, the namesake of this ode.',
-    purchaseLink: "https://fifteeenpm.bandcamp.com/track/yahceph-wun-4-jas",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/yahceph-wun-4-jas",
     tracks: [
       {
         name: "Wun 4 Jas",
-        id: "466084773",
-        type: "soundcloud"
+        // id: "466084773",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/yah3b08e",
       }
     ],
     colors: {
@@ -57,12 +58,13 @@ export const CONTENT = {
   "/2": {
     artist: "YEAR UNKNOWN",
     message: "Jen Fong (Year Unknown) serves up frenetic, glitch-fueled footwork on this otherworldly drum disturbance.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/track/year-unknown-timer",
+    purchaseLink: "https://fifteenpm.bandcamp.com/track/timer",
     tracks: [
       {
         name: "Timer",
-        id: "475418370",
-        type: "soundcloud"
+        // id: "475418370",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/yu102ea",
       }
     ],
     colors: {
@@ -89,12 +91,13 @@ export const CONTENT = {
     artist: "OTHERE",
     message:
       "Abbi Press makes buoyant, soul-inflected tunes by day. As Othere, she explores the darker, corporeal corners of her sound.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/track/othere-lets-beach",
+    purchaseLink: "https://fifteenpm.bandcamp.com/track/lets-beach",
     tracks: [
       {
         name: "Let's Beach",
-        id: "482138307",
-        type: "soundcloud"
+        // id: "482138307",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/ot25afe3",
       }
     ],
     colors: {
@@ -124,22 +127,25 @@ export const CONTENT = {
   "/4": {
     artist: "JON CANNON",
     message: "Jon Cannon's haunting house ballads are a product of his habitat: the long drag of Myrtle-Broadway where fluorescent-lit stores stock life's essentials.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/jon-cannon-ep-1",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/ep-1",
     tracks: [
       {
         name: "Nothing (Blood)",
-        id: "507660189",
-        type: "soundcloud"
+        // id: "507660189",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jc1123ref"
       },
       {
         name: "Miracle Center",
-        id: "513518607",
-        type: "soundcloud"
+        // id: "513518607",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jc3mc29a",
       },
       {
         name: "Finesse",
-        id: "513518595",
-        type: "soundcloud"
+        // id: "513518595",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jc2fn41l",
       }
     ],
     colors: {
@@ -175,17 +181,19 @@ export const CONTENT = {
   "/5": {
     artist: "PLEBEIAN",
     message: "Plebeian’s toolbox rattles with chains, ball-bearings and loose screws on these slammin’ single-takes of industrial techno.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/plebeian-heaven",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/heaven",
     tracks: [
       {
         name: "Heaven",
         id: "514219014",
-        type: "soundcloud"
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/p1h332a"
       },
       {
         name: "Bullseye",
-        id: "514219020",
-        type: "soundcloud"
+        // id: "514219020",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/p2be232a"
       }
     ],
     colors: {
@@ -212,12 +220,13 @@ export const CONTENT = {
   "/6": {
     artist: "VVEISS",
     message: "Dagger at the ready, vveiss plumbs virtual depths, carving out a subsonic ceremony of refracting rhythms.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/track/vveiss-escape-velocity",
+    purchaseLink: "https://fifteenpm.bandcamp.com/track/escape-velocity",
     tracks: [
       {
         name: "ESCAPE VELOCITY",
-        id: "529074519",
-        type: "soundcloud"
+        // id: "529074519",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/vv19a2",
       }
     ],
     colors: {
@@ -239,12 +248,13 @@ export const CONTENT = {
   "/7": {
     artist: "JON FAY",
     message: "In this 22-minute meditation, Jon Fay captures the infinite pulse of the rave as it empties into the dawn.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/track/jon-fay-golden-groove",
+    purchaseLink: "https://fifteenpm.bandcamp.com/track/golden-groove",
     tracks: [
       {
         name: "GOLDEN GROOVE",
         id: "565459281",
-        type: "soundcloud"
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jf19aek",
       }
     ],
     colors: {
@@ -281,7 +291,7 @@ export const CONTENT = {
     tracks: [
       {
         title: "",
-        type: "soundcloud",
+        type: "s3",
         id: "610976673",
         secretToken: "s-7EwJv"
       }
@@ -299,7 +309,7 @@ export const CONTENT = {
   "/8": {
     artist: "GREEM JELLYFISH",
     message: "Juicy Tender is an exploration of exodus and urban life. Though we leave the city in search of extraordinary experiences, we sometimes return to loneliness. Ultimately, refuge is not a place but a set of material conditions: Art, Food, Music, Mountain, Ocean, Family, Friend.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/track/greem-jellyfish-juicy-tender",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/juicy-tender",
     tracks: [
       {
         sources: {
@@ -345,7 +355,7 @@ export const CONTENT = {
     tracks: [
       {
         title: "",
-        type: "soundcloud",
+        type: "s3",
         id: "610976673",
         secretToken: "s-7EwJv"
       }
@@ -363,35 +373,39 @@ export const CONTENT = {
   "/9": {
     artist: "JAVONNTTE",
     message: "Detroit Asteroid Belt 2120: All sectors go wild for the Earthy tones of house master Javonntte after his 'City Life' series surfaces off some de-bricked drives in the archives.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/javonntte-city-life-ep",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/city-life",
     tracks: [
       {
         name: "City Life",
-        type: "soundcloud",
+        type: "s3",
         id: "742019866",
         secretToken: "s-7AotY",
         bpm: "120",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jv1cla3ed",
       },
       {
         name: "S.H.M.",
-        type: "soundcloud",
+        type: "s3",
         id: "742019875",
         secretToken: "s-dKlsb",
         bpm: "120",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jv2sh2a",
       },
       {
         name: "Natural",
-        type: "soundcloud",
+        type: "s3",
         id: "742019860",
         secretToken: "s-gLrd3",
         bpm: "120",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jv3nae3fd",
       },
       {
         name: "This Dream",
-        type: "soundcloud",
+        type: "s3",
         id: "742019854",
         secretToken: "s-h4Las",
         bpm: "95",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jv4td2alef",
       },
 
 
@@ -415,28 +429,31 @@ export const CONTENT = {
   "/10": {
     artist: "Alien D",
     message: "Dan Creahan of Sweat Equity takes us on a hypnotic, chugging ride through the digital murk",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/alien-d-jazzin-the-cube",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/jazzin-the-cube",
     tracks: [
       {
         name: "Cube Jazz",
-        type: "soundcloud",
+        type: "s3",
         id: "708031996",
         secretToken: "s-f0NWB",
-        bpm: 152
+        bpm: 152,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/ad1cj2ae3f",
       },
       {
         name: "Frog Shirt",
-        type: "soundcloud",
+        type: "s3",
         id: "708031990",
         secretToken: "s-NKawM",
-        bpm: 112
+        bpm: 112,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/ad2fsegh49",
       },
       {
         name: "Show U",
-        type: "soundcloud",
+        type: "s3",
         id: "708031987",
         secretToken: "s-BnEVI",
-        bpm: 110
+        bpm: 110,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/ad3sue68",
       },
     ],
     colors: {
@@ -468,9 +485,9 @@ export const CONTENT = {
     ]
   },
   "/11": {
-    artist: "JWords",
+    artist: "JWORDS",
     message: "A 3D scan of JWords headspace from the tail-end of pre-Covid times. Watch it go to dust, and come into being again.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/jwords-dancepackvol-2",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/dancepackvol-2",
     instructions: [
       {
         icon: TwoFingerScroll,
@@ -489,52 +506,58 @@ export const CONTENT = {
     tracks: [
       {
         name: "Remedy",
-        type: "soundcloud",
+        type: "s3",
         id: "832516708",
         secretToken: "s-90RRPxAlMoP",
         bpm: 136,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jw14ga4g",
       },
       {
         name: "Fear",
-        type: "soundcloud",
+        type: "s3",
         id: "832516702",
         secretToken: "s-WYBrSlRSqz8",
         bpm: 140,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jw2asgf23",
       },
       {
         name: "Radio Freak",
-        type: "soundcloud",
+        type: "s3",
         id: "832516690",
         secretToken: "s-WFObAbCzVsZ",
         bpm: 138,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/jw3a4ga",
       },
     ],
   },
   "/12": {
     artist: "HEIDI SABERTOOTH",
     message: "Heidi Sabertooth and her interstellar crew of elektroid beings warp the space-time catwalk to the power of two electro-acid supernovas and a zero-g ambient closer.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/heidi-sabertooth-inside-out-ep",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/inside-out-ep",
     tracks: [
       {
         name: "Inside Out",
-        type: "soundcloud",
+        type: "s3",
         id: "862855786",
         secretToken: "s-jBUPqKXtkmh",
         bpm: 128,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/hs1aw6",
       },
       {
         name: "High On Mate",
-        type: "soundcloud",
+        type: "s3",
         id: "862855783",
         secretToken: "s-8Ac9QyayEtV",
         bpm: 130,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/hs2a3ka43f",
       },
       {
         name: "Looking For Roses",
-        type: "soundcloud",
+        type: "s3",
         id: "862855780",
         secretToken: "s-krM6xurN6cV",
         bpm: 126,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/hs39af3",
       },
     ],
     colors: {
@@ -558,11 +581,9 @@ export const CONTENT = {
     ]
   },
   "/13": {
-    artist: "Isn't Ours",
-    // todo (jeremy) fix this navigation hack
-    lastIdx: 13,
+    artist: "ISN'T OURS",
     message: "Rest in the womb of \"Laurel Leaves\", a new EP by Isn't Ours, where the cold galaxy is outside, and we're safe in here. With video by Arrien Zinghini.",
-    purchaseLink: "https://fifteeenpm.bandcamp.com/album/isnt-ours-laurel-leaves",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/laurel-leaves-2",
     purchaseLinkText: "Buy the album",
     instructions: [
       {
@@ -590,33 +611,80 @@ export const CONTENT = {
     tracks: [
       {
         name: "The End",
-        type: "soundcloud",
+        type: "s3",
         id: "859113487",
         secretToken: "s-KdSdKTQyHUc",
         bpm: 136,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/io1tea4fa",
       },
       {
         name: "It's Kept from Us",
-        type: "soundcloud",
+        type: "s3",
         id: "859113490",
         secretToken: "s-KJdW92duKGe",
         bpm: 140,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/io2ikf46aed",
       },
       {
         name: "Close Behind",
-        type: "soundcloud",
+        type: "s3",
         id: "859113601",
         secretToken: "s-VpF7Njg8UuI",
         bpm: 138,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/io3cb4a92",
       },
       {
         name: "Laurel Leaves",
-        type: "soundcloud",
+        type: "s3",
         id: "859113565",
         secretToken: "s-FROHSHngifQ",
         bpm: 138,
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/io4l25a4ef",
       },
     ],
+  },
+  "/14": {
+    artist: "AUMMAAH",
+    // todo (jeremy) fix this navigation hack
+    lastIdx: 14,
+    message: "Play 🎾 games 🏏 with ⛳ Aummaah.",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/aummaah-games-ep",
+    tracks: [
+      {
+        name: "Tennis",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/au1t53f2fe",
+      },
+      {
+        name: "Cricket",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/au2c3a20d",
+      },
+      {
+        name: "Golf",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/au3g3b08e",
+      },
+    ],
+    colors: {
+      logo: "white",
+      overlayContent: "white",
+      overlay: "rgba(0, 0, 0, 0.5)",
+      navigation: "white",
+      player: "white",
+      onHover: "red",
+      info: "white"
+    },
+    instructions: [
+      {
+        icon: MouseMove,
+        text: "one finger to play the games"
+      },
+      {
+        icon: TwoFingerScroll,
+        text: "two fingers to look around"
+      }
+    ]
   }
 };
 

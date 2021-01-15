@@ -485,7 +485,6 @@ export default class Scene extends Component {
     setVideoTransform() {
         const { videoParents, chromaMesh } = this;
         const { section } = this.state;
-        console.log("VIDEO PARENTS:", videoParents)
         videoParents[section.location].parent.add(chromaMesh);
         chromaMesh.material.uniforms.uAddDots.value = videoParents[section.location].addDots;
         const transform = CONSTANTS.videoTransforms[section.location]
@@ -503,7 +502,6 @@ export default class Scene extends Component {
     updateVideoTransform(prevLocation, curLocation) {
         const { videoParents, chromaMesh } = this;
         if (!chromaMesh) return;
-        console.log("UPDATE VID TRANS")
         if (curLocation in videoParents) this.setVideoTransform();
         if (prevLocation in videoParents) videoParents[prevLocation].parent.remove(chromaMesh);
     }
@@ -516,7 +514,6 @@ export default class Scene extends Component {
         const { section } = this.state;
         const cameraInfo = section.camera;
         const pos = cameraInfo.position;
-        console.log("SET POSITION:", pos)
         camera.position.set(pos.x, pos.y, pos.z);
         const lookAt = cameraInfo.lookAt;
         // camera.lookAt(lookAt.x, lookAt.y, lookAt.z);

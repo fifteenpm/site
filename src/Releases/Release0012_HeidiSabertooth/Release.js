@@ -10,5 +10,5 @@ export default function Release({ }) {
             <UI content={CONTENT[window.location.pathname]} />
             <HeidiSabertoothCanvas />
         </>
-    }</>
+    </>
 }

@@ -262,7 +262,7 @@ export default class Scene extends PureComponent {
         uniforms.mousePos.value.set(randX, randY)
       }
     }
-
+    
     // Do the gpu computation
     gpuCompute.compute();
 

@@ -132,7 +132,7 @@ export default class Scene extends Component {
             '4.jpg', '4.jpg',
         ]);
         var cubeShader = THREE.ShaderLib['cube'];
-        cubeShader.uniforms['tCube'].value = cubeTexture;
+        cubeShader.uniforms['tCube'] = {value: cubeTexture}
         var skyBoxMaterial = new THREE.ShaderMaterial({
             fragmentShader: cubeShader.fragmentShader,
             vertexShader: cubeShader.vertexShader,
