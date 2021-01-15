@@ -14,11 +14,13 @@ export function Scene({ hasEnteredWorld }) {
     const { camera, scene, gl } = useThree()
     const { currentTrackName } = useAudioPlayer();
     const gameIsOn = useStore(state => state.gameIsOn)
+    
     useEffect(() => {
         // hack to get physics to work :(
         gl.xr = { isPresenting: false }
         scene.background = new THREE.Color(0x000000);
-        camera.position.set(...C.CAMERA_START)
+        const camPos = C.CAMERA_START[currentTrackName] || C.CAMERA_START[C.FIRST_TRACK]
+        camera.position.set(...camPos)
     }, [currentTrackName])
 
     const [bloomProps, setBloomProps] = useState({ radius: .1, strength: 2.5 })

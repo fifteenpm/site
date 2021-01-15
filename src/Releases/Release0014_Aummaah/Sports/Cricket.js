@@ -53,7 +53,6 @@ function CricketBat({ boxArgs }) {
         let movementY = values.current[1]
         api.rotation.set(movementY * .5, movementY * .5, 0)
     })
-    console.log(nodes)
     return (
         <group>
             {/*  */}

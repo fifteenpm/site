@@ -1,8 +1,20 @@
 import { Vec3 } from 'cannon'
 import { assetPath } from '../../Common/Utils/assets.js'
 
+// TRACK NAMES
+export const AummaahTrack = {
+    Tennis: "Tennis",
+    Golf: "Golf",
+    Cricket: "Cricket"
+}
+
 // SCENE
-export const CAMERA_START = [0, 2.2, 15]
+export const CAMERA_START = {}
+CAMERA_START[AummaahTrack.Tennis] = [0, 2.2, 15]
+CAMERA_START[AummaahTrack.Cricket] = [0, 2.2, 15]
+CAMERA_START[AummaahTrack.Golf] = [0, 1.5, 12]
+
+
 
 // EQUIPMENT
 export const PING_PONG_GLB = assetPath("14/objects/pingpong/main.glb")
@@ -22,19 +34,13 @@ export const AUMMAAH_FLAG_ALPHA_IMG = assetPath("14/images/aummaah-alpha.png")
 export const SUN_PNG = assetPath("14/images/sun.png")
 
 // TRACK PARTICULARS
-export const AummaahTrack = {
-    Tennis: "Tennis",
-    Golf: "Golf",
-    Cricket: "Cricket"
-}
-
 export const FIRST_TRACK = AummaahTrack.Tennis
 export const TRACKS_CONFIG = {}
 
 TRACKS_CONFIG[AummaahTrack.Tennis] = {
     steps: [
         {
-         
+
         }
         // },
         // {

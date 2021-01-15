@@ -17,10 +17,24 @@ import * as THREE from 'three'
 import ParametricCloth from './ParametricCloth'
 
 export default function Water({ color, material, ...props }) {
-  const [ref] = usePlane(() => ({
+  const [ref, api] = usePlane(() => ({
     mass: 0,
+    onCollide: (e) => {
+      updateWaterDisturbance(e)
+    },
     ...props,
   }));
+
+  function updateWaterDisturbance(e) {
+    if (!api) return
+    console.log("COLLIDE:", e)
+
+    // TODO (jeremy) this is not right
+    const x = e.contact.ri[0] * e.contact.impactVelocity
+    const z = e.contact.ri[2] * e.contact.impactVelocity
+
+    waterMaterial.userData.disturbancePos.current.set(x, z)
+  }
   const { waterMaterial } = useContext(MaterialsContext)
   // useEffect(() => {
   //   if (!wireframe) return;
@@ -43,7 +57,7 @@ export default function Water({ color, material, ...props }) {
 //   const { scene, gl, size, camera } = useThree()
 //   useEffect(() => void composer.current.setSize(size.width, size.height), [size.width, size.height])
 //   useFrame(({ gl }) => void ((gl.autoClear = true), composer.current.render()), 1)
-  
+
 //   return createPortal(
 //     <>
 //       <effectComposer ref={composer} args={[gl]}>
