@@ -3,7 +3,7 @@ import { useFrame } from 'react-three-fiber'
 import * as THREE from 'three'
 
 export default function Bubbles({ count }) {
-    const mesh = useRef()
+  const mesh = useRef()
   const [dummy] = useState(() => new THREE.Object3D())
 
   const particles = useMemo(() => {

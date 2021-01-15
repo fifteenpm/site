@@ -23,7 +23,7 @@ export function Scene({ hasEnteredWorld }) {
 
     return <>
         {!isMobile && <Orbit autoRotate={false} maxDistance={50} />}
-        <BloomEffect radius={.1} strength={2} />
+        <BloomEffect radius={.1} strength={2.5} />
 
         <MaterialsProvider>
             <Suspense fallback={null}>

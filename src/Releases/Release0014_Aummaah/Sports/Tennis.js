@@ -79,7 +79,7 @@ function TennisRacquet({ color, boxArgs, contactMaterial }) {
                         <boxBufferGeometry attach="geometry" args={boxArgs} />
                         <meshBasicMaterial attach="material" wireframe color="red" />
                     </mesh> */}
-                    <group position-x={-2} rotation={[0, -0.04, 0]} >
+                    <group position-x={-2} position-z={1} rotation={[0, -0.04, 0]} >
                         <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_1.geometry} />
                         <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_2.geometry} />
                         <mesh castShadow receiveShadow material={accentWireframe} geometry={nodes.tennisRacket_3.geometry} />
@@ -114,7 +114,7 @@ export default function Tennis({ ...props }) {
     const { color1, color2, light1, light2, accentColor } = {
         time: 0,
         color1: 0x092215,
-        color2: 0x023000,
+        color2: 0x092215,
         light1: {
             color: "yellow",
         },
@@ -126,19 +126,22 @@ export default function Tennis({ ...props }) {
             radius: 1,
             threshold: 0,
             exposure: .1,
-            strength: 1,
+            strength: 20,
         }
     }
     return <group>
         <GamesCloth
-            textOnly
+            // textOnly
             rotation={[Math.PI/2, 0, Math.PI/2]}
             position={[0, 25, 0]}
             windStrengthConstant={1000}
         />
-        <Lamp color={light1.color} spotIntensity={.05} pointIntensity={.05} />
-        <pointLight position={[4, 3, -20]} color={light1.color} intensity={1} />
-        <pointLight position={[-4, 3, 5]} color={light2.color} intensity={.1} />
+        <Lamp color="red" spotIntensity={.03} pointIntensity={5} castShadow/>
+        <pointLight position={[-1200, 1000, -5000]} color="turqoise" intensity={0.1} castShadow />
+        <pointLight position={[1200, 1000, -5000]} color="orange" intensity={0.2} castShadow/>
+
+        <ambientLight intensity={.2} />
+
         {gameIsOn && <Ball
             onInit={() => setGameIsOn(true)} {...props.ballProps}
             position={[0, 8, -20]}

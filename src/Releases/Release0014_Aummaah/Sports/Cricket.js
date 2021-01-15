@@ -136,9 +136,10 @@ export default function Cricket(props) {
     //     }
     // })
 
-    const { color1, color2, bloomFilter, light1, light2 } = {
-        color1: "purple",
-        color2: "magenta",
+    const { color1, color2, color3, bloomFilter, light1, light2 } = {
+        color1: "magenta",
+        color2: "blue",
+        color3: "red",
         bloomFilter: {
             radius: 0,
             strength: 2,
@@ -159,11 +160,20 @@ export default function Cricket(props) {
     // }, [pointLight1.current])
 
     return <group>
-        <Lamp pointIntensity={0.01} spotIntensity={0.1} />
+        <Lamp color="magenta" pointIntensity={0.02} spotIntensity={0.06} />
+        {/* left light */}
+        <pointLight position={[-20, 600, -1200]} intensity={.09} color={color2} castShadow/>
+        {/* right light */}
+        <pointLight position={[20, 2, -40]} intensity={.85} color={color3} castShadow/>
+        {/* above wicket */}
+        <pointLight position={[-0.5, 2, 2]} intensity={0.03} color={color1} castShadow />
+        {/* <pointLight position={[-0.5, 1.5, wicketZ + .5]} intensity={0.5} color={color2} />
+         */} 
+
         <InstancedGrid dimensionSizeZ={20} dimensionSizeX={5} offsetX={1} />
-        <pointLight position={[0, 2, -40]} intensity={.85} color={color1} />
-        <pointLight position={[-0.5, 1.5, wicketZ + .5]} intensity={0.5} color={color2} />
+
         {gameIsOn && <Ball
+            color="purple"
             onInit={() => setGameIsOn(true)}
             position={[0, 3, wicketZ + .25]}
             velocity={[0, 0, 5]}
@@ -179,14 +189,14 @@ export default function Cricket(props) {
             }}
         />}
         <CricketNet
-            position={[0, 5, -3]}
-            color={0x37115a}
-            rotation={[-Math.PI / 2, 0, 0]}
-            scale={[5, 10, .1]}
-            distance={1}
-            windStrength={400}
-            windStrengthConstant={10000}
-            windStrengthTimeDivisor={1000}
+          position={[0, 5, -3]}
+          color={0x37115a}
+          rotation={[-Math.PI / 2, 0, 0]}
+          scale={[5, 10, .1]}
+          distance={1}
+          windStrength={400}
+          windStrengthConstant={10000}
+          windStrengthTimeDivisor={1000}
         />
         <StartOverSurface
             rotation={[-Math.PI / 2, 0, 0]}
