@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useThree } from 'react-three-fiber';
 import * as THREE from 'three';
 import Orbit from '../../Common/Controls/Orbit';
@@ -21,9 +21,24 @@ export function Scene({ hasEnteredWorld }) {
         camera.position.set(...C.CAMERA_START)
     }, [currentTrackName])
 
+    const [bloomProps, setBloomProps] = useState({ radius: .1, strength: 2.5 })
+    useEffect(() => {
+        if (currentTrackName == C.AummaahTrack.Golf) {
+            setBloomProps({
+                radius: 0,
+                strength: .1,
+            })
+        } else {
+            setBloomProps({
+                radius: .1,
+                strength: 2.5
+            })
+        }
+    }, [currentTrackName])
+
     return <>
         {!isMobile && <Orbit autoRotate={false} maxDistance={50} />}
-        {/* <BloomEffect radius={.1} strength={2.5} /> */}
+        <BloomEffect {...bloomProps} />
 
         <MaterialsProvider>
             <Suspense fallback={null}>

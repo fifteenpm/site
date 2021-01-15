@@ -133,9 +133,17 @@ export default function Golf(props) {
     const golfClubTeeZ = 10
     const golfFlagPos = [-5, 3, -2]
     const { waterMaterial } = useContext(MaterialsContext)
+    const ballPosition = useStore(state => state.ballPosition);
+    
     useFrame((e) => {
-        waterMaterial.userData.disturbancePos.current.set(Math.sin(e.clock.elapsedTime), Math.cos(e.clock.elapsedTime))
+        // console.log(ballPosition);
+        // if(!ballPosition) return;
+        // console.log('Ball', ballPosition);
+        // waterMaterial.userData.disturbancePos.current.set(ballPosition.x, ballPosition.y)
+
+        waterMaterial.userData.disturbancePos.current.set(Math.sin(e.clock.elapsedTime) * 10, Math.cos(e.clock.elapsedTime) * 10)
     })
+
     const { color1, color2, accentColor, light1, light2 } = {
         bloomFilter: {
             radius: 0,
@@ -197,7 +205,7 @@ export default function Golf(props) {
         <Water
             position={[0, -1, 0]}
             rotation={[-Math.PI / 2, 0, 0]}
-            color="blue"
+            // color="blue"
             windStrengthConstant={30} />
         <GolfFlag position={golfFlagPos}
             scale={[.04, .03, .00001]}

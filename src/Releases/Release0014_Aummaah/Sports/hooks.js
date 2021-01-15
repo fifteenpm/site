@@ -8,9 +8,11 @@ import create from "zustand";
 export const [useStore] = create(set => ({
   // count: 0,
   gameIsOn: true,
+  ballPosition: { x: 0, y: 0, z: 0 },
   api: {
-    setGameIsOn: gameIsOn => set({ gameIsOn })
-  }
+    setGameIsOn: gameIsOn => set({ gameIsOn }),
+  },
+  setBallPosition: ballPosition => set({ ballPosition })
   // pong(velocity) {
   //   set({ startOver: false })
   //   ping.currentTime = 0
