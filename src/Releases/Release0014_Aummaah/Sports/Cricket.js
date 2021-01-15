@@ -167,8 +167,6 @@ export default function Cricket(props) {
         <pointLight position={[20, 2, -40]} intensity={.85} color={color3} castShadow/>
         {/* above wicket */}
         <pointLight position={[-0.5, 2, 2]} intensity={0.03} color={color1} castShadow />
-        {/* <pointLight position={[-0.5, 1.5, wicketZ + .5]} intensity={0.5} color={color2} />
-         */} 
 
         <InstancedGrid dimensionSizeZ={20} dimensionSizeX={5} offsetX={1} />
 
