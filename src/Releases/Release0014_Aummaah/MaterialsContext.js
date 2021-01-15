@@ -12,6 +12,8 @@ import NaiveGlass from '../../Common/Materials/NaiveGlass'
 import { assetPath } from '../../Common/Utils/assets';
 import FoamGrip from '../../Common/Materials/FoamGrip';
 import { cloudEnvMap } from '../../Common/Materials/utils';
+import WaterMaterial from '../../Common/Materials/WaterMaterial';
+
 const MaterialsContext = React.createContext([{}, () => { }]);
 
 const MaterialsProvider = ({ ...props }) => {
@@ -28,7 +30,7 @@ const MaterialsProvider = ({ ...props }) => {
     const [foamGripRef, foamGrip] = useResource()
     const [basicMaterialRef, basicMaterial] = useResource()
     const [gridMaterialRef, gridMaterial] = useResource()
-
+    const [waterMaterialRef, waterMaterial] = useResource()
     const materials = {
         gridMaterial,
         naiveGlass,
@@ -41,6 +43,7 @@ const MaterialsProvider = ({ ...props }) => {
         circleAlphaShader,
         sunsetGradient,
         rgbashader,
+        waterMaterial,
         // foamGrip,
     }
 
@@ -79,6 +82,7 @@ const MaterialsProvider = ({ ...props }) => {
             specular={0xffffff}
             envMap={envMapCube}
         />
+        <WaterMaterial materialRef={waterMaterialRef} />
         {props.children}
     </MaterialsContext.Provider >
 }

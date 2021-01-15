@@ -89,7 +89,7 @@ function GolfClub({ color, mass, clubArgs, positionY, positionZ }) {
         values.current[1] = lerp(values.current[1], state.mouse.y, 0.9)
         clubAPI.position.set(state.mouse.x * .2 + xPositionOffset, positionY, positionZ)
         let rotateX = values.current[1] * Math.PI / 3;
-        if (rotateX < .1){
+        if (rotateX < .1) {
             rotateX = .1
         }
         let rotateY = values.current[0] * Math.PI / 4;
@@ -187,11 +187,11 @@ export default function Golf(props) {
             visible={true}
             color="blue"
         /> */}
-        <Water  
-         position={[0, -1, 0]} 
-         rotation={[-Math.PI / 2, 0, 0]}
-          color="blue" 
-          windStrengthConstant={30}/>
+        <Water
+            position={[0, -1, 0]}
+            rotation={[-Math.PI / 2, 0, 0]}
+            color="blue"
+            windStrengthConstant={30} />
         <GolfFlag position={golfFlagPos}
             scale={[.04, .03, .00001]}
             distance={1}
