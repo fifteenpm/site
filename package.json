@@ -85,6 +85,7 @@
     "hls.js": "^0.14.16",
     "iphone-inline-video": "^2.2.2",
     "jest-cli": "^24.7.0",
+    "lerp": "^1.0.3",
     "lodash": "^4.17.15",
     "lodash-es": "^4.17.15",
     "nice-color-palettes": "^3.0.0",

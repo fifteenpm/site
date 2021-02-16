@@ -645,9 +645,50 @@ export const CONTENT = {
   },
   "/14": {
     artist: "AUMMAAH",
-    // todo (jeremy) fix this navigation hack
-    lastIdx: 14,
     message: "Play 🎾 games 🏏 with ⛳ Aummaah.",
+    purchaseLink: "https://fifteenpm.bandcamp.com/album/aummaah-games-ep",
+    tracks: [
+      {
+        name: "Tennis",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/au1t53f2fe",
+      },
+      {
+        name: "Cricket",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/au2c3a20d",
+      },
+      {
+        name: "Golf",
+        type: "s3",
+        url: "https://s3.amazonaws.com/fifteen.pm/aef315/au3g3b08e",
+      },
+    ],
+    colors: {
+      logo: "white",
+      overlayContent: "white",
+      overlay: "rgba(0, 0, 0, 0.5)",
+      navigation: "white",
+      player: "white",
+      onHover: "red",
+      info: "white"
+    },
+    instructions: [
+      {
+        icon: MouseMove,
+        text: "one finger to play the games"
+      },
+      {
+        icon: TwoFingerScroll,
+        text: "two fingers to look around"
+      }
+    ]
+  },
+  "/15": {
+    artist: "HEALANI",
+    // todo (jeremy) fix this navigation hack
+    lastIdx: 15,
+    message: "Take some time to be present with Lani.",
     purchaseLink: "https://fifteenpm.bandcamp.com/album/aummaah-games-ep",
     tracks: [
       {

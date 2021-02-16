@@ -19,6 +19,7 @@ import Release0011_JWords from "./Releases/Release0011_JWords/index";
 import Release0012_HeidiSabertooth from "./Releases/Release0012_HeidiSabertooth/index";
 import Release0013_IsntOurs from "./Releases/Release0013_IsntOurs/index";
 import Release0014_Aummaah from "./Releases/Release0014_Aummaah/index";
+import Release0015_Healani from "./Releases/Release0015_Healani/index";
 
 ReactDOM.render(
   <Router history={history}>
@@ -38,6 +39,7 @@ ReactDOM.render(
       <Route path="/12" component={Release0012_HeidiSabertooth} />
       <Route path="/13" component={Release0013_IsntOurs} />
       <Route path="/14" component={Release0014_Aummaah} /> 
+      <Route path="/15" component={Release0015_Healani} /> 
     </div>
   </Router>,
   document.getElementById("root")
