@@ -1,7 +1,8 @@
-import React, { Suspense } from 'react';
-import { Canvas } from 'react-three-fiber';
+import React, { Suspense, useRef } from 'react';
+import { Canvas, extend, useFrame, useThree } from 'react-three-fiber';
 import { AudioPlayerContext } from '../../Common/UI/Player/AudioPlayerContext';
 import * as THREE from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 import Effects from "./Effects";
 import ClippedBlob from "./ClippedBlob";
@@ -9,6 +10,24 @@ import Blob from "./Blob";
 import { BACK, IS_MOBILE } from "./utils";
 
 import "./styles.css";
+import './perlin.js';
+
+extend({ OrbitControls });
+
+const CameraControls = () => {
+  // Get a reference to the Three.js Camera, and the canvas html element.
+  // We need these to setup the OrbitControls component.
+  // https://threejs.org/docs/#examples/en/controls/OrbitControls
+  const {
+    camera,
+    gl: { domElement },
+  } = useThree();
+  // Ref to the controls, so that we can update them on every frame using useFrame
+  const controls = useRef();
+  useFrame((state) => controls.current.update());
+  return <orbitControls ref={controls} args={[camera, domElement]} />;
+};
+
 export default function HealaniCanvas({ hasEnteredWorld }) {
     return (
         // Unfortunately some gymnastics required here to pass music player context through canvas.
@@ -38,7 +57,7 @@ export default function HealaniCanvas({ hasEnteredWorld }) {
                     <AudioPlayerContext.Provider value={value}>
                       <Suspense fallback={null}>
                         <Blob position={[0, 0, 10]} scale={[10, 10, 10]} />
-                        <ClippedBlob position={[0, 0, -10]} scale={[20, 20, 20]} />
+                        <ClippedBlob position={[0, 0, -25]} scale={[20, 20, 20]} />
                       </Suspense>
                     </AudioPlayerContext.Provider>
                     <Effects />

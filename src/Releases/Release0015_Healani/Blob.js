@@ -7,6 +7,7 @@ import { useSpring, a } from "react-spring/three";
 import MarchingLights from "./MarchingLights";
 import { BACK, VERTICES_NUM, easeInOutQuad } from "./utils";
 
+
 function Blob(props) {
   const { position, scale } = props;
 
@@ -48,25 +49,26 @@ const bindHover = useHover(
   const onFrame = useCallback(function onFrame({ clock }) {
     const time = clock.getElapsedTime();
 
-    ref.current.rotation.x += time / 5000;
-    ref.current.rotation.y += time / 5000;
-    ref.current.rotation.z += time / 5000;
+    ref.current.rotation.x += time / 500;
+    ref.current.rotation.y += time / 500;
+    ref.current.rotation.z += time / 500;
 
     const noiseFactor = hoverRef.current ? 3 : 0;
 
     for (let i = 0; i < ref.current.geometry.vertices.length; i++) {
       const p = ref.current.geometry.vertices[i];
+
       p.normalize().multiplyScalar(
         1 +
           0.3 *
             easeInOutQuad(
               hoverRef.current ? 1 : Math.sin((2 * Math.PI * time) / 10)
-            ) //*
-            // window.noise.perlin3(
-            //   p.x * noiseFactor + time,
-            //   p.y * noiseFactor + time,
-            //   p.z + time
-            // )
+            ) *
+            window.noise.perlin3(
+              p.x * noiseFactor + time,
+              p.y * noiseFactor + time,
+              p.z * noiseFactor + time
+            )
       );
     }
     
@@ -84,8 +86,8 @@ const bindHover = useHover(
         ref={ref}
         scale={scale}
         {...spring}
-        // {...bindDrag()}
-        // {...bindHover()}
+        {...bindDrag()}
+        {...bindHover()}
         receiveShadow
       >
         <sphereGeometry

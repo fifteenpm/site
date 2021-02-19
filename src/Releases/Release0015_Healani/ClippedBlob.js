@@ -22,12 +22,12 @@ function ClippedBlob(props) {
         p.normalize().multiplyScalar(
           1 +
             0.3 *
-              easeInOutQuad(Math.sin(2 * Math.PI * time)) //*
-              // window.noise.perlin3(
-              //   p.x + time,
-              //   p.y + time,
-              //   p.z + time
-              // )
+              easeInOutQuad(Math.sin(2 * Math.PI * time)) *
+              window.noise.perlin3(
+                p.x + time,
+                p.y + time,
+                p.z + time
+              )
         );
       }
       ref.current.geometry.computeVertexNormals();

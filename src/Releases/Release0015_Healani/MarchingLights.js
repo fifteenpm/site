@@ -139,7 +139,7 @@ function MarchingLights(props) {
   // )
 
   return (
-    <group ref={lightsRef} onMouseMove={e => set({ xy: [e.clientX, e.clientY] })}>
+    <group ref={lightsRef}>
       {LIGHTS.map(({ id, color }) => (
         <pointLight
           key={id}
